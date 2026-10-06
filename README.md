@@ -49,6 +49,8 @@ See [architecture and trust boundaries](docs/ARCHITECTURE.md), [live setup](docs
 
 ## Deployment
 
+For Vercel, `pnpm vercel:prepare` creates an isolated static upload containing the app, genuine saved proof, video, decks and source downloads. Add `--api-origin=<https-origin>` to proxy the existing live backend. Deployment currently requires account login; fully moving the worker also requires managed storage and durable execution. See [Vercel setup and concrete blockers](docs/VERCEL.md).
+
 The prepared Sites frontend is owner-private. Its backend is currently a temporary Cloudflare tunnel to the local machine; that service stops if the machine or processes stop. This is not durable judging infrastructure. A Dockerfile is included for an external Node host with a persistent volume for `/data`; set `HOST=0.0.0.0`, a public `PUBLIC_API_URL`, and an exact `CORS_ORIGIN`. The Dockerfile has not been executed in this environment; live operation additionally requires installing official CRE and Bun binaries.
 
 The generated `site/` directory has a separate Sites source checkout. The canonical interface source is `apps/web/`. Do not put API keys or wallets into frontend builds. `.local/`, `.env`, mnemonic files, signed Cardano payloads, and private workflow configs are excluded from source control.

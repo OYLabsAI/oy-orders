@@ -11,6 +11,8 @@ Four genuine paid testnet orders and one genuine expiry-refund probe now pass. T
 
 ## Saved links
 
+Vercel deployment is prepared but not published: account login is required and anonymous deployment was rejected. `docs/VERCEL.md` lists the deploy commands and the managed-state/worker requirements for moving the entire live backend. The prepared package includes the app, saved proof, video, decks and source downloads; its optional live API proxy still depends on the existing backend.
+
 Site, owner-private: https://orca-orders-origins-2026.orcabay.chatgpt.site
 
 Temporary live testnet API: https://dialogue-fancy-rich-assistance.trycloudflare.com — depends on this machine and running services.

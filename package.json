@@ -11,6 +11,7 @@
     "dev": "tsx watch apps/api/src/server.ts",
     "start": "tsx apps/api/src/server.ts",
     "build": "tsx scripts/build.ts",
+    "vercel:prepare": "tsx scripts/prepare-vercel.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test packages/core/test/*.test.ts apps/api/test/*.test.ts programs/orca-orders/program.test.ts workflows/verify-order/verifier.test.mjs",
     "program:build": "tsx scripts/build-program.ts",
