@@ -16,6 +16,7 @@ import { config, sellerKey } from "./config.ts";
 import { Store } from "./store.ts";
 import { readFacts, observePayment } from "./data.ts";
 import { purchase } from "./cardano.ts";
+import { parseCreOutput } from "./cre-output.ts";
 import { reserve, settle, observeEscrow, loadWallet } from "./solana.ts";
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 export function rehearsalFacts(order: Order): SourceFact[] {
@@ -52,57 +53,53 @@ async function simulate(order: Order): Promise<Verification> {
     }),
     { mode: 0o600 },
   );
-  const output = await new Promise<string>((resolveOutput, reject) => {
-    const child = spawn(
-      resolve(config.creBin),
-      [
-        "workflow",
-        "simulate",
-        ".",
-        "--project-root",
-        config.creDir,
-        "--target",
-        config.creTarget,
-        "--config",
-        configPath,
-        "--non-interactive",
-        "--trigger-index",
-        "0",
-      ],
-      {
-        cwd: config.creDir,
-        env: {
-          ...process.env,
-          PATH: `${resolve(".local/bin")}:${process.env.PATH}`,
+  const execution = await new Promise<{ output: string; code: number | null }>(
+    (resolveOutput, reject) => {
+      const child = spawn(
+        resolve(config.creBin),
+        [
+          "workflow",
+          "simulate",
+          ".",
+          "--project-root",
+          config.creDir,
+          "--target",
+          config.creTarget,
+          "--config",
+          configPath,
+          "--non-interactive",
+          "--trigger-index",
+          "0",
+        ],
+        {
+          cwd: config.creDir,
+          env: {
+            ...process.env,
+            PATH: `${resolve(".local/bin")}:${process.env.PATH}`,
+          },
+          stdio: ["ignore", "pipe", "pipe"],
         },
-        stdio: ["ignore", "pipe", "pipe"],
-      },
-    );
-    let log = "";
-    const timer = setTimeout(() => child.kill("SIGTERM"), 180000);
-    child.stdout.on("data", (d) => (log += d.toString()));
-    child.stderr.on("data", (d) => (log += d.toString()));
-    child.on("error", reject);
-    child.on("close", (code) => {
-      clearTimeout(timer);
-      if (code !== 0) reject(new Error("CRE_SIMULATION_FAILED"));
-      else resolveOutput(log);
-    });
-  });
-  const sanitized = output
-    .replaceAll(config.nownodesKey, "[REDACTED]")
-    .replaceAll(config.blockfrostKey, "[REDACTED]");
+      );
+      let log = "";
+      const timer = setTimeout(() => child.kill("SIGTERM"), 180000);
+      child.stdout.on("data", (d) => (log += d.toString()));
+      child.stderr.on("data", (d) => (log += d.toString()));
+      child.on("error", reject);
+      child.on("close", (code) => {
+        clearTimeout(timer);
+        resolveOutput({ output: log, code });
+      });
+    },
+  );
+  const output = execution.output;
+  const sanitized = [config.nownodesKey, config.blockfrostKey]
+    .filter(Boolean)
+    .reduce((log, key) => log.replaceAll(key, "[REDACTED]"), output);
   writeFileSync(resolve(evidenceDir, `${order.id}-cre.log`), sanitized, {
     mode: 0o600,
   });
-  const match = output.match(/ORCA_VERIFICATION:(\{[^\n]+\})/);
-  if (!match) throw new Error("CRE_RESULT_MISSING");
-  const result = JSON.parse(match[1]) as Verification;
-  if (
-    result.mode !== "cre-simulation" ||
-    result.resultHash !== order.receipt!.resultHash
-  )
-    throw new Error("CRE_RESULT_MISMATCH");
+  if (execution.code !== 0) throw new Error("CRE_SIMULATION_FAILED");
+  const result = parseCreOutput(output, order.receipt!.resultHash);
   return { ...result, transcript: `/api/orders/${order.id}/evidence` };
 }
 export async function runOrder(store: Store, id: string, fast = false) {

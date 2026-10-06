@@ -228,6 +228,43 @@
               Seller signatures bind the order, quote, payment and canonical
               report hash. The verifier checks factual provenance.
             </p>
+            <div id="proof-flow" class="proof-flow"></div>
+            <div id="challenge" class="challenge" hidden>
+              <div class="panel-heading">
+                <h3>Challenge the report</h3>
+                <span id="challenge-status" class="pill green" role="status"
+                  >VERIFIED COPY</span
+                >
+              </div>
+              <p class="muted">
+                Change one fee. Keep the seller signature. See what verification
+                catches.
+              </p>
+              <div id="challenge-fee" class="challenge-fee"></div>
+              <div class="hash-pair">
+                <div>
+                  <small>Signed report hash</small
+                  ><code id="signed-hash"></code>
+                </div>
+                <div>
+                  <small>Preview report hash</small
+                  ><code id="preview-hash"></code>
+                </div>
+              </div>
+              <div id="challenge-checks" class="checks"></div>
+              <button
+                id="challenge-toggle"
+                type="button"
+                class="button secondary"
+              >
+                Alter one fee +1 →
+              </button>
+              <p class="muted challenge-note">
+                Local replay of saved evidence at its verification time. Changes
+                stay in this preview; no new transaction.
+              </p>
+            </div>
+            <h3>Recorded verification</h3>
             <div id="checks" class="checks"></div>
             <div id="facts"></div>
             <details>

@@ -2,7 +2,7 @@
 
 ## Deadline and present status
 
-Official deadline: **7 October 2026, 23:59 Singapore (GMT+8), 17:59 Berlin**. Internal upload target: **22:00 Singapore / 16:00 Berlin**. The project has a working rehearsal and strong local technical evidence. All four partner tracks still need actual sponsor executions. Do not submit the current rehearsal as a live sponsor demo.
+Official deadline: **7 October 2026, 23:59 Singapore (GMT+8), 17:59 Berlin**. Internal upload target: **22:00 Singapore / 16:00 Berlin**. The project now has three actual settled orders across all four partners, a genuine expiry refund and an interactive one-fee tamper replay. Account/funding prerequisites are complete. Judge access, durable hosting, partner check-in status and stage-format compatibility remain the submission gates.
 
 Team: Orca Labs. Dashboard confirmed participation in the main TOKEN2049 Origins event and NOWNodes, Solana, Cardano and Chainlink partner tracks. Main check-ins showed 2/2; partner check-ins showed 1/2. That discrepancy needs resolution through the team dashboard or event help desk. No message has been sent on the team's behalf.
 
@@ -10,7 +10,7 @@ Team: Orca Labs. Dashboard confirmed participation in the main TOKEN2049 Origins
 
 | Singapore time | Work | Completion gate |
 |---|---|---|
-| Oct 6, first 2 hours after handoff | Finish account prerequisites, testnet funding and program deployment | Genuine program ID, NOWNodes key, Cardano preprod key/funds, CRE login |
+| Oct 6, first 2 hours after handoff | Finish account prerequisites, testnet funding and program deployment | Genuine program ID, NOWNodes key, Cardano preprod funds, CRE login |
 | Oct 6, next 3 hours | One actual successful end-to-end order | Real x402 payment + both NOWNodes reads + successful CRE simulation + Solana settlement |
 | Oct 6, next 2 hours | Rejection and real expiry/refund demonstrations; restart rehearsal | Protected escrow on rejection, genuine refund, no duplicate purchase |
 | Oct 6 evening | Freeze scope; capture <=3-minute live demo; replace rehearsal clip in deck | Every claim traceable to exported evidence and explorers |
@@ -42,9 +42,7 @@ The shared differentiator is **a paid agent task that can fail safely**. Show th
 
 **Description:** Orca Orders gives operators a bounded, auditable way to buy a blockchain reporting task. A buyer funds a Solana task escrow, the agent reserves a Cardano service quote and handles an x402 payment, and a signed report is independently checked before the task reward is released. NOWNodes supplies confirmed transaction facts from Solana and Cardano. A Chainlink CRE workflow verifies the escrow terms, payment recipient and value, seller signature, report digest, and factual provenance. Incorrect reports retain the escrow reward; expiry returns that reward to the buyer. The MVP uses separate Solana Devnet and Cardano preprod test assets, with no bridge or exchange-rate conversion.
 
-**Current status sentence, retain until execution succeeds:** The available recording demonstrates rehearsal behavior with sample transactions and simulated payments. The custom Solana program is compiled and tested in LiteSVM, and the CRE workflow compiles to WebAssembly. Actual sponsor executions are pending account access and testnet funding; no successful real CRE simulation or live-chain settlement is claimed.
-
-**After actual execution, replace only with evidenced facts:** State the deployed program ID and cluster, real payment and settlement hashes, successful CRE transcript link, and exact live-demo URL. Do not use this sentence as a placeholder claim.
+**Current status:** Three paid testnet orders have settled through the deployed Solana program, Cardano preprod x402, real NOWNodes data and successful official CRE CLI simulations. A separate actual expiry refund passes. The demo challenge replays a genuine signed report locally: changing one fee preserves the signature but fails integrity/provenance. The prototype uses a trusted simulation relayer; no DON deployment is claimed. See evidence/STATUS.md and evidence/live-order.json for exact transaction hashes.
 
 **Why now:** Agents can discover services and pay for them, but an operator also needs to constrain spending and verify the deliverable. This prototype makes that contract concrete for one inspectable task.
 
@@ -54,7 +52,7 @@ The shared differentiator is **a paid agent task that can fail safely**. Show th
 
 ## Track-specific write-ups
 
-**Solana:** Our native Rust program implements an order PDA with immutable task terms, a seller quote reservation within a ceiling, fixed worker payout, and buyer expiry refund. It rejects unauthorized authorities, destination substitution, quote changes, repeated settlement/refund, and counterfeit PDA accounts. Include actual Devnet evidence before claiming the integration is complete.
+**Solana:** Our native Rust program implements an order PDA with immutable task terms, a seller quote reservation within a ceiling, fixed worker payout, and buyer expiry refund. It rejects unauthorized authorities, destination substitution, quote changes, repeated settlement/refund, and counterfeit PDA accounts. Actual deployment, funding, reservation, settlement and expiry-refund evidence is included.
 
 **Cardano:** The deterministic agent buys one reporting resource through the exact Cardano x402 scheme on preprod. It validates the accepted network, ADA asset, supplier, amount, expiry and decoded transaction fee before broadcasting. Durable storage retains the signed transaction for recovery. The signed receipt binds the paid service to the escrow order. Supplier payment is final; only the independent task reward is refundable.
 
@@ -74,7 +72,7 @@ The shared differentiator is **a paid agent task that can fail safely**. Show th
 | 2:30–2:45 | Expiry refund | “The buyer can reclaim the reward after the deadline. The supplier payment itself is final.” |
 | 2:45–3:00 | Source and architecture | “One bounded task, four necessary integrations, inspectable evidence.” |
 
-When using the current recording, state at the beginning: **“This is the working rehearsal; it moves no assets. Live sponsor executions are still pending.”** Do not silently overlay fake transaction links.
+Introduce the new proof-tour recording as: **“These are actual testnet order proofs. The tamper challenge is a local replay of saved evidence.”** The earlier rehearsal movie stays separately labeled.
 
 ## Submission gates
 
@@ -98,3 +96,23 @@ When using the current recording, state at the beginning: **“This is the worki
 - https://builderbase.com/track/chainlink-best-workflow-with-cre
 
 These reflect the event dashboard and rules reviewed during this session. Re-read the dashboard for changes before final submission. No prize outcome is guaranteed.
+
+
+## Memorable demo moment
+
+Show the four proof cards first, then the matching hashes. Say: “A valid signature can still accompany the wrong answer.” Click **Alter one fee +1**. Seller signature stays green while integrity and provenance turn red. Read **REJECTED COPY** aloud, then restore. Explain that this safe local replay changes no chain state, while the actual CRE transcript above independently re-fetched both networks. Finish with the real settlement and expiry-refund explorer links.
+
+
+## Exact live proof links
+
+Program: https://explorer.solana.com/address/2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj?cluster=devnet
+
+Latest settled order: `905ca8fe-3593-409f-88d3-5488d89dec09`.
+
+- fundingTx: https://explorer.solana.com/tx/2fGnd2nRV45VWde8Fxnsj9DdqrJgJdZronWEYUKzKVdb5b7AWJMASGaDHzhss1EFqHmS3Lu5mHjeCTibTGh9dHq1?cluster=devnet
+- reserveTx: https://explorer.solana.com/tx/3TKBB3eSivYSTaomj4iirbcYyvETX24gd1HXWYyv3tABgydRvYwTxZQwy1X6P1xEVuXthd6y89PF24P6aCGcvAtP?cluster=devnet
+- settleTx: https://explorer.solana.com/tx/3FcE6xE3s3FPjFS7LL6XZnQchzBqM1SH2gda8rNJwxmCP8LTcbmu2xdH1pWTyU9tecPtmwyu7H6gnsQq4bXEXHGU?cluster=devnet
+
+Cardano purchase: https://preprod.cardanoscan.io/transaction/9a3b35a72cb5fdeeb8ca687e33ffb32a6d8b8819d96a3e8e1eff7afd5a073ca4
+
+Actual expiry refund: https://explorer.solana.com/tx/2AYjW6zkCfTbcnwRTfgghWkQrK59A5PHvrKFZcJkfMyG27p8aq66vbqPmefwRp8ytQsVAU52oREPEv3z4WEpvtpQ?cluster=devnet

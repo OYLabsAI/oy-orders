@@ -1,0 +1,23 @@
+{
+  "programId": "2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj",
+  "cluster": "devnet",
+  "executable": true,
+  "compiler": "Solana Playground",
+  "loader": "BPFLoaderUpgradeable / loader-v3",
+  "programData": "6rUDUBBqjVnTiJcJjd7s6D4t6v48uk3yT7NzZEu7isbY",
+  "binarySha256": "5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1aeeda71709c0c94bfa9f",
+  "binaryReadBackVerified": true,
+  "upgradeAuthority": "BqoYzWMBGir2PwuNAXWdVwZAL6SMoinHeJH2KY8MoCXw",
+  "transactions": [
+    {
+      "blockTime": 1791273639,
+      "confirmationStatus": "finalized",
+      "err": null,
+      "memo": null,
+      "signature": "2RmwxXaNpR7j7TCs5aeiaaCy7P2ecWpGDgvQt9mPC6dRDcDP9F4HYcRcHwTVR4UFmd8s7VJWe7XXakLy6PCD4yvK",
+      "slot": 508025756,
+      "transactionIndex": 20
+    }
+  ],
+  "deployedAt": "2026-10-06T08:00:41.246Z"
+}

@@ -10,4 +10,5 @@ output/*.zip
 *.log
 target/
 test-ledger/
+**/.cre_build_tmp.*
 .DS_Store

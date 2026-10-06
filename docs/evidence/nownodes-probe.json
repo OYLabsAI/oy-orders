@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-06T07:52:31.266Z",
+  "solana": {
+    "status": "fulfilled",
+    "value": {
+      "provider": "NOWNodes",
+      "network": "solana:mainnet",
+      "http": 200,
+      "slot": 453839548
+    }
+  },
+  "cardano": {
+    "status": "fulfilled",
+    "value": {
+      "provider": "NOWNodes",
+      "network": "cardano:mainnet",
+      "http": 200,
+      "blockHeight": 14032380,
+      "slot": 199706821
+    }
+  }
+}

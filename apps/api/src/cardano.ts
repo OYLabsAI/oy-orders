@@ -15,10 +15,11 @@ import type { Express } from "express";
 import { assertQuote, type Order } from "../../../packages/core/src/domain.ts";
 import { config } from "./config.ts";
 import { observePayment } from "./data.ts";
+import { KOIOS_PREPROD } from "../../../packages/core/src/cardano-payment.ts";
 import type { Store } from "./store.ts";
 
 export function mountPaidResource(app: Express, store: Store) {
-  if (config.mode !== "live" || !config.seller || !config.blockfrostKey) return;
+  if (config.mode !== "live" || !config.seller) return;
   const resource = new x402ResourceServer(
     new HTTPFacilitatorClient({
       url:
@@ -89,12 +90,14 @@ export async function purchase(order: Order) {
   const base = toClientCardanoSigner({
     mnemonic,
     network: "cardano:preprod",
-    provider: {
-      blockfrost: {
-        baseUrl: "https://cardano-preprod.blockfrost.io/api/v0",
-        projectId: config.blockfrostKey,
-      },
-    },
+    provider: config.blockfrostKey
+      ? {
+          blockfrost: {
+            baseUrl: "https://cardano-preprod.blockfrost.io/api/v0",
+            projectId: config.blockfrostKey,
+          },
+        }
+      : { koios: { baseUrl: KOIOS_PREPROD } },
   });
   const controlled = {
     getAddress: () => base.getAddress(),
@@ -149,19 +152,40 @@ export async function purchase(order: Order) {
       mode: 0o600,
     });
   }
-  const response = await fetch(order.quote!.resource, {
-    headers: http.encodePaymentSignatureHeader(payload),
-    signal: AbortSignal.timeout(180000),
-  });
+  let response: Response;
+  try {
+    response = await fetch(order.quote!.resource, {
+      headers: http.encodePaymentSignatureHeader(payload),
+      signal: AbortSignal.timeout(180000),
+    });
+  } catch (error) {
+    // A lost HTTP response can follow a successful payment. Observe the saved
+    // transaction instead of creating or broadcasting another purchase.
+    if (
+      !(error instanceof TypeError) &&
+      !["AbortError", "TimeoutError"].includes((error as Error).name)
+    )
+      throw error;
+    return waitForPayment(
+      decodeCardanoTransaction(
+        (payload.payload as { transaction: string }).transaction,
+      ).txHash,
+      order.seller,
+    );
+  }
   if (!response.ok) throw new Error(`X402_PAYMENT_HTTP_${response.status}`);
   const settlement = http.getPaymentSettleResponse((name) =>
     response.headers.get(name),
   );
   if (!settlement.success || !settlement.transaction)
     throw new Error("X402_SETTLEMENT_FAILED");
+  return waitForPayment(settlement.transaction, order.seller);
+}
+
+async function waitForPayment(tx: string, seller: string) {
   for (let n = 0; n < 30; n++) {
     try {
-      return await observePayment(settlement.transaction, order.seller);
+      return await observePayment(tx, seller);
     } catch (e) {
       if ((e as Error).message !== "PAYMENT_NOT_CONFIRMED") throw e;
       await new Promise((r) => setTimeout(r, 4000));

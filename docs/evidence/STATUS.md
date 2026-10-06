@@ -1,35 +1,36 @@
 # Executed evidence — 6 October 2026
 
-**The demonstrable product is currently a rehearsal. It is not yet eligible as a proven live integration for all partner prizes.**
+**Three genuine paid testnet orders settled across all four sponsors.** The interactive challenge replays genuine signed evidence locally; it makes no new purchase and preserves the original order.
 
 | Evidence | Executed result | Practical limit |
 |---|---|---|
-| TypeScript validation | Root type check passes | Static checking only |
-| Automated tests | 29 passed, 0 failed | Local VM and fixtures, not sponsor network execution |
-| Browser success | Fund → reserve → purchase → signed receipt → verification → settled | Rehearsal, no assets moved |
-| Browser/CLI failure paths | Changed report rejected; expiry reward refunded | Rehearsal |
-| Solana program | Real compiled ELF tested in LiteSVM | Not deployed on Devnet; airdrop attempt failed |
-| CRE workflow | Compiles to WebAssembly; independent verifier fixture tests pass | Real CLI simulation blocked on login |
-| NOWNodes account | €15 credit balance visibly redeemed | Plan activation/API key pending; renewal not accepted |
-| Cardano payment | x402 adapter and spend controls implemented | Preprod wallet funding, Blockfrost key and true transaction pending |
-| Frontend | Local responsive UI and WebMCP tools verified | Hosted Site owner-private; API uses a temporary tunnel |
+| TypeScript and tests | Root type check passes; 36 tests pass | Local VM, fixtures, CLI parsing and genuine receipt replay |
+| Solana program | Devnet `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj` deployed; on-chain bytes match tested ELF | Operator retains upgrade authority |
+| Paid orders | Real funding, reservation, 2 tADA purchase and reward settlement | Separate test assets; no bridge or conversion |
+| Cardano x402 | Confirmed supplier outputs and actual fees | Public Koios preprod provider; Blockfrost key optional |
+| NOWNodes | Actual Solana and Cardano mainnet facts, independently re-fetched by CRE | Public sample addresses include a Solana vote account |
+| Chainlink CRE | Official authenticated CLI simulations passed ten checks | Local simulation and trusted relayer; no production DON |
+| Recovery | Truncated CLI output and upstream failures recovered without duplicate purchases | Operator retries reused saved transactions/receipts; histories preserved |
+| Actual expiry refund | Direct program probe returned 0.01 tSOL after a 90-second deadline | Product UI retains 15 minutes; no Cardano purchase in this probe |
+| Interactive challenge | +1 fee preserves signature but fails integrity and provenance; restore passes | Local replay at saved verification time |
+| Frontend | Browser challenge and proof links verified; updated Site published | Owner-private Site; temporary local tunnel |
 
-## Public artifacts
+## Public proof
 
-`rehearsal-success.json`, `rehearsal-tampered.json`, `rehearsal-expiry.json` explicitly disclose simulated payments and sample chain facts. They include actual local Ed25519 signatures. Screenshots and the demo movie retain the rehearsal notice. There are no successful network transaction hashes or CRE simulation transcripts to submit yet.
+`live-order.json`, `live-order-second-settled.json` and `live-order-recovered.json` contain three actual settled orders: signed receipts, six genuine chain facts, ten accepted checks and redacted CRE transcripts. `live-order-first-attempt.json` and `live-order-second-attempt.json` preserve failed attempts and are not successful settlement proof. `live-refund.json` includes actual creation/refund transactions, chain state, transaction fee and buyer balance proof.
 
-The compiled program is `orca_orders.so`, 93,728 bytes, SHA-256 `5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1aeeda71709c0c94bfa9f`. It was compiled from the included native Rust source by the official public Solana Playground compiler service, build UUID `aafab733-1cf4-45f9-833f-358e6c2db69f`.
+`solana-deployment.json` and `solana-buffer-upload.json` prove loader-v3 deployment and exact binary comparison. `wallet-funding.json`, `setup-audit.json`, `nownodes-probe.json` and `cre-preflight.txt` record actual setup/connectivity separately. Earlier `rehearsal-*.json` files explicitly retain their simulated-payment labels.
 
-CRE's compiled file and final validation hashes are recorded in `build-manifest.json`. Compiler success does not satisfy the successful CLI simulation requirement. Test fixtures do not use a DON.
+Solana ELF: 93,728 bytes, SHA-256 `5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1aeeda71709c0c94bfa9f`, compiled from included Rust source through official Solana Playground build `aafab733-1cf4-45f9-833f-358e6c2db69f`. Artifact hashes are in `build-manifest.json`; actual CRE execution hashes appear in each transcript.
 
-## Evidence still required for submission
+## Remaining submission gates
 
-- Solana Devnet program ID and genuine creation/reservation/settlement/refund transaction hashes.
-- A successful actual Cardano preprod x402 payment, recipient output, fee and signed receipt.
-- Genuine NOWNodes Solana and Cardano requests used by a report and independently re-fetched by the verifier.
-- A successful official CRE CLI simulation and redacted transcript.
-- Accessible source repository, stable judge-accessible demo, Drive stage-deck link, and <=3-minute Cardano demo recording.
-- Verify partner check-ins: dashboard showed 1/2 while main showed 2/2. This was not silently resolved.
-- Stage-format compatibility: the PPTX embeds the actual rehearsal recording; the genuine legacy PPT export drops it. Verify the exact accepted format and stage player before uploading the final deck. New Drive files are owner-only.
+- Accessible MIT source repository; judge access to Site, Drive deck and video.
+- Durable backend: quick tunnel depends on this machine and running processes.
+- Partner check-ins: dashboard showed 1/2 while main showed 2/2. Organizer resolution is still needed; no message was sent on the team's behalf.
+- Stage format/playback: PPTX embeds the movie; genuine legacy PPT drops it. Rules specify `.ppt` or `.keynote`; acceptance and playback need verification.
+- Final track selection, dashboard checks and submission receipt. No hackathon submission has been sent.
 
-Do not replace missing evidence with sample IDs, claim a generated program key is deployed, or remove this disclosure before the missing executions succeed.
+The latest-five fact check can reject a busy address if new transactions arrive between purchase and verification. Demo addresses are quieter public addresses. Cardano supplier payments remain final; expiry returns only the Solana reward.
+
+The third order completed without operator recovery. Final native-browser publishing/sharing work is blocked while the Mac is locked.

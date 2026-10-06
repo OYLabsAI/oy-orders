@@ -17,6 +17,10 @@
     "program:deploy": "tsx scripts/deploy-program.ts",
     "wallets": "tsx scripts/wallets.ts",
     "doctor": "tsx scripts/doctor.ts",
+    "testnet:fund": "tsx scripts/fund-test-wallets.ts",
+    "cre:preflight": "tsx scripts/cre-preflight.ts",
+    "demo:live": "tsx scripts/live-demo.ts",
+    "demo:refund": "tsx scripts/demo-refund.ts",
     "demo": "tsx scripts/demo.ts",
     "evidence": "tsx scripts/export-evidence.ts"
   },

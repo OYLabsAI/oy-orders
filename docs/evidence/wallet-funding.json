@@ -1,0 +1,9 @@
+{
+  "kind": "operator-wallet-funding",
+  "cluster": "devnet",
+  "signature": "5ym7miLqSDFexjF1RmsN9JZN6qPvhPVsXufGxn4FmjSKYhx3gdNGrAdtn5DsVUYoCp4g8jeYKUZJKJmfdcsrnPba",
+  "confirmed": true,
+  "workerLamports": 50000000,
+  "buyerLamports": 100000000,
+  "disclosure": "This funds test wallets; it is not an order escrow funding or settlement."
+}

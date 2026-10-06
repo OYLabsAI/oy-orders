@@ -50,10 +50,9 @@ export function readiness() {
     {
       name: "Cardano x402",
       ready:
-        !!config.blockfrostKey &&
         !!config.seller &&
         existsSync(resolve(config.dataDir, "cardano-agent.json")),
-      detail: "Preprod funded wallet and Blockfrost key required",
+      detail: `Preprod funded wallet required; ${config.blockfrostKey ? "Blockfrost" : "public Koios"} provider configured`,
     },
     {
       name: "NOWNodes",

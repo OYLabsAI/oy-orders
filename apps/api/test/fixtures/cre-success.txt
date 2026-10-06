@@ -1,0 +1,26 @@
+Initializing...
+Loading settings...
+! Using default private key for chain write simulation. To use your own key, set CRE_ETH_PRIVATE_KEY in your .env file or system environment.
+Checking RPC connectivity...
+Compiling workflow...
+✓ Workflow compiled
+✓ Simulation limits enabled
+  HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb
+  Binary hash: 486a5d496503b0767bf87a131c807a25285474a43e151292ab75075117a152f9
+  Config hash: 05a01f3d0479806c5fd6043f60cb2a050d3926f3ee38d0fb1e130405f90ee4a3
+2026-10-06T10:08:14Z [SIMULATION] Simulator Initialized
+
+2026-10-06T10:08:14Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-10-06T10:08:21Z [USER LOG] ORCA_VERIFICATION:{"accepted":true,"reason":"ALL_CHECKS_PASSED","checks":[{"name":"Solana escrow","passed":true,"detail":"Actual reserved PDA and immutable chain terms match"},{"name":"Escrow deadline","passed":true,"detail":"Order must be unexpired"},{"name":"Reserved quote","passed":true,"detail":"Immutable quote matches its reservation"},{"name":"Input binding","passed":true,"detail":"Report answers the funded task"},{"name":"Seller signature","passed":true,"detail":"Ed25519 signature by the registered seller"},{"name":"Receipt binding","passed":true,"detail":"Order, quote, seller, asset and network agree"},{"name":"Payment confirmation","passed":true,"detail":"Observed preprod transaction is confirmed"},{"name":"Payment value","passed":true,"detail":"Correct recipient and quote, within fee reserve"},{"name":"Result integrity","passed":true,"detail":"Canonical facts match signed SHA-256 digest"},{"name":"Source provenance","passed":true,"detail":"All cited facts and latest-five comp ...(truncated)
+
+✓ Workflow Simulation Result:
+"{\"accepted\":true,\"reason\":\"ALL_CHECKS_PASSED\",\"checks\":[{\"name\":\"Solana escrow\",\"passed\":true,\"detail\":\"Actual reserved PDA and immutable chain terms match\"},{\"name\":\"Escrow deadline\",\"passed\":true,\"detail\":\"Order must be unexpired\"},{\"name\":\"Reserved quote\",\"passed\":true,\"detail\":\"Immutable quote matches its reservation\"},{\"name\":\"Input binding\",\"passed\":true,\"detail\":\"Report answers the funded task\"},{\"name\":\"Seller signature\",\"passed\":true,\"detail\":\"Ed25519 signature by the registered seller\"},{\"name\":\"Receipt binding\",\"passed\":true,\"detail\":\"Order, quote, seller, asset and network agree\"},{\"name\":\"Payment confirmation\",\"passed\":true,\"detail\":\"Observed preprod transaction is confirmed\"},{\"name\":\"Payment value\",\"passed\":true,\"detail\":\"Correct recipient and quote, within fee reserve\"},{\"name\":\"Result integrity\",\"passed\":true,\"detail\":\"Canonical facts match signed SHA-256 digest\"},{\"name\":\"Source provenance\",\"passed\":true,\"detail\":\"All cited facts and latest-five completeness independently re-fetched\"}],\"mode\":\"cre-simulation\",\"resultHash\":\"52bf10a72652ed4f25443f4272856680d97d354a327fbf9a6f4e59836829933e\",\"timestamp\":1791274094452}"
+
+2026-10-06T10:08:21Z [SIMULATION] Execution finished signal received
+2026-10-06T10:08:21Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯

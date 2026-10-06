@@ -9,6 +9,11 @@ import { ed25519 } from "@noble/curves/ed25519";
 import { base58 } from "@scure/base";
 import { canonical, hash } from "../../packages/core/src/canonical.ts";
 import { verifyWithSignature } from "../../packages/core/src/verification.ts";
+import {
+  KOIOS_PREPROD,
+  koiosPayment,
+  koiosPaymentRequest,
+} from "../../packages/core/src/cardano-payment.ts";
 import type {
   Order,
   Receipt,
@@ -141,24 +146,34 @@ export function verifyRemote(
   const paymentHash = order.receipt.paymentHash;
   if (!/^[a-f0-9]{64}$/.test(paymentHash))
     throw new Error("INVALID_PAYMENT_HASH");
-  const info = get(`${bf}/txs/${paymentHash}`, { project_id: c.blockfrostKey }),
-    utxos = get(`${bf}/txs/${paymentHash}/utxos`, {
-      project_id: c.blockfrostKey,
-    });
-  const amount = utxos.outputs
-    .filter((o: any) => o.address === order.seller)
-    .flatMap((o: any) => o.amount)
-    .filter((a: any) => a.unit === "lovelace")
-    .reduce((n: bigint, a: any) => n + BigInt(a.quantity), 0n);
-  const payment = {
-    tx: paymentHash,
-    recipient: order.seller,
-    amount: amount.toString(),
-    network: "cardano:preprod",
-    asset: "lovelace",
-    fee: String(info.fees),
-    confirmed: !!info.block,
-  };
+  const payment = c.blockfrostKey
+    ? (() => {
+        const info = get(`${bf}/txs/${paymentHash}`, {
+            project_id: c.blockfrostKey,
+          }),
+          utxos = get(`${bf}/txs/${paymentHash}/utxos`, {
+            project_id: c.blockfrostKey,
+          });
+        const amount = utxos.outputs
+          .filter((o: any) => o.address === order.seller)
+          .flatMap((o: any) => o.amount)
+          .filter((a: any) => a.unit === "lovelace")
+          .reduce((n: bigint, a: any) => n + BigInt(a.quantity), 0n);
+        return {
+          tx: paymentHash,
+          recipient: order.seller,
+          amount: amount.toString(),
+          network: "cardano:preprod",
+          asset: "lovelace",
+          fee: String(info.fees),
+          confirmed: !!info.block,
+        };
+      })()
+    : koiosPayment(
+        paymentHash,
+        order.seller,
+        get(`${KOIOS_PREPROD}/tx_info`, {}, koiosPaymentRequest(paymentHash)),
+      );
   const facts: SourceFact[] = [];
   const signatures = rpc(
     "getSignaturesForAddress",
@@ -221,8 +236,7 @@ function onTrigger(runtime: Runtime<Config>) {
   if (
     !/^https?:\/\//.test(c.apiUrl) ||
     !/^[0-9a-f-]{36}$/.test(c.orderId) ||
-    !c.nownodesKey ||
-    !c.blockfrostKey
+    !c.nownodesKey
   )
     throw new Error("WORKFLOW_CONFIG_REQUIRED");
   const output = new cre.capabilities.HTTPClient()

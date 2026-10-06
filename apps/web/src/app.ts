@@ -1,4 +1,7 @@
 declare const __API_URL__: string;
+import { hash } from "../../../packages/core/src/canonical.ts";
+import { verifyWithSignature } from "../../../packages/core/src/verification.ts";
+import { verifyReceiptSignature } from "../../../packages/core/src/receipt-signature.ts";
 type Order = import("../../../packages/core/src/domain.ts").Order;
 type Event = import("../../api/src/store.ts").Event;
 const $ = <T extends HTMLElement = HTMLElement>(id: string) =>
@@ -93,7 +96,116 @@ function renderEvents(events: Event[]) {
     list.append(li);
   }
 }
+function renderProofFlow(order: Order) {
+  const flow = $("proof-flow");
+  flow.replaceChildren();
+  if (order.mode !== "live") return;
+  const rows = [
+    [
+      "Solana",
+      order.solana?.settleTx ? "Reward released" : "Task escrow",
+      order.solana?.fundingTx
+        ? `https://explorer.solana.com/tx/${order.solana.settleTx ?? order.solana.fundingTx}?cluster=devnet`
+        : "",
+    ],
+    [
+      "Cardano",
+      order.payment
+        ? `${Number(order.payment.amount) / 1e6} tADA paid`
+        : "Bounded purchase",
+      order.payment
+        ? `https://preprod.cardanoscan.io/transaction/${order.payment.tx}`
+        : "",
+    ],
+    [
+      "NOWNodes",
+      `${order.report?.facts.length ?? 0} confirmed facts`,
+      "#facts",
+    ],
+    [
+      "Chainlink CRE",
+      order.verification
+        ? `${order.verification.checks.filter((c) => c.passed).length}/${order.verification.checks.length} checks passed`
+        : "Independent verification",
+      "#checks",
+    ],
+  ];
+  for (const [name, detail, href] of rows) {
+    const card = text(href ? "a" : "div", "", "proof-card");
+    if (href) {
+      card.setAttribute("href", href);
+      if (href.startsWith("https:")) {
+        card.setAttribute("target", "_blank");
+        card.setAttribute("rel", "noopener noreferrer");
+      }
+    }
+    card.append(text("small", name), text("strong", detail));
+    flow.append(card);
+  }
+}
+let challengeOrderId = "",
+  altered = false;
+function renderChallenge(order: Order) {
+  const panel = $("challenge");
+  panel.hidden = !(
+    order.report?.facts.length &&
+    order.receipt &&
+    order.payment &&
+    order.verification
+  );
+  if (panel.hidden) return;
+  if (challengeOrderId !== order.id) {
+    challengeOrderId = order.id;
+    altered = false;
+  }
+  const copy = structuredClone(order);
+  const fact = copy.report!.facts[0];
+  if (altered) fact.fee = (BigInt(fact.fee) + 1n).toString();
+  const replay = verifyWithSignature(
+    copy,
+    order.payment!,
+    order.report!.facts,
+    verifyReceiptSignature,
+    order.verification!.timestamp,
+  );
+  const status = $("challenge-status");
+  status.textContent = replay.accepted ? "VERIFIED COPY" : "REJECTED COPY";
+  status.className = `pill ${replay.accepted ? "green" : "red"}`;
+  panel.classList.toggle("tampered", altered);
+  $("challenge-fee").textContent =
+    `Transaction fee: ${order.report!.facts[0].fee} → ${fact.fee} ${fact.network === "solana:mainnet" ? "lamports" : "lovelace"}`;
+  $("signed-hash").textContent = order.receipt!.resultHash;
+  $("preview-hash").textContent = hash(copy.report);
+  const checks = $("challenge-checks");
+  checks.replaceChildren();
+  for (const c of replay.checks.filter((c) =>
+    ["Seller signature", "Result integrity", "Source provenance"].includes(
+      c.name,
+    ),
+  )) {
+    const row = text("div", "", `check${c.passed ? "" : " fail"}`);
+    row.append(
+      text("span", c.passed ? "✓" : "✕"),
+      text("strong", c.name),
+      text(
+        "small",
+        c.passed ? "Matches saved evidence" : "Altered fee detected",
+      ),
+    );
+    checks.append(row);
+  }
+  const toggle = $("challenge-toggle");
+  toggle.textContent = altered
+    ? "Restore original report ↺"
+    : "Alter one fee +1 →";
+  toggle.onclick = () => {
+    altered = !altered;
+    renderChallenge(order);
+  };
+}
 function renderEvidence(order: Order) {
+  renderProofFlow(order);
+  renderChallenge(order);
   $("evidence-mode").textContent =
     order.mode === "rehearsal" ? "REHEARSAL EVIDENCE" : "CRE SIMULATION";
   $("receipt-json").textContent = JSON.stringify(
@@ -395,6 +507,9 @@ async function init() {
       );
       $("create-order").textContent = "Fund & run task →";
       $("scenario").hidden = true;
+      document
+        .querySelector('label[for="scenario"]')
+        ?.setAttribute("hidden", "");
       $("sample").hidden = true;
     }
     const roles: Record<string, string> = {

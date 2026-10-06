@@ -1,24 +1,30 @@
 # Orca Orders deliverables
 
-These files demonstrate the implemented rehearsal and its local technical evidence. They are not a live sponsor submission.
+Three genuine paid testnet orders and one genuine expiry-refund probe now pass. The demo includes an interactive one-unit fee challenge using a local replay of actual signed evidence. No hackathon submission has been sent.
 
-- `Orca-Orders-pitch.pptx`: six editable slides; the exact 52.67-second rehearsal movie is embedded on slide 3. Package integrity, geometry, fonts and Artifact Tool re-import pass with zero layout warnings. Every final slide was rendered and visually reviewed. Actual PowerPoint/stage-player video playback is not yet verified.
-- `Orca-Orders-pitch.ppt`: genuine legacy PowerPoint export. **The legacy export drops the embedded movie**, confirmed by re-import and inspection. It is a visual backup; it is not ready to satisfy the embedded stage-recording requirement. Use the PPTX in a compatible player, or import it into Keynote and verify/export the requested format before submission.
-- `Orca-Orders-rehearsal.mp4`: actual browser captures of success, tamper rejection and expiry/refund, with observed frame intervals and idle cuts between scenarios. 1280×720 H.264, 24 fps, 52.67 seconds, no narration. Sample-data/no-asset-movement notice remains visible. This meets the duration limit but does not demonstrate actual sponsor executions.
-- `Orca-Orders-source.zip`: MIT source, lockfile, setup, tests, evidence, submission plan and compiled artifacts. Private keys, mnemonic files, signed payment payloads, `.env`, `.local`, `node_modules` and Git metadata are excluded. A downloadable archive does not replace the required accessible source repository.
+- `Orca-Orders-demo.mp4`: 48-second edited proof tour, H.264 1280×960 at 24 fps, with readable captions and no narration. Authentic app screenshots show actual testnet proof and a clearly labeled local tamper replay; paced still holds are used. This is not a continuous recording of fresh chain execution. Evidence and capture history are in `docs/evidence/demo-recording.json`.
+- `Orca-Orders-pitch.pptx`: six editable slides with the exact final MP4 embedded on slide 3. Package, layout, fonts and Artifact Tool re-import pass; all final slides were rendered and reviewed. Native PowerPoint/stage-player playback remains unverified.
+- `Orca-Orders-pitch.ppt`: genuine legacy visual export. Roundtrip inspection confirms that the movie is dropped. It is a visual backup, not a stage-compliant recording deck.
+- `Orca-Orders-tamper-proof.jpg`: actual browser screenshot: seller signature valid, one changed fee rejected by integrity/provenance.
+- `Orca-Orders-rehearsal.mp4`: earlier 52.67-second rehearsal, kept separately with its simulated-payment notice.
+- `Orca-Orders-source.zip`: MIT source, lockfile, setup, tests, native compiled artifacts, public evidence and deliverables from the committed source. Excludes `.env`, `.local`, mnemonic/key files, signed private payment payloads, node_modules and Git metadata. An archive does not replace the required accessible Git repository.
 
 ## Saved links
 
-Owner-private Site: https://orca-orders-origins-2026.orcabay.chatgpt.site
+Site, owner-private: https://orca-orders-origins-2026.orcabay.chatgpt.site
 
-Temporary rehearsal API/demo: https://dialogue-fancy-rich-assistance.trycloudflare.com — depends on the local machine and tunnel process remaining active.
+Temporary live testnet API: https://dialogue-fancy-rich-assistance.trycloudflare.com — depends on this machine and running services.
 
-Native PPTX on Drive: https://docs.google.com/presentation/d/1-wdsNbGfNz-kNTzhHB4bqDEAMkfeFmr_/edit?usp=drivesdk&ouid=109419895787072090180&rtpof=true&sd=true
+PPTX on Drive: https://docs.google.com/presentation/d/1-wdsNbGfNz-kNTzhHB4bqDEAMkfeFmr_/edit
 
-Legacy PPT on Drive: https://docs.google.com/presentation/d/1i2zr-p-ysBpr8Jm1TWOV1SxmtcsuvjQQ/edit?usp=drivesdk&ouid=109419895787072090180&rtpof=true&sd=true
+Legacy PPT on Drive: https://docs.google.com/presentation/d/1i2zr-p-ysBpr8Jm1TWOV1SxmtcsuvjQQ/edit
 
-MP4 on Drive: https://drive.google.com/file/d/1In8yVW1ptihBtmVZSYE6-H3VmyhKWnhJ/view?usp=drivesdk
+MP4 on Drive: https://drive.google.com/file/d/1In8yVW1ptihBtmVZSYE6-H3VmyhKWnhJ/view
 
-Drive read-back confirmed native MIME types and exact sizes. These new files currently have owner-only permission; judge access has not been configured. They were not converted to Google Slides.
+Source ZIP on Drive: https://drive.google.com/file/d/1BIkiN84NPLSlaqLNLoyEMu5OcInpoTnG/view
 
-See `docs/SUBMISSION.md` for deadline, rubric, copy-ready text, demo narration and remaining gates. No hackathon submission has been sent.
+Native file MIME types and sizes are verified. Drive files remain owner-only. Source repository publishing and browser-based sharing are blocked by the locked Mac; no authenticated GitHub write access is configured locally.
+
+Site audience is preserved under [Sites hosting](</Users/oylabs/.codex/plugins/cache/openai-curated-remote/sites/0.1.75/skills/sites-hosting/SKILL.md>): “Preserve the current audience unless the user requests a change.” Judge access therefore remains a gate.
+
+The partner check-in dashboard last showed 1/2; main showed 2/2. Organizers must verify or resolve that discrepancy. Rules specify `.ppt` or `.keynote`; confirm PPTX acceptance and native stage playback before submission. `docs/SUBMISSION.md` contains the deadline, rubrics, copy-ready descriptions and narration. Funds are sufficient: approximately 98.49 preprod tADA remains.

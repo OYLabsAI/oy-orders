@@ -1,0 +1,17 @@
+{
+  "scope": "Direct program expiry probe; 90-second deadline. The product UI retains its 15-minute deadline. No Cardano purchase or CRE settlement.",
+  "network": "solana:devnet",
+  "programId": "2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj",
+  "orderId": "9092a7d7-a6a1-4ed7-b403-9821f1645401",
+  "pda": "FbiK4fAGV5ZtavgojtuzFoaTr73TcWkUcvLHmPiUQ6FV",
+  "deadline": 1791275243833,
+  "rewardLamports": "10000000",
+  "fundingTx": "4uEo9PdhRemx4oPCqVmB3ZunNStMMuwK9W9oTWK1vsMHCCemARVQmzi3WK3Hp2gxCFMzF4hShSMc1q5vYEC4ohZe",
+  "refundTx": "2AYjW6zkCfTbcnwRTfgghWkQrK59A5PHvrKFZcJkfMyG27p8aq66vbqPmefwRp8ytQsVAU52oREPEv3z4WEpvtpQ",
+  "refundFeeLamports": 5000,
+  "buyerBalanceBefore": 63035560,
+  "buyerBalanceAfter": 73030560,
+  "escrowState": 3,
+  "confirmed": true,
+  "recordedAt": "2026-10-06T08:27:27.905Z"
+}

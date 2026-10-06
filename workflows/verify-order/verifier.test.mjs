@@ -146,7 +146,19 @@ async function harness() {
             value = { result: [{ signature: "sol-tx", err: null }] };
           else if (body?.method === "getTransaction")
             value = { result: { slot: 99, meta: { fee: 5000, err: null } } };
-          else if (url.includes("/utxos"))
+          else if (url.includes("preprod.koios.rest")) {
+            assert.deepEqual(body._tx_hashes, [o.receipt.paymentHash]);
+            value = [
+              {
+                tx_hash: o.receipt.paymentHash,
+                block_hash: "confirmed-block",
+                fee: "170000",
+                outputs: [
+                  { payment_addr: { bech32: recipient }, value: "2000000" },
+                ],
+              },
+            ];
+          } else if (url.includes("/utxos"))
             value = {
               outputs: [
                 {
@@ -206,6 +218,13 @@ test("CRE verifier rejects changed report, seller key and payment recipient", as
   f.o.sellerKey = "attacker";
   assert.throws(() => verifyRemote(f.send, f.c), /ORDER_MISMATCH/);
   f = await harness();
+  f.setRecipient("other");
+  assert.equal(JSON.parse(verifyRemote(f.send, f.c)).accepted, false);
+});
+test("CRE independently verifies Koios payment without a Blockfrost key", async () => {
+  const f = await harness();
+  f.c.blockfrostKey = "";
+  assert.equal(JSON.parse(verifyRemote(f.send, f.c)).accepted, true);
   f.setRecipient("other");
   assert.equal(JSON.parse(verifyRemote(f.send, f.c)).accepted, false);
 });

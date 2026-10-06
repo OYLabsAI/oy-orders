@@ -1,8 +1,8 @@
 {
-  "createdAt": "2026-10-06T06:54:44.593Z",
-  "mode": "rehearsal",
+  "createdAt": "2026-10-06T09:02:40.150Z",
+  "mode": "live",
   "tests": {
-    "passed": 29,
+    "passed": 36,
     "failed": 0,
     "report": "tests.txt"
   },
@@ -12,14 +12,17 @@
     "buildId": "aafab733-1cf4-45f9-833f-358e6c2db69f",
     "cre": "@chainlink/cre-sdk 1.6.0 + Javy",
     "creCli": "1.37.0",
-    "simulation": "not executed successfully; authentication required"
+    "simulation": "Three successful official CLI simulations with actual paid order evidence; trusted local relayer, no DON deployment."
   },
   "deck": {
     "slides": 6,
     "pptxEmbeddedMovie": true,
     "legacyPptEmbeddedMovie": false,
-    "videoSeconds": 52.67,
-    "nativePlaybackVerified": false
+    "videoSeconds": 48,
+    "videoFormat": "Edited proof tour from actual app screenshots; local tamper replay",
+    "nativePlaybackVerified": false,
+    "packageChecks": "pass",
+    "layoutWarnings": 0
   },
   "artifacts": [
     {
@@ -34,8 +37,8 @@
     },
     {
       "path": "workflows/verify-order/workflow.ts",
-      "bytes": 7628,
-      "sha256": "e7a7bf7755d3ce19e6fc0e9d14a0867ee5236d69a642ca678972f75bfcec4b91"
+      "bytes": 8055,
+      "sha256": "b5e40dc28eb96794d2c1b827bc552b55bf7f0808410e034efa1707262db56843"
     },
     {
       "path": "packages/core/src/verification.ts",
@@ -44,23 +47,79 @@
     },
     {
       "path": "docs/evidence/cre/orca-verifier.wasm",
-      "bytes": 2563223,
-      "sha256": "b9b0fa6996b8d267a8911ca289c5d5a484ee2234ad4f6cfba7bdf76e5b1f9da4"
+      "bytes": 2566303,
+      "sha256": "db5cef03d0cb4fcafca2c91d54d56ca112a5ec4ab225f57b8dbf795e040d8c64"
     },
     {
       "path": "output/Orca-Orders-pitch.pptx",
-      "bytes": 773942,
-      "sha256": "440ee4a542b2c1eec29e1947839fb5c36608e5d133f212ca7bffeda764432f3a"
+      "bytes": 732660,
+      "sha256": "aec9400d25e39dff5fed3126427e68ad76b4abb83b19bfc8e4b2e7132cd6d301"
     },
     {
       "path": "output/Orca-Orders-pitch.ppt",
-      "bytes": 490496,
-      "sha256": "216ed28113461671795408d1e2a306081ef836d7ca50ab64209e2a76d671d774"
+      "bytes": 491008,
+      "sha256": "438f37ef0f013478775e27e8b853e9d413a2244894d1afeaad060300426fe658"
     },
     {
       "path": "output/Orca-Orders-rehearsal.mp4",
       "bytes": 547771,
       "sha256": "4e88f3fd6a6698ffd64578ec10c7d4a136df0dc1b03464841eb47a9f133fd2cf"
+    },
+    {
+      "path": "apps/api/src/cre-output.ts",
+      "bytes": 1409,
+      "sha256": "9266ebe648e5181bc041933f513cc84a4994b871b9b467b1e9c347ac2fc401a6"
+    },
+    {
+      "path": "packages/core/src/receipt-signature.ts",
+      "bytes": 596,
+      "sha256": "c372b29bcc203534c3f52180258fe93eee0e0201d2ecd6b94b75b8077ffc61a2"
+    },
+    {
+      "path": "docs/evidence/live-order.json",
+      "bytes": 13115,
+      "sha256": "b18ddb25707182c8ae9eec6af81580b1853d5b6343cf2ecf98ff49c01076036a"
+    },
+    {
+      "path": "docs/evidence/live-order-second-settled.json",
+      "bytes": 14247,
+      "sha256": "22bec76d8a58a6199067d56bdb17e368b7cdf1467a73b64da329cf342de01a2a"
+    },
+    {
+      "path": "docs/evidence/live-order-recovered.json",
+      "bytes": 13759,
+      "sha256": "feedd88c3e6d34e6ee64482af2e09ee62b41e9f38c6ceabc81d93a65c4604d13"
+    },
+    {
+      "path": "docs/evidence/live-refund.json",
+      "bytes": 809,
+      "sha256": "fb10a730d66bc8c9ae306a466aeff4fe36a270d41d592015482a0a2386cf8ace"
+    },
+    {
+      "path": "docs/evidence/solana-deployment.json",
+      "bytes": 805,
+      "sha256": "be0a6e8078c84d241578dfbfada95632abfcfe6b700f1749f55a5e1feb176ef8"
+    },
+    {
+      "path": "docs/evidence/demo-recording.json",
+      "bytes": 1223,
+      "sha256": "4f35cd282cb6d81a6b1449f563e20e2572db82e26343ceeba98b8debf7be90c4"
+    },
+    {
+      "path": "output/Orca-Orders-demo.mp4",
+      "bytes": 703822,
+      "sha256": "83896ac6f5c49bc7436da892cfe9860c248518666ee59bf378d265ce4a802765"
+    },
+    {
+      "path": "output/Orca-Orders-tamper-proof.jpg",
+      "bytes": 93433,
+      "sha256": "e30f221544dd8abfaf4d1359eafc498e89990572b2157f0db0228b55610de067"
     }
-  ]
+  ],
+  "orders": {
+    "settled": 3,
+    "latest": "905ca8fe-3593-409f-88d3-5488d89dec09",
+    "latestCompletedWithoutOperatorRecovery": true,
+    "actualExpiryRefund": true
+  }
 }

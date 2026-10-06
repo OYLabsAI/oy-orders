@@ -1,0 +1,26 @@
+Initializing...
+Loading settings...
+! Using default private key for chain write simulation. To use your own key, set CRE_ETH_PRIVATE_KEY in your .env file or system environment.
+Checking RPC connectivity...
+Compiling workflow...
+✓ Workflow compiled
+✓ Simulation limits enabled
+  HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb
+  Binary hash: 9a9abf6d0d4afdb042540afbc3a4ecf2be41c3eda60f72e013b753199c725b68
+  Config hash: ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356
+2026-10-06T09:43:42Z [SIMULATION] Simulator Initialized
+
+2026-10-06T09:43:42Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-10-06T09:43:43Z [USER LOG] ORCA_PREFLIGHT:{"check":"network-connectivity-only","solana":{"network":"devnet","genesisHash":"EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG"},"cardano":{"network":"preprod","networkMagic":"1","systemStart":1654041600}}
+
+✓ Workflow Simulation Result:
+"{\"check\":\"network-connectivity-only\",\"solana\":{\"network\":\"devnet\",\"genesisHash\":\"EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG\"},\"cardano\":{\"network\":\"preprod\",\"networkMagic\":\"1\",\"systemStart\":1654041600}}"
+
+2026-10-06T09:43:43Z [SIMULATION] Execution finished signal received
+2026-10-06T09:43:43Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯

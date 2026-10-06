@@ -1,2 +1,6 @@
 staging-settings:
-  rpcs: []
+  # CLI 1.37 requires an RPC configuration even for an HTTP-only workflow.
+  # No EVM capability or transaction is used by this verifier.
+  rpcs:
+    - chain-name: ethereum-testnet-sepolia
+      url: https://ethereum-sepolia-rpc.publicnode.com

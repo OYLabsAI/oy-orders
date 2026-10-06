@@ -4,7 +4,7 @@ Give an agent a job, cap its service spend, and release its task reward only aft
 
 Built by Orca Labs for TOKEN2049 Origins 2026: Solana task escrow, Cardano x402 commerce, NOWNodes multichain data, and a Chainlink CRE verification workflow.
 
-**Current executable demo is a rehearsal.** It uses sample transactions and simulated payments, with a real local Ed25519 seller signature. It moves no assets and does not execute sponsor infrastructure. The live adapters are implemented but the required accounts, funding, deployment, and successful CRE simulation are still pending. See [executed evidence](docs/evidence/STATUS.md).
+**Actual testnet execution now passes all four integrations.** Three paid orders settled with real Cardano x402 payments, NOWNodes facts, successful official CRE simulations and Solana Devnet rewards. A separate genuine expiry refund also passed. The browser includes a one-fee tamper replay with a valid seller signature. See [executed evidence](docs/evidence/STATUS.md).
 
 ## Run in two minutes
 
@@ -24,7 +24,7 @@ pnpm typecheck
 pnpm test
 ```
 
-29 meaningful tests cover canonical hashing, signatures, receipt/input/payment binding, spending controls, queue recovery, payment reuse, the compiled Solana program in LiteSVM, and independent CRE verifier reads. VM and verifier fixture tests are not public-network executions.
+36 meaningful tests cover canonical hashing, signatures, receipt/input/payment binding, spending controls, queue recovery, payment reuse, the compiled Solana program in LiteSVM, and independent CRE verifier reads through Blockfrost or public Koios. VM and verifier fixture tests are not public-network executions.
 
 ## One task, four necessary integrations
 
@@ -42,6 +42,7 @@ These are separate test-asset payments. There is no bridge, exchange-rate conver
 - `packages/core`: one canonical encoder and verifier shared by API and CRE, plus Node signing and state transitions.
 - `programs/orca-orders`: native Rust escrow with fixed payout recipients, quote reservation, one-time settlement and expiry refund.
 - `workflows/verify-order`: deterministic CRE workflow; no purchase or irreversible write inside consensus callbacks.
+- `workflows/preflight`: real CRE network-connectivity check; cannot authorize an order settlement.
 - `scripts`: reproducible builds, wallet setup, deployment, demo and evidence export.
 
 See [architecture and trust boundaries](docs/ARCHITECTURE.md), [live setup](docs/LIVE_SETUP.md), and [submission kit](docs/SUBMISSION.md).

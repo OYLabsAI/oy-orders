@@ -1,0 +1,65 @@
+{
+  "scope": "Actual report data from a settled order; CRE independently re-fetched both sponsor chains.",
+  "orderId": "67ae1a56-7160-4903-96ef-d67ec16b0b42",
+  "input": {
+    "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+    "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+    "scenario": "success"
+  },
+  "facts": [
+    {
+      "network": "solana:mainnet",
+      "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "tx": "46rAKstNznCCrnvwDTj49ReCmdpSZgFG7uCc2wbQifsR8zzUqr9cyrG7iGZy76iojkRenf7JRWHQCggpVmsF5v4d",
+      "slot": "453822962",
+      "fee": "30000",
+      "confirmed": true
+    },
+    {
+      "network": "solana:mainnet",
+      "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "tx": "5XmvGVRF2vkLXbsc9nkGwrgCvRv6eDAgvSZSwLoAdSDoQwfvZVyYU1ta1LjdVyzr9WMBP4VotYToFGsfznYoDoHF",
+      "slot": "453821345",
+      "fee": "30000",
+      "confirmed": true
+    },
+    {
+      "network": "solana:mainnet",
+      "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "tx": "2BBPHFvVSEPKw6Yxxczf7fUXi3reuN9TCHrDFyApUBDDxp9v8UrNTnScAbJnkWtkSy136KPbW1SwzFQmEsFFoLCN",
+      "slot": "453820400",
+      "fee": "65000",
+      "confirmed": true
+    },
+    {
+      "network": "solana:mainnet",
+      "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "tx": "1231N2Hee7C427y6ZzpuUZMzqvEKx1Vi9JouLAPLJn1TowLPs2EZBc1uHpYuJiCJveysUa7JYw1udjfYbbZ4T54G",
+      "slot": "453820341",
+      "fee": "65000",
+      "confirmed": true
+    },
+    {
+      "network": "solana:mainnet",
+      "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "tx": "3tUF68RWSyKtfE28BzhBw2wZ9XeRxUisE1bHNqVZ73cZWK3caceyDRxD2cgpdDT2hRQh49rZr1BWvR9bqUPVCR8a",
+      "slot": "453779757",
+      "fee": "6000",
+      "confirmed": true
+    },
+    {
+      "network": "cardano:mainnet",
+      "wallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "tx": "13d71703a8f8bc1f0f6ac8fed2e6678ba8ec994020bc050ee57aa20a96e92dfa",
+      "slot": "199707191",
+      "fee": "248761",
+      "confirmed": true
+    }
+  ],
+  "sourceProvenance": {
+    "name": "Source provenance",
+    "passed": true,
+    "detail": "All cited facts and latest-five completeness independently re-fetched"
+  },
+  "verificationTime": 1791274942842
+}

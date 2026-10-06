@@ -1,6 +1,6 @@
 # Orca Orders hackathon implementation plan
 
-Implementation status, 6 October 2026: the small MVP, local tests, compiled escrow, CRE WebAssembly, rehearsal recording, six-slide deck and private frontend are delivered. Actual sponsor execution remains pending account access and testnet funding. Use `docs/SUBMISSION.md` for the current schedule and gates, `docs/LIVE_SETUP.md` for activation, and `docs/evidence/STATUS.md` for proven results. The deadline is not a claim that submission has been completed.
+Implementation status, 6 October 2026: the MVP now has three actual settled testnet orders, genuine sponsor reads and CRE CLI simulations, a real expiry refund, interactive tamper replay, 36 passing tests, a 48-second proof video and an updated six-slide deck. Judge/source access, stable hosting and stage playback remain gates. Use `docs/SUBMISSION.md` for the current schedule and gates, `docs/LIVE_SETUP.md` for activation, and `docs/evidence/STATUS.md` for proven results. The deadline is not a claim that submission has been completed.
 
 Build one working product for the main TOKEN2049 Origins track and the Cardano, Chainlink, Solana, and NOWNodes partner tracks. Orca Orders lets a user fund a blockchain reporting task, lets an agent buy the required service, and releases the task payment after verification. Prioritize a complete demonstrable flow, then failure handling, then presentation.
 
@@ -22,7 +22,7 @@ Use one pnpm project with a vanilla TypeScript frontend, an Express API and work
 
 Dependencies are pinned in the lockfile. The implemented build uses Node 24, pnpm 11.19.0, Bun 1.4.2, CRE CLI 1.37.0 and the CRE SDK 1.6.0 template version. Solana Playground compiled the native program; LiteSVM executes that exact binary for escrow tests. Source compilation does not replace Devnet deployment evidence.
 
-The Cardano adapter uses the official [x402 Express starter](https://developers.cardano.org/templates/x402-express/) pattern and pinned x402 Cardano SDK. It uses Blockfrost preprod for payment observation and Cardano Foundation's hosted preprod facilitator, with a configurable facilitator URL. Preserve the established protocol rather than replacing it.
+The Cardano adapter uses the official [x402 Express starter](https://developers.cardano.org/templates/x402-express/) pattern and pinned x402 Cardano SDK. It uses public Koios preprod by default, with optional Blockfrost preprod, for payment observation and Cardano Foundation's hosted preprod facilitator, with a configurable facilitator URL. Preserve the established protocol rather than replacing it.
 
 ### User journey
 
@@ -70,11 +70,11 @@ Solana enforces task escrow and quote reservation; the controlled Cardano signer
 ### CRE and chain data
 
 - Run a non-interactive cron-trigger simulation per queued order. Pass generated private per-order configuration; construct CLI arguments as an argument array, never a shell string derived from user input.
-- CRE uses HTTP capabilities to read public order terms, Blockfrost preprod payment details, the signed seller receipt, and NOWNodes source transactions. Validate the order against actual Solana Devnet state rather than trusting the API status alone.
+- CRE uses HTTP capabilities to read public order terms, Koios or Blockfrost preprod payment details, the signed seller receipt, and NOWNodes source transactions. Validate the order against actual Solana Devnet state rather than trusting the API status alone.
 - Run irreversible payment and settlement operations outside the verification callback. DON nodes must not each purchase the same resource. CRE verifies immutable transaction IDs and canonical facts, with consistent network/confirmation rules.
 - Check recipient, asset, amount, payment confirmation, seller signature, order binding, input hash, result hash, and all cited transaction facts. Return a specific rejection code for each failure.
 - A successful local simulation is evidence accepted by the Chainlink track. The relayer accepts only records produced by the private worker after a successful expected execution, checks them against current escrow terms again, and rejects reuse. A simulation log is not proof of decentralized production execution. [Simulation documentation](https://docs.chain.link/cre/guides/operations/simulating-workflows)
-- Use `sol.nownodes.io` and `ada-blockfrost.nownodes.io` for mainnet report data, subject to sponsor account access. Use Devnet RPC and Blockfrost preprod for test payment state. Do not infer testnet availability from a mainnet endpoint. [NOWNodes network list](https://nownodes.io/nodes)
+- Use `sol.nownodes.io` and `ada-blockfrost.nownodes.io` for mainnet report data, subject to sponsor account access. Use Devnet RPC and Koios/Blockfrost preprod for test payment state. Do not infer testnet availability from a mainnet endpoint. [NOWNodes network list](https://nownodes.io/nodes)
 - Retry read failures with backoff up to three times. Serialize Cardano purchases through one signer queue to avoid concurrent UTXO spending. After an uncertain broadcast, look up the transaction before retrying. If unavailable data prevents verification, leave escrow unsettled and allow deadline refund.
 
 ## Build sequence and ownership
@@ -83,7 +83,7 @@ Times below are elapsed from implementation kickoff. Retain the absolute submiss
 
 | Time | Solana contributor | Cardano contributor | CRE and data contributor | Product and demo contributor |
 | --- | --- | --- | --- | --- |
-| 0–2 hours | Toolchain, Devnet funds, program scaffold | Starter, preprod key/funds, real purchase | CRE account/CLI/authentication, NOWNodes key, real reads | Resolve partner check-ins with organizers; order interface and shared schema |
+| 0–2 hours | Toolchain, Devnet funds, program scaffold | Starter, preprod funds, real purchase | CRE account/CLI/authentication, NOWNodes key, real reads | Resolve partner check-ins with organizers; order interface and shared schema |
 | 2–6 hours | Fund, reserve quote, settle, refund | Paid reporting route and signed receipt | Real verification simulation; worker/relayer skeleton | Wallet flow, progress screen, hosted frontend/backend |
 | 6–12 hours | Connect program to worker | Connect agent to funded order | Complete verification-to-settlement flow | Full product journey and first recording |
 | 12–18 hours | Failure and race tests | Retry safety and receipt tests | Forged receipt rejection; native delivery upgrade only if ready | Three user trials and mentor feedback |

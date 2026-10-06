@@ -1,15 +1,27 @@
 import type { SourceFact, Order } from "../../../packages/core/src/domain.ts";
 import { config } from "./config.ts";
+import {
+  KOIOS_PREPROD,
+  koiosPayment,
+  koiosPaymentRequest,
+} from "../../../packages/core/src/cardano-payment.ts";
 
 export async function fetchJson(
   url: string,
   init: RequestInit = {},
 ): Promise<any> {
   for (let n = 0; n < 3; n++) {
-    const response = await fetch(url, {
-      ...init,
-      signal: AbortSignal.timeout(20000),
-    });
+    let response: Response;
+    try {
+      response = await fetch(url, {
+        ...init,
+        signal: AbortSignal.timeout(20000),
+      });
+    } catch (error) {
+      if (n >= 2) throw error;
+      await new Promise((r) => setTimeout(r, 500 * 2 ** n));
+      continue;
+    }
     if (response.status === 404) return null;
     if ((response.status === 429 || response.status >= 500) && n < 2) {
       await new Promise((r) => setTimeout(r, 500 * 2 ** n));
@@ -96,13 +108,24 @@ export async function readFacts(order: Order): Promise<SourceFact[]> {
 }
 export async function observePayment(tx: string, recipient: string) {
   if (!/^[0-9a-f]{64}$/.test(tx)) throw new Error("INVALID_PAYMENT_HASH");
+  if (!config.blockfrostKey) {
+    return koiosPayment(
+      tx,
+      recipient,
+      await fetchJson(`${KOIOS_PREPROD}/tx_info`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(koiosPaymentRequest(tx)),
+      }),
+    );
+  }
   const headers = { project_id: config.blockfrostKey };
   const root = "https://cardano-preprod.blockfrost.io/api/v0";
   const [info, utxos] = await Promise.all([
     fetchJson(`${root}/txs/${tx}`, { headers }),
     fetchJson(`${root}/txs/${tx}/utxos`, { headers }),
   ]);
-  if (!info || !utxos) throw new Error("PAYMENT_NOT_CONFIRMED");
+  if (!info?.block || !utxos) throw new Error("PAYMENT_NOT_CONFIRMED");
   const amount = utxos.outputs
     .filter((o: any) => o.address === recipient)
     .flatMap((o: any) => o.amount)

@@ -1,5 +1,6 @@
 import { build } from "esbuild";
-import { mkdirSync, copyFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, copyFileSync, writeFileSync, existsSync } from "node:fs";
+if (existsSync(".env")) process.loadEnvFile(".env");
 mkdirSync("site/dist", { recursive: true });
 await build({
   entryPoints: ["apps/web/src/app.ts"],

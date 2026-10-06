@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-10-06T08:46:49.065Z",
+  "mode": "live",
+  "configuration": [
+    {
+      "name": "Solana escrow",
+      "ready": true,
+      "detail": "Devnet program configured; health probe required"
+    },
+    {
+      "name": "Cardano x402",
+      "ready": true,
+      "detail": "Preprod funded wallet required; public Koios provider configured"
+    },
+    {
+      "name": "NOWNodes",
+      "ready": true,
+      "detail": "Key configured; endpoint probe required"
+    },
+    {
+      "name": "Chainlink CRE",
+      "ready": true,
+      "detail": "CLI login and a successful simulation required"
+    }
+  ],
+  "solanaWallets": [
+    {
+      "name": "authority",
+      "address": "BqoYzWMBGir2PwuNAXWdVwZAL6SMoinHeJH2KY8MoCXw",
+      "lamports": 894751320
+    },
+    {
+      "name": "worker",
+      "address": "4J96kKF7xjeB2WEC5xmZ1SwMVpKfTqxFRau2YK8L4eC2",
+      "lamports": 79985000
+    },
+    {
+      "name": "demo-buyer",
+      "address": "2sTMaoCTxMDUWnBJnamno6wQDFJK812rreLvWRuBu8iF",
+      "lamports": 60709080
+    }
+  ],
+  "cardanoWallet": {
+    "network": "preprod",
+    "address": "addr_test1qzsuqlzj7us8tx2ng5nsmfvwkv0fdq5gstqh8acj706k9fwm9twl5l6phwv92tt3tjzhmrpzyey55ke5qs2a89g4t3zqwmmujq",
+    "lovelace": "98490561",
+    "provider": "Koios",
+    "http": 200
+  },
+  "creAuthenticated": true
+}

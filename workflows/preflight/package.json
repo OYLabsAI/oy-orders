@@ -1,0 +1,8 @@
+{
+  "name": "orca-orders-network-preflight",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@chainlink/cre-sdk": "1.6.0"
+  }
+}
