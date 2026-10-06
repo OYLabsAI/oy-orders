@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-06T19:41:43.163Z",
+  "authentication": "configured api-key header; key omitted",
+  "results": [
+    {
+      "probe": "solana-genesis",
+      "url": "https://sol-testnet.nownodes.io/",
+      "status": 200,
+      "contentType": "application/json",
+      "elapsedMs": 1205,
+      "body": "{\"jsonrpc\":\"2.0\",\"result\":\"4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY\",\"id\":1}\n"
+    },
+    {
+      "probe": "solana-health",
+      "url": "https://sol-testnet.nownodes.io/",
+      "status": 200,
+      "contentType": "application/json",
+      "elapsedMs": 1109,
+      "body": "{\"jsonrpc\":\"2.0\",\"result\":\"ok\",\"id\":1}\n"
+    },
+    {
+      "probe": "cardano-root",
+      "url": "https://ada-testnet.nownodes.io/",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "elapsedMs": 1118,
+      "body": "{\"url\":\"https://blockfrost.io/\",\"version\":\"6.8.0\"}"
+    },
+    {
+      "probe": "cardano-block",
+      "url": "https://ada-testnet.nownodes.io/blocks/latest",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "elapsedMs": 1130,
+      "body": "{\"time\":1791315702,\"height\":5261700,\"hash\":\"fe697b9ee91eba1b31506aa538f48544d121f01286d6f2c72129b070cab4d518\",\"slot\":135632502,\"epoch\":317,\"epoch_slot\":330102,\"slot_leader\":\"pool1z05xqzuxnpl8kg8u2wwg8ftng0fwtdluv3h20ruryfqc5gc3efl\",\"size\":4,\"tx_count\":0,\"output\":null,\"fees\":null,\"block_vrf\":\"vrf_vk1n9jgutq5vr79dhftlzwvmppa8myt4x94u3znhylud7vc0wts0g4q9v68z8\",\"op_cert\":\"b36b43e40d3ce0e23eb9ec12c103fb04167a0d64f7b1894bedbd869ca6934bbb\",\"op_cert_counter\":\"19\",\"previous_block\":\"001a071ff724564f915c34920d56ec384ba9bf2c9c2591b265538489f10776b7\",\"next_block\":null,\"confirmations\":0}"
+    }
+  ]
+}

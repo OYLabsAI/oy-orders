@@ -1,8 +1,8 @@
 {
-  "createdAt": "2026-10-06T09:02:40.150Z",
+  "createdAt": "2026-10-06T19:52:49.834Z",
   "mode": "live",
   "tests": {
-    "passed": 36,
+    "passed": 40,
     "failed": 0,
     "report": "tests.txt"
   },
@@ -12,7 +12,7 @@
     "buildId": "aafab733-1cf4-45f9-833f-358e6c2db69f",
     "cre": "@chainlink/cre-sdk 1.6.0 + Javy",
     "creCli": "1.37.0",
-    "simulation": "Three successful official CLI simulations with actual paid order evidence; trusted local relayer, no DON deployment."
+    "simulation": "Four successful official CLI order simulations; latest worker and CRE payment proof reads use NOWNodes preprod with network guard. Trusted local relayer; no DON deployment."
   },
   "deck": {
     "slides": 6,
@@ -37,8 +37,8 @@
     },
     {
       "path": "workflows/verify-order/workflow.ts",
-      "bytes": 8055,
-      "sha256": "b5e40dc28eb96794d2c1b827bc552b55bf7f0808410e034efa1707262db56843"
+      "bytes": 8401,
+      "sha256": "f8e58799158c41d792c95ec6eec175ec5dcbcfaf4a3ce32635f7cfe3d1daef3d"
     },
     {
       "path": "packages/core/src/verification.ts",
@@ -47,8 +47,8 @@
     },
     {
       "path": "docs/evidence/cre/orca-verifier.wasm",
-      "bytes": 2566303,
-      "sha256": "db5cef03d0cb4fcafca2c91d54d56ca112a5ec4ab225f57b8dbf795e040d8c64"
+      "bytes": 2568706,
+      "sha256": "3fd898c5bca347761db6d73c70cc4db84c96f30fef832688bd352eac0076b8b2"
     },
     {
       "path": "output/Orca-Orders-pitch.pptx",
@@ -77,8 +77,8 @@
     },
     {
       "path": "docs/evidence/live-order.json",
-      "bytes": 13115,
-      "sha256": "b18ddb25707182c8ae9eec6af81580b1853d5b6343cf2ecf98ff49c01076036a"
+      "bytes": 12472,
+      "sha256": "14dd159680f807d4071f91dfdf7e2ec46df92fe7e384f19e46ae0e93a11a8f46"
     },
     {
       "path": "docs/evidence/live-order-second-settled.json",
@@ -114,12 +114,52 @@
       "path": "output/Orca-Orders-tamper-proof.jpg",
       "bytes": 93433,
       "sha256": "e30f221544dd8abfaf4d1359eafc498e89990572b2157f0db0228b55610de067"
+    },
+    {
+      "path": "packages/core/src/cardano-payment.ts",
+      "bytes": 2948,
+      "sha256": "2102c3dfb5a801a76fbf5a973eb59c97a981b36ef7bbc351a3b7c0b7c06892aa"
+    },
+    {
+      "path": "packages/core/src/networks.ts",
+      "bytes": 233,
+      "sha256": "decfc7f4338544bcc15c6bebba0591631acbbb0f63d0272f5148f297119030c2"
+    },
+    {
+      "path": "docs/evidence/live-order-third-settled.json",
+      "bytes": 13115,
+      "sha256": "b18ddb25707182c8ae9eec6af81580b1853d5b6343cf2ecf98ff49c01076036a"
+    },
+    {
+      "path": "docs/evidence/nownodes-preprod-payment-probe.json",
+      "bytes": 3963,
+      "sha256": "4d2f07400738f34a627ec2907a3ce869bebd9bf5b1af8295be8cfe7364a0fd18"
+    },
+    {
+      "path": "docs/evidence/testnet-endpoints-probe.json",
+      "bytes": 1781,
+      "sha256": "fbdd88778dcf1d62af9f5f70687e117ba4ce7785e18c1a397172129d73905f2f"
+    },
+    {
+      "path": "output/Orca-Orders-proof-and-refund.jpg",
+      "bytes": 78499,
+      "sha256": "6991e8659225b41bd884a080fee68e198e07531f2a6c3acbeae07d1171cb15b4"
     }
   ],
   "orders": {
-    "settled": 3,
-    "latest": "905ca8fe-3593-409f-88d3-5488d89dec09",
+    "settled": 4,
+    "latest": "8456603d-6318-4a72-a403-af2c992cc84a",
     "latestCompletedWithoutOperatorRecovery": true,
     "actualExpiryRefund": true
+  },
+  "improvements": {
+    "savedProofFallback": true,
+    "offlineBrowserChallengeAndRestore": true,
+    "mobileWidth390": "pass: documentWidth=viewportWidth=390",
+    "newPurchasesDisabledWhileOffline": true,
+    "cardanoPaymentProvider": "NOWNodes preprod",
+    "solanaTestnetEndpointProbed": true,
+    "escrowNetwork": "Devnet",
+    "deckAndVideo": "Historical proof tour produced before the fourth order; unchanged"
   }
 }

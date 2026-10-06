@@ -4,7 +4,7 @@ Give an agent a job, cap its service spend, and release its task reward only aft
 
 Built by Orca Labs for TOKEN2049 Origins 2026: Solana task escrow, Cardano x402 commerce, NOWNodes multichain data, and a Chainlink CRE verification workflow.
 
-**Actual testnet execution now passes all four integrations.** Three paid orders settled with real Cardano x402 payments, NOWNodes facts, successful official CRE simulations and Solana Devnet rewards. A separate genuine expiry refund also passed. The browser includes a one-fee tamper replay with a valid seller signature. See [executed evidence](docs/evidence/STATUS.md).
+**Actual testnet execution now passes all four integrations.** Four paid orders settled with real Cardano x402 payments, NOWNodes facts, successful official CRE simulations and Solana Devnet rewards. A separate genuine expiry refund also passed. The browser includes a one-fee tamper replay with a valid seller signature. See [executed evidence](docs/evidence/STATUS.md).
 
 ## Run in two minutes
 
@@ -24,7 +24,7 @@ pnpm typecheck
 pnpm test
 ```
 
-36 meaningful tests cover canonical hashing, signatures, receipt/input/payment binding, spending controls, queue recovery, payment reuse, the compiled Solana program in LiteSVM, and independent CRE verifier reads through Blockfrost or public Koios. VM and verifier fixture tests are not public-network executions.
+40 meaningful tests cover canonical hashing, signatures, receipt/input/payment binding, spending controls, queue recovery, payment reuse, the compiled Solana program in LiteSVM, and independent CRE verifier reads through NOWNodes preprod, Blockfrost or public Koios, including wrong-network rejection. VM and verifier fixture tests are not public-network executions.
 
 ## One task, four necessary integrations
 
@@ -56,3 +56,5 @@ The generated `site/` directory has a separate Sites source checkout. The canoni
 ## Scope and license
 
 MIT licensed. There is no autonomous LLM, arbitrary purchasing, bridge, multi-supplier marketplace, production DON deployment, or mainnet asset transfer in this MVP. The agent executes one deterministic reporting task. This keeps spending and verification reviewable within hackathon time. Third-party attribution is in [THIRD_PARTY.md](THIRD_PARTY.md).
+
+**Reliable demonstration:** choose **Explore verified demo** to inspect a genuine settled order, alter one fee locally, restore it, and open the separate confirmed expiry refund. Saved proof remains interactive without the live backend; it is explicitly historical. The latest fresh order also passed NOWNodes preprod payment verification. The supplied Solana Testnet endpoint is probed but not used for the Devnet escrow. See [live setup](docs/LIVE_SETUP.md) for the endpoint distinction.

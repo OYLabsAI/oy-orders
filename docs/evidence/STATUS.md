@@ -1,23 +1,23 @@
 # Executed evidence — 6 October 2026
 
-**Three genuine paid testnet orders settled across all four sponsors.** The interactive challenge replays genuine signed evidence locally; it makes no new purchase and preserves the original order.
+**Four genuine paid testnet orders settled across all four sponsors.** The interactive challenge replays genuine signed evidence locally; it makes no new purchase and preserves the original order.
 
 | Evidence | Executed result | Practical limit |
 |---|---|---|
-| TypeScript and tests | Root type check passes; 36 tests pass | Local VM, fixtures, CLI parsing and genuine receipt replay |
+| TypeScript and tests | Root type check passes; 40 tests pass | Local VM, fixtures, CLI parsing and genuine receipt replay |
 | Solana program | Devnet `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj` deployed; on-chain bytes match tested ELF | Operator retains upgrade authority |
 | Paid orders | Real funding, reservation, 2 tADA purchase and reward settlement | Separate test assets; no bridge or conversion |
-| Cardano x402 | Confirmed supplier outputs and actual fees | Public Koios preprod provider; Blockfrost key optional |
+| Cardano x402 | Confirmed supplier outputs and actual fees | Koios signer; NOWNodes preprod payment proof with network guard; Blockfrost optional |
 | NOWNodes | Actual Solana and Cardano mainnet facts, independently re-fetched by CRE | Public sample addresses include a Solana vote account |
 | Chainlink CRE | Official authenticated CLI simulations passed ten checks | Local simulation and trusted relayer; no production DON |
 | Recovery | Truncated CLI output and upstream failures recovered without duplicate purchases | Operator retries reused saved transactions/receipts; histories preserved |
 | Actual expiry refund | Direct program probe returned 0.01 tSOL after a 90-second deadline | Product UI retains 15 minutes; no Cardano purchase in this probe |
 | Interactive challenge | +1 fee preserves signature but fails integrity and provenance; restore passes | Local replay at saved verification time |
-| Frontend | Browser challenge and proof links verified; updated Site published | Owner-private Site; temporary local tunnel |
+| Frontend | One-click saved evidence, backend-offline tamper/restore, real refund links; Site published | Owner-private Site; temporary local tunnel |
 
 ## Public proof
 
-`live-order.json`, `live-order-second-settled.json` and `live-order-recovered.json` contain three actual settled orders: signed receipts, six genuine chain facts, ten accepted checks and redacted CRE transcripts. `live-order-first-attempt.json` and `live-order-second-attempt.json` preserve failed attempts and are not successful settlement proof. `live-refund.json` includes actual creation/refund transactions, chain state, transaction fee and buyer balance proof.
+`live-order.json`, `live-order-third-settled.json`, `live-order-second-settled.json` and `live-order-recovered.json` contain four actual settled orders: signed receipts, four to six genuine chain facts, ten accepted checks and redacted CRE transcripts. The latest order proves NOWNodes preprod payment reads with a network_magic=1 guard. `live-order-first-attempt.json` and `live-order-second-attempt.json` preserve failed attempts and are not successful settlement proof. `live-refund.json` includes actual creation/refund transactions, chain state, transaction fee and buyer balance proof.
 
 `solana-deployment.json` and `solana-buffer-upload.json` prove loader-v3 deployment and exact binary comparison. `wallet-funding.json`, `setup-audit.json`, `nownodes-probe.json` and `cre-preflight.txt` record actual setup/connectivity separately. Earlier `rehearsal-*.json` files explicitly retain their simulated-payment labels.
 
@@ -33,4 +33,4 @@ Solana ELF: 93,728 bytes, SHA-256 `5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1a
 
 The latest-five fact check can reject a busy address if new transactions arrive between purchase and verification. Demo addresses are quieter public addresses. Cardano supplier payments remain final; expiry returns only the Solana reward.
 
-The third order completed without operator recovery. Final native-browser publishing/sharing work is blocked while the Mac is locked.
+The third and fourth orders completed without operator recovery. Final native-browser publishing/sharing work is blocked while the Mac is locked.

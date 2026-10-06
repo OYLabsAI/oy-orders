@@ -1,0 +1,124 @@
+{
+  "at": "2026-10-06T19:42:32.509Z",
+  "results": [
+    {
+      "path": "genesis",
+      "status": 200,
+      "body": {
+        "active_slots_coefficient": 0.05,
+        "update_quorum": 5,
+        "max_lovelace_supply": "45000000000000000",
+        "network_magic": 1,
+        "epoch_length": 432000,
+        "system_start": 1654041600,
+        "slots_per_kes_period": 129600,
+        "slot_length": 1,
+        "max_kes_evolutions": 62,
+        "security_param": 2160
+      }
+    },
+    {
+      "path": "txs/9a3b35a72cb5fdeeb8ca687e33ffb32a6d8b8819d96a3e8e1eff7afd5a073ca4",
+      "status": 200,
+      "body": {
+        "hash": "9a3b35a72cb5fdeeb8ca687e33ffb32a6d8b8819d96a3e8e1eff7afd5a073ca4",
+        "block": "e619c795afe3ebf3a10df9d17d826e27d772f467d6d99e7678a1a5615e979735",
+        "block_height": 5259971,
+        "block_time": 1791276093,
+        "slot": 135592893,
+        "index": 0,
+        "output_amount": [
+          {
+            "unit": "lovelace",
+            "quantity": "97658966"
+          },
+          {
+            "unit": "16a55b2a349361ff88c03788f93e1e966e5d689605d044fef722ddde0014df10745553444d",
+            "quantity": "100000000"
+          }
+        ],
+        "fees": "170517",
+        "deposit": "0",
+        "size": 343,
+        "invalid_before": null,
+        "invalid_hereafter": "135593138",
+        "utxo_count": 3,
+        "withdrawal_count": 0,
+        "mir_cert_count": 0,
+        "delegation_count": 0,
+        "stake_cert_count": 0,
+        "pool_update_count": 0,
+        "pool_retire_count": 0,
+        "asset_mint_or_burn_count": 0,
+        "redeemer_count": 0,
+        "valid_contract": true,
+        "treasury_donation": "0"
+      }
+    },
+    {
+      "path": "txs/9a3b35a72cb5fdeeb8ca687e33ffb32a6d8b8819d96a3e8e1eff7afd5a073ca4/utxos",
+      "status": 200,
+      "body": {
+        "hash": "9a3b35a72cb5fdeeb8ca687e33ffb32a6d8b8819d96a3e8e1eff7afd5a073ca4",
+        "inputs": [
+          {
+            "address": "addr_test1qzsuqlzj7us8tx2ng5nsmfvwkv0fdq5gstqh8acj706k9fwm9twl5l6phwv92tt3tjzhmrpzyey55ke5qs2a89g4t3zqwmmujq",
+            "amount": [
+              {
+                "unit": "lovelace",
+                "quantity": "97829483"
+              },
+              {
+                "unit": "16a55b2a349361ff88c03788f93e1e966e5d689605d044fef722ddde0014df10745553444d",
+                "quantity": "100000000"
+              }
+            ],
+            "tx_hash": "6e356513dcb58823d84f8a56828c6c237f129a7c9c5b45d056439573f260c279",
+            "output_index": 1,
+            "data_hash": null,
+            "inline_datum": null,
+            "reference_script_hash": null,
+            "collateral": false,
+            "reference": false
+          }
+        ],
+        "outputs": [
+          {
+            "address": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "amount": [
+              {
+                "unit": "lovelace",
+                "quantity": "2000000"
+              }
+            ],
+            "output_index": 0,
+            "data_hash": null,
+            "inline_datum": null,
+            "collateral": false,
+            "reference_script_hash": null,
+            "consumed_by_tx": null
+          },
+          {
+            "address": "addr_test1qzsuqlzj7us8tx2ng5nsmfvwkv0fdq5gstqh8acj706k9fwm9twl5l6phwv92tt3tjzhmrpzyey55ke5qs2a89g4t3zqwmmujq",
+            "amount": [
+              {
+                "unit": "lovelace",
+                "quantity": "95658966"
+              },
+              {
+                "unit": "16a55b2a349361ff88c03788f93e1e966e5d689605d044fef722ddde0014df10745553444d",
+                "quantity": "100000000"
+              }
+            ],
+            "output_index": 1,
+            "data_hash": null,
+            "inline_datum": null,
+            "collateral": false,
+            "reference_script_hash": null,
+            "consumed_by_tx": null
+          }
+        ]
+      }
+    }
+  ]
+}

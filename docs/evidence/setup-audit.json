@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-06T08:46:49.065Z",
+  "checkedAt": "2026-10-06T19:49:01.019Z",
   "mode": "live",
   "configuration": [
     {
@@ -10,7 +10,7 @@
     {
       "name": "Cardano x402",
       "ready": true,
-      "detail": "Preprod funded wallet required; public Koios provider configured"
+      "detail": "Preprod signer: Koios; payment proof: NOWNodes"
     },
     {
       "name": "NOWNodes",
@@ -27,23 +27,23 @@
     {
       "name": "authority",
       "address": "BqoYzWMBGir2PwuNAXWdVwZAL6SMoinHeJH2KY8MoCXw",
-      "lamports": 894751320
+      "lamports": 894746320
     },
     {
       "name": "worker",
       "address": "4J96kKF7xjeB2WEC5xmZ1SwMVpKfTqxFRau2YK8L4eC2",
-      "lamports": 79985000
+      "lamports": 89980000
     },
     {
       "name": "demo-buyer",
       "address": "2sTMaoCTxMDUWnBJnamno6wQDFJK812rreLvWRuBu8iF",
-      "lamports": 60709080
+      "lamports": 48387600
     }
   ],
   "cardanoWallet": {
     "network": "preprod",
     "address": "addr_test1qzsuqlzj7us8tx2ng5nsmfvwkv0fdq5gstqh8acj706k9fwm9twl5l6phwv92tt3tjzhmrpzyey55ke5qs2a89g4t3zqwmmujq",
-    "lovelace": "98490561",
+    "lovelace": "96318460",
     "provider": "Koios",
     "http": 200
   },

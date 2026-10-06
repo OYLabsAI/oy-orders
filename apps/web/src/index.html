@@ -63,6 +63,19 @@
           <span class="pill amber">REHEARSAL</span> Sample data and simulated
           payments. No assets move in this mode.
         </div>
+        <div class="demo-entry">
+          <span
+            >Inspect an actual paid order and challenge its signed report.</span
+          >
+          <button
+            id="verified-demo"
+            type="button"
+            class="button secondary"
+            disabled
+          >
+            Explore verified demo
+          </button>
+        </div>
         <section class="page-heading">
           <div>
             <div class="eyebrow">AGENT COMMERCE, WITH RECEIPTS</div>
@@ -199,6 +212,7 @@
                 <thead>
                   <tr>
                     <th>Order</th>
+                    <th>Mode</th>
                     <th>Networks</th>
                     <th>Budget</th>
                     <th>Status</th>
@@ -207,7 +221,7 @@
                 </thead>
                 <tbody id="recent-orders">
                   <tr>
-                    <td colspan="5" class="muted">
+                    <td colspan="6" class="muted">
                       No orders yet. Start with the sample wallets.
                     </td>
                   </tr>
@@ -228,6 +242,12 @@
               Seller signatures bind the order, quote, payment and canonical
               report hash. The verifier checks factual provenance.
             </p>
+            <p
+              id="archive-notice"
+              class="archive-notice"
+              role="status"
+              hidden
+            ></p>
             <div id="proof-flow" class="proof-flow"></div>
             <div id="challenge" class="challenge" hidden>
               <div class="panel-heading">
@@ -263,6 +283,19 @@
                 Local replay of saved evidence at its verification time. Changes
                 stay in this preview; no new transaction.
               </p>
+            </div>
+            <div id="refund-proof" class="refund-proof" hidden>
+              <div>
+                <h3>Expiry protection, proven</h3>
+                <p id="refund-proof-detail" class="muted"></p>
+              </div>
+              <a
+                id="refund-proof-link"
+                class="button secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+                >View confirmed refund</a
+              >
             </div>
             <h3>Recorded verification</h3>
             <div id="checks" class="checks"></div>

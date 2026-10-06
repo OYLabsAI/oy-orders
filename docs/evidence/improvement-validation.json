@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-06T19:52:49.844Z",
+  "testsPassed": 40,
+  "typecheck": "pass",
+  "freshOrder": "8456603d-6318-4a72-a403-af2c992cc84a",
+  "creChecksPassed": 10,
+  "recovered": false,
+  "cardanoReadProvider": "NOWNodes preprod network_magic=1",
+  "solanaGenesisGuard": "Devnet",
+  "offlineBrowser": {
+    "tamper": "rejected",
+    "restore": "verified",
+    "newPurchase": "disabled",
+    "wallet": "disabled",
+    "refundExplorerLink": "present",
+    "integrationCards": "4 recorded proof disclosures",
+    "mobile": {
+      "viewportWidth": 390,
+      "documentWidth": 390
+    }
+  },
+  "screenshot": "../../output/Orca-Orders-proof-and-refund.jpg"
+}

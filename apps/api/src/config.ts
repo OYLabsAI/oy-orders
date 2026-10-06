@@ -18,6 +18,10 @@ export const config = {
   program: process.env.SOLANA_PROGRAM_ID ?? "",
   nownodesKey: process.env.NOWNODES_API_KEY ?? "",
   blockfrostKey: process.env.BLOCKFROST_PREPROD_KEY ?? "",
+  cardanoPaymentProvider:
+    process.env.CARDANO_PAYMENT_PROVIDER === "nownodes"
+      ? ("nownodes" as const)
+      : ("legacy" as const),
   seller: process.env.CARDANO_SELLER_ADDRESS ?? "",
   creBin: process.env.CRE_BIN ?? ".local/bin/cre",
   creTarget: process.env.CRE_TARGET ?? "staging-settings",
@@ -52,7 +56,7 @@ export function readiness() {
       ready:
         !!config.seller &&
         existsSync(resolve(config.dataDir, "cardano-agent.json")),
-      detail: `Preprod funded wallet required; ${config.blockfrostKey ? "Blockfrost" : "public Koios"} provider configured`,
+      detail: `Preprod signer: ${config.blockfrostKey ? "Blockfrost" : "Koios"}; payment proof: ${config.cardanoPaymentProvider === "nownodes" ? "NOWNodes" : config.blockfrostKey ? "Blockfrost" : "Koios"}`,
     },
     {
       name: "NOWNodes",

@@ -13,6 +13,16 @@ let current: Order | undefined,
   health: any,
   wallet: any,
   poll: number | undefined;
+type SavedEvidence = {
+  order: Order;
+  events: Event[];
+  creTranscript: string;
+  refund: { rewardLamports: string; refundTx: string; scope: string };
+};
+let savedEvidence: SavedEvidence | undefined,
+  archived = false,
+  serviceAvailable = false,
+  selection = 0;
 const sampleSol = "Vote111111111111111111111111111111111111111";
 const sampleAda = "addr1q" + "a".repeat(97);
 const short = (s: string) =>
@@ -23,7 +33,7 @@ const text = (tag: string, value: string, className = "") => {
   if (className) e.className = className;
   return e;
 };
-async function request(path: string, body?: unknown) {
+async function request(path: string, body?: unknown, timeout = 25000) {
   const response = await fetch(`${api}${path}`, {
     ...(body === undefined
       ? {}
@@ -32,7 +42,7 @@ async function request(path: string, body?: unknown) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         }),
-    signal: AbortSignal.timeout(25000),
+    signal: AbortSignal.timeout(timeout),
   });
   const data = await response.json();
   if (!response.ok) throw new Error(data.error ?? `HTTP ${response.status}`);
@@ -51,8 +61,14 @@ document
   .querySelectorAll<HTMLButtonElement>("[data-tab]")
   .forEach((b) => (b.onclick = () => tab(b.dataset.tab!)));
 $("sample").onclick = () => {
-  ($("solana") as HTMLInputElement).value = sampleSol;
-  ($("cardano") as HTMLInputElement).value = sampleAda;
+  ($("solana") as HTMLInputElement).value =
+    health?.mode === "live" && savedEvidence
+      ? savedEvidence.order.input.solanaWallet
+      : sampleSol;
+  ($("cardano") as HTMLInputElement).value =
+    health?.mode === "live" && savedEvidence
+      ? savedEvidence.order.input.cardanoWallet
+      : sampleAda;
 };
 $("wallet").onclick = async () => {
   try {
@@ -267,6 +283,27 @@ function renderEvidence(order: Order) {
     facts.append(wrap);
   }
 }
+function showSavedEvidence() {
+  if (!savedEvidence) return;
+  selection++;
+  if (poll) clearInterval(poll);
+  archived = true;
+  renderOrder(savedEvidence.order);
+  renderEvents(savedEvidence.events);
+  $("archive-notice").hidden = false;
+  $("archive-notice").textContent =
+    `Saved testnet proof from ${new Date(savedEvidence.order.verification!.timestamp).toLocaleString()}. No new purchase or CRE run occurs in this view. Explorer links show the original transactions.`;
+  const refund = savedEvidence.refund;
+  $("refund-proof").hidden = false;
+  $("refund-proof-detail").textContent =
+    `${Number(refund.rewardLamports) / 1e9} tSOL returned after expiry in a separate 90-second program probe. No Cardano purchase in that probe.`;
+  $("refund-proof-link").setAttribute(
+    "href",
+    `https://explorer.solana.com/tx/${refund.refundTx}?cluster=devnet`,
+  );
+  tab("evidence");
+}
+$("verified-demo").onclick = showSavedEvidence;
 function renderOrder(order: Order) {
   current = order;
   localStorage.setItem("orca-current-order", order.id);
@@ -317,6 +354,10 @@ function renderOrder(order: Order) {
   renderEvidence(order);
 }
 async function selectOrder(id: string) {
+  const selected = ++selection;
+  archived = false;
+  $("archive-notice").hidden = true;
+  $("refund-proof").hidden = true;
   if (poll) clearInterval(poll);
   const refresh = async () => {
     try {
@@ -324,6 +365,7 @@ async function selectOrder(id: string) {
         request(`/api/orders/${id}`),
         request(`/api/orders/${id}/events`),
       ]);
+      if (selected !== selection) return;
       renderOrder(order);
       renderEvents(events);
       if (
@@ -349,6 +391,9 @@ async function selectOrder(id: string) {
 }
 async function loadRecent() {
   const orders: Order[] = await request("/api/orders");
+  renderRecent(orders);
+}
+function renderRecent(orders: Order[]) {
   $("order-count").textContent = String(orders.length);
   const body = $("recent-orders");
   if (!orders.length) return;
@@ -374,6 +419,7 @@ async function loadRecent() {
     );
     tr.append(
       td,
+      text("td", order.mode === "live" ? "Live testnet" : "Rehearsal"),
       nets,
       text("td", "0.01 tSOL / 2 tADA"),
       status,
@@ -388,11 +434,45 @@ async function loadRecent() {
     body.append(tr);
   }
 }
+function renderIntegrations(
+  items: { name: string; ready: boolean; detail: string; recorded?: boolean }[],
+) {
+  const roles: Record<string, string> = {
+    "Solana escrow": "Funding, spending ceiling, settlement and expiry refund.",
+    "Cardano x402": "The agent buys the reporting resource using preprod ADA.",
+    NOWNodes: "Confirmed Solana and Cardano mainnet transaction facts.",
+    "Chainlink CRE":
+      "Independent verification through a real local workflow simulation.",
+  };
+  $("integrations").replaceChildren();
+  for (const i of items) {
+    const card = text("article", "", "integration");
+    card.append(
+      text("h3", i.name),
+      text(
+        "span",
+        i.recorded
+          ? "RECORDED PROOF"
+          : i.ready
+            ? "CONFIGURED"
+            : "SETUP REQUIRED",
+        `pill ${i.ready || i.recorded ? "blue" : "amber"}`,
+      ),
+      text("p", roles[i.name]),
+      text("p", i.detail),
+    );
+    $("integrations").append(card);
+  }
+}
 async function run() {
   const button = $<HTMLButtonElement>("create-order");
   button.disabled = true;
   $("form-error").textContent = "";
   try {
+    if (!serviceAvailable)
+      throw new Error(
+        "Live service is offline. Explore the saved verified demo.",
+      );
     const input = {
       solanaWallet: $<HTMLInputElement>("solana").value.trim(),
       cardanoWallet: $<HTMLInputElement>("cardano").value.trim(),
@@ -455,6 +535,10 @@ $("refund").onclick = async () => {
   if (!current) return;
   try {
     if (current.mode === "live") {
+      if (!wallet || wallet.publicKey?.toString() !== current.buyer)
+        throw new Error(
+          "Connect the original buyer wallet to refund this task.",
+        );
       const data = await request(
         `/api/orders/${current.id}/refund-transaction`,
       );
@@ -484,7 +568,9 @@ $("refund").onclick = async () => {
 };
 $("export").onclick = async () => {
   if (!current) return;
-  const evidence = await request(`/api/orders/${current.id}/evidence`);
+  const evidence = archived
+    ? savedEvidence
+    : await request(`/api/orders/${current.id}/evidence`);
   const url = URL.createObjectURL(
     new Blob([JSON.stringify(evidence, null, 2)], { type: "application/json" }),
   );
@@ -495,8 +581,26 @@ $("export").onclick = async () => {
   URL.revokeObjectURL(url);
 };
 async function init() {
+  // Static, genuine proof survives an unavailable live backend. It remains
+  // visibly historical and never unlocks wallet writes or claims a new run.
+  const proof = fetch("/proof.json")
+    .then(async (r) => {
+      if (!r.ok) throw new Error("SAVED_PROOF_UNAVAILABLE");
+      savedEvidence = await r.json();
+      if (
+        savedEvidence?.order.mode !== "live" ||
+        savedEvidence.order.status !== "settled"
+      )
+        throw new Error("INVALID_SAVED_PROOF");
+      $("verified-demo").removeAttribute("disabled");
+    })
+    .catch(() => {
+      savedEvidence = undefined;
+    });
   try {
-    health = await request("/health");
+    health = await request("/health", undefined, 6500);
+    serviceAvailable = true;
+    await proof;
     if (health.mode === "live") {
       $("mode-notice").replaceChildren(
         text("span", "LIVE TESTNET", "pill green"),
@@ -510,37 +614,44 @@ async function init() {
       document
         .querySelector('label[for="scenario"]')
         ?.setAttribute("hidden", "");
-      $("sample").hidden = true;
+      $("sample").textContent = "Use demo addresses";
+      $("sample").hidden = !savedEvidence;
     }
-    const roles: Record<string, string> = {
-      "Solana escrow":
-        "Funding, spending ceiling, settlement and expiry refund.",
-      "Cardano x402":
-        "The agent buys the reporting resource using preprod ADA.",
-      NOWNodes: "Confirmed Solana and Cardano mainnet transaction facts.",
-      "Chainlink CRE":
-        "Independent verification through a real local workflow simulation.",
-    };
-    for (const i of health.integrations) {
-      const card = text("article", "", "integration");
-      card.append(
-        text("h3", i.name),
-        text(
-          "span",
-          i.ready ? "CONFIGURED" : "SETUP REQUIRED",
-          `pill ${i.ready ? "blue" : "amber"}`,
-        ),
-        text("p", roles[i.name]),
-        text("p", i.detail),
-      );
-      $("integrations").append(card);
-    }
+    renderIntegrations(health.integrations);
     await loadRecent();
     const id = localStorage.getItem("orca-current-order");
     if (id) await selectOrder(id);
+    else if (savedEvidence) showSavedEvidence();
   } catch {
-    $("form-error").textContent =
-      "Order service is unavailable. Start the API or reconnect the hosted service.";
+    await proof;
+    serviceAvailable = false;
+    $("mode-notice").replaceChildren(
+      text("span", "SAVED TESTNET PROOF", "pill amber"),
+      text(
+        "span",
+        "Live service offline. Explore the recorded order; new purchases are unavailable.",
+      ),
+    );
+    $("create-order").setAttribute("disabled", "");
+    $("wallet").setAttribute("disabled", "");
+    $("create-order").textContent = "Live service offline";
+    if (savedEvidence) {
+      showSavedEvidence();
+      renderRecent([savedEvidence.order]);
+      renderIntegrations(
+        ["Solana escrow", "Cardano x402", "NOWNodes", "Chainlink CRE"].map(
+          (name) => ({
+            name,
+            ready: false,
+            recorded: true,
+            detail:
+              "Saved evidence of actual testnet execution. Live service currently offline.",
+          }),
+        ),
+      );
+    } else
+      $("form-error").textContent =
+        "Order service unavailable. Reconnect the hosted service.";
   }
 }
 void init();

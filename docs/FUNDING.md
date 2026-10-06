@@ -27,4 +27,4 @@ Official faucet: https://docs.cardano.org/cardano-testnets/tools/faucet
 - NOWNodes is activated for Solana and Cardano, and its existing API key is stored in private `.env`. The earlier activation screen advertised a switch to €20/month after the free month; the user completed activation.
 - Organizers: resolve the dashboard's partner check-in 1/2 discrepancy, and verify acceptance/player support for a PPTX with an embedded MP4. Our legacy PPT export loses the recording; native Keynote and PowerPoint are not installed on this machine.
 
-Funding is sufficient. Three real 2 tADA purchases, successful full CRE simulations, Solana settlements and a separate expiry refund are now recorded in evidence/STATUS.md. About 98.49 preprod tADA remains; no further funds are needed for the demo.
+Funding is sufficient. Four real 2 tADA purchases, successful full CRE simulations, Solana settlements and a separate expiry refund are now recorded in evidence/STATUS.md. About 96.32 preprod tADA remains; no further funds are needed for the demo.

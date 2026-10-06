@@ -4,6 +4,7 @@ import { generateKeyPairSync, randomUUID } from "node:crypto";
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { hash, signReceipt } from "../../packages/core/src/domain.ts";
 import { expectedPda, verifyRemote } from "./workflow.ts";
+import { SOLANA_DEVNET_GENESIS } from "../../packages/core/src/networks.ts";
 function fixture() {
   const pair = generateKeyPairSync("ed25519"),
     buyer = Keypair.generate().publicKey.toBase58(),
@@ -121,7 +122,9 @@ async function harness() {
   d.writeBigUInt64LE(2000000n, 312);
   d.writeBigUInt64LE(2000000n, 320);
   let owner = c.programId,
-    recipient = o.seller;
+    recipient = o.seller,
+    networkMagic = 1,
+    solanaGenesis = SOLANA_DEVNET_GENESIS;
   const send = {
     sendRequest(request) {
       return {
@@ -132,6 +135,10 @@ async function harness() {
             ? JSON.parse(Buffer.from(request.body, "base64"))
             : null;
           if (url.startsWith(c.apiUrl)) value = o;
+          else if (url.endsWith("/genesis"))
+            value = { network_magic: networkMagic };
+          else if (body?.method === "getGenesisHash")
+            value = { result: solanaGenesis };
           else if (body?.method === "getAccountInfo")
             value = {
               result: {
@@ -160,6 +167,7 @@ async function harness() {
             ];
           } else if (url.includes("/utxos"))
             value = {
+              hash: o.receipt.paymentHash,
               outputs: [
                 {
                   address: recipient,
@@ -167,8 +175,15 @@ async function harness() {
                 },
               ],
             };
-          else if (url.includes("preprod.blockfrost"))
-            value = { fees: "170000", block: "confirmed-block" };
+          else if (
+            url.includes("preprod.blockfrost") ||
+            url.includes("ada-testnet.nownodes.io")
+          )
+            value = {
+              hash: o.receipt.paymentHash,
+              fees: "170000",
+              block: "confirmed-block",
+            };
           else if (url.includes("/addresses/")) value = [{ tx_hash: "ada-tx" }];
           else if (url.includes("/txs/"))
             value = { slot: 88, fees: "170000", block: "source-block" };
@@ -186,6 +201,12 @@ async function harness() {
     },
     setRecipient: (v) => {
       recipient = v;
+    },
+    setNetworkMagic: (v) => {
+      networkMagic = v;
+    },
+    setSolanaGenesis: (v) => {
+      solanaGenesis = v;
     },
   };
 }
@@ -227,4 +248,17 @@ test("CRE independently verifies Koios payment without a Blockfrost key", async 
   assert.equal(JSON.parse(verifyRemote(f.send, f.c)).accepted, true);
   f.setRecipient("other");
   assert.equal(JSON.parse(verifyRemote(f.send, f.c)).accepted, false);
+});
+test("CRE independently reads NOWNodes preprod proof and rejects a wrong Cardano network", async () => {
+  const f = await harness();
+  f.c.paymentProvider = "nownodes";
+  f.c.blockfrostKey = "";
+  assert.equal(JSON.parse(verifyRemote(f.send, f.c)).accepted, true);
+  f.setNetworkMagic(2);
+  assert.throws(() => verifyRemote(f.send, f.c), /NETWORK_MISMATCH/);
+});
+test("CRE rejects Solana Testnet even when escrow data otherwise matches", async () => {
+  const f = await harness();
+  f.setSolanaGenesis("4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY");
+  assert.throws(() => verifyRemote(f.send, f.c), /SOLANA_NETWORK_MISMATCH/);
 });

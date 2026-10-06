@@ -4,6 +4,9 @@ import {
   KOIOS_PREPROD,
   koiosPayment,
   koiosPaymentRequest,
+  NOWNODES_PREPROD,
+  assertPreprodGenesis,
+  blockfrostPayment,
 } from "../../../packages/core/src/cardano-payment.ts";
 
 export async function fetchJson(
@@ -108,6 +111,18 @@ export async function readFacts(order: Order): Promise<SourceFact[]> {
 }
 export async function observePayment(tx: string, recipient: string) {
   if (!/^[0-9a-f]{64}$/.test(tx)) throw new Error("INVALID_PAYMENT_HASH");
+  if (config.cardanoPaymentProvider === "nownodes") {
+    if (!config.nownodesKey) throw new Error("NOWNODES_KEY_REQUIRED");
+    const headers = { "api-key": config.nownodesKey };
+    assertPreprodGenesis(
+      await fetchJson(`${NOWNODES_PREPROD}/genesis`, { headers }),
+    );
+    const [info, utxos] = await Promise.all([
+      fetchJson(`${NOWNODES_PREPROD}/txs/${tx}`, { headers }),
+      fetchJson(`${NOWNODES_PREPROD}/txs/${tx}/utxos`, { headers }),
+    ]);
+    return blockfrostPayment(tx, recipient, info, utxos);
+  }
   if (!config.blockfrostKey) {
     return koiosPayment(
       tx,
@@ -125,19 +140,5 @@ export async function observePayment(tx: string, recipient: string) {
     fetchJson(`${root}/txs/${tx}`, { headers }),
     fetchJson(`${root}/txs/${tx}/utxos`, { headers }),
   ]);
-  if (!info?.block || !utxos) throw new Error("PAYMENT_NOT_CONFIRMED");
-  const amount = utxos.outputs
-    .filter((o: any) => o.address === recipient)
-    .flatMap((o: any) => o.amount)
-    .filter((a: any) => a.unit === "lovelace")
-    .reduce((sum: bigint, a: any) => sum + BigInt(a.quantity), 0n);
-  return {
-    tx,
-    recipient,
-    amount: amount.toString(),
-    network: "cardano:preprod",
-    asset: "lovelace",
-    confirmed: true,
-    fee: String(info.fees),
-  };
+  return blockfrostPayment(tx, recipient, info, utxos);
 }

@@ -12,6 +12,7 @@ import { createHash } from "node:crypto";
 import { config } from "./config.ts";
 import type { Order } from "../../../packages/core/src/domain.ts";
 import { base58 } from "@scure/base";
+import { assertSolanaDevnet } from "../../../packages/core/src/networks.ts";
 export const connection = new Connection(config.solanaRpc, "confirmed");
 export function loadWallet(name: "worker" | "authority") {
   return Keypair.fromSecretKey(
@@ -70,6 +71,7 @@ function ix(
   });
 }
 export async function fundingTransaction(order: Order) {
+  assertSolanaDevnet(await connection.getGenesisHash());
   const instruction = ix(
     order,
     0,
@@ -101,6 +103,7 @@ export async function fundingTransaction(order: Order) {
   };
 }
 export async function observeEscrow(order: Order) {
+  assertSolanaDevnet(await connection.getGenesisHash());
   const info = await connection.getAccountInfo(pda(order), "confirmed");
   if (
     !info ||
@@ -173,6 +176,7 @@ async function submit(
   wallet: Keypair,
   destination?: PublicKey,
 ) {
+  assertSolanaDevnet(await connection.getGenesisHash());
   const { blockhash, lastValidBlockHeight } =
     await connection.getLatestBlockhash();
   const tx = new Transaction({

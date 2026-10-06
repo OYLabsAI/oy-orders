@@ -2,7 +2,7 @@
 
 ## Deadline and present status
 
-Official deadline: **7 October 2026, 23:59 Singapore (GMT+8), 17:59 Berlin**. Internal upload target: **22:00 Singapore / 16:00 Berlin**. The project now has three actual settled orders across all four partners, a genuine expiry refund and an interactive one-fee tamper replay. Account/funding prerequisites are complete. Judge access, durable hosting, partner check-in status and stage-format compatibility remain the submission gates.
+Official deadline: **7 October 2026, 23:59 Singapore (GMT+8), 17:59 Berlin**. Internal upload target: **22:00 Singapore / 16:00 Berlin**. The project now has four actual settled orders across all four partners, a genuine expiry refund and an interactive one-fee tamper replay. Account/funding prerequisites are complete. Judge access, durable hosting, partner check-in status and stage-format compatibility remain the submission gates.
 
 Team: Orca Labs. Dashboard confirmed participation in the main TOKEN2049 Origins event and NOWNodes, Solana, Cardano and Chainlink partner tracks. Main check-ins showed 2/2; partner check-ins showed 1/2. That discrepancy needs resolution through the team dashboard or event help desk. No message has been sent on the team's behalf.
 
@@ -42,7 +42,7 @@ The shared differentiator is **a paid agent task that can fail safely**. Show th
 
 **Description:** Orca Orders gives operators a bounded, auditable way to buy a blockchain reporting task. A buyer funds a Solana task escrow, the agent reserves a Cardano service quote and handles an x402 payment, and a signed report is independently checked before the task reward is released. NOWNodes supplies confirmed transaction facts from Solana and Cardano. A Chainlink CRE workflow verifies the escrow terms, payment recipient and value, seller signature, report digest, and factual provenance. Incorrect reports retain the escrow reward; expiry returns that reward to the buyer. The MVP uses separate Solana Devnet and Cardano preprod test assets, with no bridge or exchange-rate conversion.
 
-**Current status:** Three paid testnet orders have settled through the deployed Solana program, Cardano preprod x402, real NOWNodes data and successful official CRE CLI simulations. A separate actual expiry refund passes. The demo challenge replays a genuine signed report locally: changing one fee preserves the signature but fails integrity/provenance. The prototype uses a trusted simulation relayer; no DON deployment is claimed. See evidence/STATUS.md and evidence/live-order.json for exact transaction hashes.
+**Current status:** Four paid testnet orders have settled through the deployed Solana program, Cardano preprod x402, real NOWNodes data and successful official CRE CLI simulations. A separate actual expiry refund passes. The demo challenge replays a genuine signed report locally: changing one fee preserves the signature but fails integrity/provenance. The prototype uses a trusted simulation relayer; no DON deployment is claimed. See evidence/STATUS.md and evidence/live-order.json for exact transaction hashes.
 
 **Why now:** Agents can discover services and pay for them, but an operator also needs to constrain spending and verify the deliverable. This prototype makes that contract concrete for one inspectable task.
 
@@ -116,3 +116,13 @@ Latest settled order: `905ca8fe-3593-409f-88d3-5488d89dec09`.
 Cardano purchase: https://preprod.cardanoscan.io/transaction/9a3b35a72cb5fdeeb8ca687e33ffb32a6d8b8819d96a3e8e1eff7afd5a073ca4
 
 Actual expiry refund: https://explorer.solana.com/tx/2AYjW6zkCfTbcnwRTfgghWkQrK59A5PHvrKFZcJkfMyG27p8aq66vbqPmefwRp8ytQsVAU52oREPEv3z4WEpvtpQ?cluster=devnet
+
+## Latest NOWNodes preprod proof
+
+Order `8456603d-6318-4a72-a403-af2c992cc84a` completed without operator recovery. Both worker and CRE used NOWNodes preprod transaction outputs after verifying network_magic=1. Its official simulation passed all ten checks.
+
+- [Solana funding](https://explorer.solana.com/tx/2XoNQ2afih4XTKs1FY9tiVRTKfFHAggfhZ3FifRmfgqEnngXsBdqHrBzuFXwCm5koxXY4MqrKkjiS1ZZc8GnEtiK?cluster=devnet)
+- [Solana settlement](https://explorer.solana.com/tx/gwbnK55qnZJpjjx1zZ12XTCUsVbCr5d6ZqsXNTuio9R3FHBx87GPtPLn1b4GB1xgH5J93uLY8iDJGwUXkb9XEqW?cluster=devnet)
+- [Cardano supplier payment](https://preprod.cardanoscan.io/transaction/5bbf93b751ea2c005e21e972e191dc3d2f2a18481e1a5a9d6fda06c845e662a7)
+
+For a network outage, choose **Explore verified demo**. Its historical proof, local challenge, evidence export and separate expiry refund remain usable without the local service; new orders stay disabled while offline.

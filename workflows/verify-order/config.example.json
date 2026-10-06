@@ -7,5 +7,6 @@
   "worker": "REPLACE_WITH_WORKER_PUBLIC_KEY",
   "authority": "REPLACE_WITH_AUTHORITY_PUBLIC_KEY",
   "blockfrostKey": "INJECT_IN_PRIVATE_LOCAL_CONFIG",
+  "paymentProvider": "nownodes",
   "nownodesKey": "INJECT_IN_PRIVATE_LOCAL_CONFIG"
 }

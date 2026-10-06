@@ -1,6 +1,6 @@
 # Orca Orders hackathon implementation plan
 
-Implementation status, 6 October 2026: the MVP now has three actual settled testnet orders, genuine sponsor reads and CRE CLI simulations, a real expiry refund, interactive tamper replay, 36 passing tests, a 48-second proof video and an updated six-slide deck. Judge/source access, stable hosting and stage playback remain gates. Use `docs/SUBMISSION.md` for the current schedule and gates, `docs/LIVE_SETUP.md` for activation, and `docs/evidence/STATUS.md` for proven results. The deadline is not a claim that submission has been completed.
+Implementation status, 6 October 2026: the MVP now has four actual settled testnet orders, genuine sponsor reads and CRE CLI simulations, a real expiry refund, interactive tamper replay, 40 passing tests, a 48-second proof video and an updated six-slide deck. Judge/source access, stable hosting and stage playback remain gates. Use `docs/SUBMISSION.md` for the current schedule and gates, `docs/LIVE_SETUP.md` for activation, and `docs/evidence/STATUS.md` for proven results. The deadline is not a claim that submission has been completed.
 
 Build one working product for the main TOKEN2049 Origins track and the Cardano, Chainlink, Solana, and NOWNodes partner tracks. Orca Orders lets a user fund a blockchain reporting task, lets an agent buy the required service, and releases the task payment after verification. Prioritize a complete demonstrable flow, then failure handling, then presentation.
 
@@ -22,7 +22,7 @@ Use one pnpm project with a vanilla TypeScript frontend, an Express API and work
 
 Dependencies are pinned in the lockfile. The implemented build uses Node 24, pnpm 11.19.0, Bun 1.4.2, CRE CLI 1.37.0 and the CRE SDK 1.6.0 template version. Solana Playground compiled the native program; LiteSVM executes that exact binary for escrow tests. Source compilation does not replace Devnet deployment evidence.
 
-The Cardano adapter uses the official [x402 Express starter](https://developers.cardano.org/templates/x402-express/) pattern and pinned x402 Cardano SDK. It uses public Koios preprod by default, with optional Blockfrost preprod, for payment observation and Cardano Foundation's hosted preprod facilitator, with a configurable facilitator URL. Preserve the established protocol rather than replacing it.
+The Cardano adapter uses the official [x402 Express starter](https://developers.cardano.org/templates/x402-express/) pattern and pinned x402 Cardano SDK. The signer uses public Koios preprod by default, with optional Blockfrost. Worker and CRE payment observation now use authenticated NOWNodes preprod with a network guard. Cardano Foundation's hosted preprod facilitator broadcasts the same saved signed transaction. Preserve the established protocol rather than replacing it.
 
 ### User journey
 
@@ -70,11 +70,11 @@ Solana enforces task escrow and quote reservation; the controlled Cardano signer
 ### CRE and chain data
 
 - Run a non-interactive cron-trigger simulation per queued order. Pass generated private per-order configuration; construct CLI arguments as an argument array, never a shell string derived from user input.
-- CRE uses HTTP capabilities to read public order terms, Koios or Blockfrost preprod payment details, the signed seller receipt, and NOWNodes source transactions. Validate the order against actual Solana Devnet state rather than trusting the API status alone.
+- CRE uses HTTP capabilities to read public order terms, NOWNodes preprod payment details, the signed seller receipt, and NOWNodes source transactions. Validate the order against actual Solana Devnet state and genesis rather than trusting the API status alone. Legacy Koios/Blockfrost payment reads remain reproducible.
 - Run irreversible payment and settlement operations outside the verification callback. DON nodes must not each purchase the same resource. CRE verifies immutable transaction IDs and canonical facts, with consistent network/confirmation rules.
 - Check recipient, asset, amount, payment confirmation, seller signature, order binding, input hash, result hash, and all cited transaction facts. Return a specific rejection code for each failure.
 - A successful local simulation is evidence accepted by the Chainlink track. The relayer accepts only records produced by the private worker after a successful expected execution, checks them against current escrow terms again, and rejects reuse. A simulation log is not proof of decentralized production execution. [Simulation documentation](https://docs.chain.link/cre/guides/operations/simulating-workflows)
-- Use `sol.nownodes.io` and `ada-blockfrost.nownodes.io` for mainnet report data, subject to sponsor account access. Use Devnet RPC and Koios/Blockfrost preprod for test payment state. Do not infer testnet availability from a mainnet endpoint. [NOWNodes network list](https://nownodes.io/nodes)
+- Use `sol.nownodes.io` and `ada-blockfrost.nownodes.io` for mainnet report data, and confirmed `ada-testnet.nownodes.io` for preprod payment proof. Retain Devnet RPC for escrow: the supplied Solana Testnet endpoint has a different genesis. Do not infer network identity from an endpoint name. [NOWNodes network list](https://nownodes.io/nodes)
 - Retry read failures with backoff up to three times. Serialize Cardano purchases through one signer queue to avoid concurrent UTXO spending. After an uncertain broadcast, look up the transaction before retrying. If unavailable data prevents verification, leave escrow unsettled and allow deadline refund.
 
 ## Build sequence and ownership
@@ -102,7 +102,7 @@ The first two hours also establish a public Git repository, README with starter 
 - Reject an unconfirmed/wrong payment, invalid seller signature, modified result, missing cited transaction, and a payment reused for another order. No rejected receipt releases the task reward.
 - Verify unauthorized settlement, duplicate settlement, early refund, wrong buyer, wrong PDA, and settle/refund races fail on-chain. Verify a valid expired-order refund returns funds once.
 - Restart the worker after payment and before settlement; recover the same receipt without paying twice. Test timeout, NOWNodes 429, missing data, pending Cardano transaction, exhausted funds, and expired order.
-- A judge can connect a Devnet wallet and run a new order with no command-line help. Also provide a rate-limited trial mode using a server-funded Devnet buyer, limited to three orders per session; label it as a hosted demo wallet.
+- A judge can inspect the saved verified demo without a wallet, and connect a Devnet wallet to fund a fresh order while the live service is available. Saved proof and local tampering remain clearly historical.
 - Persist recoverable queue state and expose exact progress and failure reasons. Add a health screen and record successful/failed workflow executions, payment IDs, latency, and costs. Never log wallet mnemonics, API keys, or authentication tokens.
 - Rehearse against the deployed site from a clean browser session. Keep a genuine recorded demonstration available for network outages; do not present recorded or cached results as a newly executed purchase.
 

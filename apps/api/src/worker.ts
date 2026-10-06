@@ -49,6 +49,7 @@ async function simulate(order: Order): Promise<Verification> {
       worker: order.worker,
       authority: loadWallet("authority").publicKey.toBase58(),
       blockfrostKey: config.blockfrostKey,
+      paymentProvider: config.cardanoPaymentProvider,
       nownodesKey: config.nownodesKey,
     }),
     { mode: 0o600 },

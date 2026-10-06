@@ -1,12 +1,12 @@
 # Live execution checklist
 
-The current workspace is running in live testnet mode. Three real paid orders and a separate real expiry refund are recorded in [executed evidence](evidence/STATUS.md). The steps below reproduce setup for another operator.
+The current workspace is running in live testnet mode. Four real paid orders and a separate real expiry refund are recorded in [executed evidence](evidence/STATUS.md). The steps below reproduce setup for another operator.
 
 ## Account and funding prerequisites
 
 1. **NOWNodes:** €15 redeemed; the user completed free Start activation and enabled Solana/Cardano. The working API key is private in .env. The activation screen advertised a Pro renewal after one month; account billing remains the user's decision.
 2. **CRE:** the official CLI is installed under `.local/bin/cre` and login has been verified. `CRE_AUTHENTICATED=true` is configured locally. The actual `workflows/preflight` CLI simulation succeeds against both test networks. This proves connectivity only; the full order verifier has now passed ten checks for the actual paid orders. Production deployment access is not enabled and is not needed for CLI simulation.
-3. **Cardano:** the signer and CRE verifier use public **Koios preprod** when `BLOCKFROST_PREPROD_KEY` is empty. A Blockfrost key is optional. The operator agent received **105 preprod tADA** and has about 98.49 remaining after three purchases; see `FUNDING.md`. The generated `CARDANO_SELLER_ADDRESS` is configured locally and receives 2 tADA per task. Keys and mnemonic JSON remain under `.local/` with mode 0600. The hosted facilitator handles submission; the public Koios provider supplies wallet state and historical payment outputs.
+3. **Cardano:** the signer uses public **Koios preprod** when `BLOCKFROST_PREPROD_KEY` is empty. With `CARDANO_PAYMENT_PROVIDER=nownodes`, the worker and independent CRE verifier read exact historical transaction outputs from `https://ada-testnet.nownodes.io`, authenticated by the existing sponsor key. Both reject any `/genesis` response whose `network_magic` is not 1. A Blockfrost key is optional. The operator agent received **105 preprod tADA** and has about 96.32 remaining after four purchases; see `FUNDING.md`. The generated `CARDANO_SELLER_ADDRESS` is configured locally and receives 2 tADA per task. Keys and mnemonic JSON remain under `.local/` with mode 0600. The hosted facilitator handles submission; Koios supplies wallet state to the signer; NOWNodes supplies historical payment outputs to both verifiers.
 4. **Solana:** 2 Devnet SOL arrived at the authority and the generated worker/buyer were funded. Use test assets only. `pnpm run testnet:fund` verifies the Devnet genesis hash and tops up the generated worker to 0.05 SOL and buyer to 0.1 SOL while preserving at least 1 SOL at the authority for deployment. It does not act on other clusters.
 
 `pnpm wallets` creates missing test wallets without replacing existing ones. **Use `pnpm run doctor --json`**: `pnpm doctor` is pnpm's unrelated built-in command. Our doctor probes balances, provider availability and actual CRE login, and saves a public setup audit. Configured indicators do not prove sponsor order execution.
@@ -46,3 +46,11 @@ The included, untested Dockerfile targets Node 24 with a persistent `/data` dire
 ## Recorded demo proof
 
 The report challenge locally changes one fee by one smallest unit while preserving the genuine seller signature. It replays the shared verifier at the saved verification time and clearly labels the local copy. It never calls a purchase or settlement endpoint. `pnpm run demo:refund` performs a separate 90-second direct program expiry probe; the UI deadline stays 15 minutes.
+
+## Endpoint and saved-demo checks
+
+The supplied `https://sol-testnet.nownodes.io/` endpoint answers with Testnet genesis `4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY`. The escrow program is on Devnet, genesis `EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG`; retain the existing Devnet RPC. Funding, escrow reads, worker writes and CRE independently enforce that network. `testnet-endpoints-probe.json` and `nownodes-preprod-payment-probe.json` record actual responses without credentials.
+
+The x402 signer SDK sends `project_id`; the NOWNodes endpoint requires `api-key` (a `project_id` probe returned 401), so the signer keeps its compatible Koios provider. No SDK fork or proxy is needed.
+
+Build output includes `proof.json`, drawn only from public settled-order and refund evidence. **Explore verified demo** works even when the live API is offline. Historical execution and local replay are clearly labeled, new purchases are disabled, and saved evidence can be exported. This preserves an inspectable proof demo; fresh execution still requires the running backend.
