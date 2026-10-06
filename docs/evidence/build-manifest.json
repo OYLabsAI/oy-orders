@@ -1,0 +1,66 @@
+{
+  "createdAt": "2026-10-06T06:54:44.593Z",
+  "mode": "rehearsal",
+  "tests": {
+    "passed": 29,
+    "failed": 0,
+    "report": "tests.txt"
+  },
+  "typecheck": "pass",
+  "compiler": {
+    "solana": "Solana Playground",
+    "buildId": "aafab733-1cf4-45f9-833f-358e6c2db69f",
+    "cre": "@chainlink/cre-sdk 1.6.0 + Javy",
+    "creCli": "1.37.0",
+    "simulation": "not executed successfully; authentication required"
+  },
+  "deck": {
+    "slides": 6,
+    "pptxEmbeddedMovie": true,
+    "legacyPptEmbeddedMovie": false,
+    "videoSeconds": 52.67,
+    "nativePlaybackVerified": false
+  },
+  "artifacts": [
+    {
+      "path": "programs/orca-orders/src/lib.rs",
+      "bytes": 4364,
+      "sha256": "bcf6ba7c153c38e872d3eae510c0bf59f837b8b61d5ecf06fb6f0356e5b01622"
+    },
+    {
+      "path": "docs/evidence/orca_orders.so",
+      "bytes": 93728,
+      "sha256": "5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1aeeda71709c0c94bfa9f"
+    },
+    {
+      "path": "workflows/verify-order/workflow.ts",
+      "bytes": 7628,
+      "sha256": "e7a7bf7755d3ce19e6fc0e9d14a0867ee5236d69a642ca678972f75bfcec4b91"
+    },
+    {
+      "path": "packages/core/src/verification.ts",
+      "bytes": 3174,
+      "sha256": "a4515f420780a6d77c6d500273b9fa28880c1b07df10d51894c56947cfd92c49"
+    },
+    {
+      "path": "docs/evidence/cre/orca-verifier.wasm",
+      "bytes": 2563223,
+      "sha256": "b9b0fa6996b8d267a8911ca289c5d5a484ee2234ad4f6cfba7bdf76e5b1f9da4"
+    },
+    {
+      "path": "output/Orca-Orders-pitch.pptx",
+      "bytes": 773942,
+      "sha256": "440ee4a542b2c1eec29e1947839fb5c36608e5d133f212ca7bffeda764432f3a"
+    },
+    {
+      "path": "output/Orca-Orders-pitch.ppt",
+      "bytes": 490496,
+      "sha256": "216ed28113461671795408d1e2a306081ef836d7ca50ab64209e2a76d671d774"
+    },
+    {
+      "path": "output/Orca-Orders-rehearsal.mp4",
+      "bytes": 547771,
+      "sha256": "4e88f3fd6a6698ffd64578ec10c7d4a136df0dc1b03464841eb47a9f133fd2cf"
+    }
+  ]
+}

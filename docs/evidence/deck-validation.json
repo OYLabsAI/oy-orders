@@ -1,0 +1,10 @@
+{
+  "finalSha256": "440ee4a542b2c1eec29e1947839fb5c36608e5d133f212ca7bffeda764432f3a",
+  "slideCount": 6,
+  "integrity": "pass",
+  "layoutFindings": 0,
+  "layoutWarnings": 0,
+  "fontPolicyPassed": true,
+  "artifactToolImportPassed": true,
+  "claimBoundary": "Structural validation and visual review; native PowerPoint playback remains unverified."
+}

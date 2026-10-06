@@ -1,0 +1,84 @@
+{
+  "order": {
+    "id": "52b3e8cf-7bc3-466c-932f-8e780783200b",
+    "mode": "rehearsal",
+    "status": "refunded",
+    "createdAt": 1791268738833,
+    "deadline": 1791268740324,
+    "input": {
+      "solanaWallet": "Vote111111111111111111111111111111111111111",
+      "cardanoWallet": "addr1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scenario": "expiry"
+    },
+    "inputHash": "c60b59a4fc01d65964322661b4975d31cdf86f57b008d2220b955e20bca1d875",
+    "reward": "10000000",
+    "ceiling": "2000000",
+    "feeCeiling": "1000000",
+    "buyer": "rehearsal-buyer",
+    "worker": "4J96kKF7xjeB2WEC5xmZ1SwMVpKfTqxFRau2YK8L4eC2",
+    "seller": "rehearsal-seller",
+    "sellerKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA+SG7IyWIKUUUHxAhNSamdSGhGsZCjSzxpEB0rv/Ft00=\n-----END PUBLIC KEY-----\n",
+    "quote": {
+      "orderId": "52b3e8cf-7bc3-466c-932f-8e780783200b",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "recipient": "rehearsal-seller",
+      "expiresAt": 1791269638833,
+      "resource": "https://dialogue-fancy-rich-assistance.trycloudflare.com/paid/report?orderId=52b3e8cf-7bc3-466c-932f-8e780783200b"
+    },
+    "quoteHash": "b90836d1dfdd5e69154f961f20023cc132839ee24dfb1aff3c1fb8e0f27ddea5"
+  },
+  "events": [
+    {
+      "sequence": 49,
+      "orderId": "52b3e8cf-7bc3-466c-932f-8e780783200b",
+      "timestamp": 1791268738834,
+      "step": "created",
+      "detail": "Immutable task terms created.",
+      "link": null
+    },
+    {
+      "sequence": 50,
+      "orderId": "52b3e8cf-7bc3-466c-932f-8e780783200b",
+      "timestamp": 1791268738837,
+      "step": "funded",
+      "detail": "Rehearsal escrow funded. No assets moved.",
+      "link": null
+    },
+    {
+      "sequence": 51,
+      "orderId": "52b3e8cf-7bc3-466c-932f-8e780783200b",
+      "timestamp": 1791268739019,
+      "step": "reserved",
+      "detail": "Seller and 2 tADA quote reserved within the spending ceiling.",
+      "link": null
+    },
+    {
+      "sequence": 52,
+      "orderId": "52b3e8cf-7bc3-466c-932f-8e780783200b",
+      "timestamp": 1791268739672,
+      "step": "purchasing",
+      "detail": "Rehearsal: simulating HTTP 402 and test payment. No transaction is sent.",
+      "link": null
+    },
+    {
+      "sequence": 53,
+      "orderId": "52b3e8cf-7bc3-466c-932f-8e780783200b",
+      "timestamp": 1791268740326,
+      "step": "expired",
+      "detail": "Rehearsal clock advanced past the deadline before purchase.",
+      "link": null
+    },
+    {
+      "sequence": 54,
+      "orderId": "52b3e8cf-7bc3-466c-932f-8e780783200b",
+      "timestamp": 1791268758534,
+      "step": "refunded",
+      "detail": "Rehearsal task reward refunded.",
+      "link": null
+    }
+  ],
+  "creTranscript": null,
+  "disclosure": "Sample transactions, no sponsor execution, no chain settlement."
+}

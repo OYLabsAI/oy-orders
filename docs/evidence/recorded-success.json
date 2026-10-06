@@ -1,0 +1,221 @@
+{
+  "order": {
+    "id": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+    "mode": "rehearsal",
+    "status": "settled",
+    "createdAt": 1791268430309,
+    "deadline": 1791269330309,
+    "input": {
+      "solanaWallet": "Vote111111111111111111111111111111111111111",
+      "cardanoWallet": "addr1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scenario": "success"
+    },
+    "inputHash": "c60b59a4fc01d65964322661b4975d31cdf86f57b008d2220b955e20bca1d875",
+    "reward": "10000000",
+    "ceiling": "2000000",
+    "feeCeiling": "1000000",
+    "buyer": "rehearsal-buyer",
+    "worker": "4J96kKF7xjeB2WEC5xmZ1SwMVpKfTqxFRau2YK8L4eC2",
+    "seller": "rehearsal-seller",
+    "sellerKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA+SG7IyWIKUUUHxAhNSamdSGhGsZCjSzxpEB0rv/Ft00=\n-----END PUBLIC KEY-----\n",
+    "quote": {
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "recipient": "rehearsal-seller",
+      "expiresAt": 1791269330309,
+      "resource": "https://dialogue-fancy-rich-assistance.trycloudflare.com/paid/report?orderId=d9866f64-5353-4bfa-afd2-4c298d48e607"
+    },
+    "quoteHash": "7de293d45bf43e45f8e75fc8e9ae493e8e67ed9030fd54eafd0950a57c18bf33",
+    "report": {
+      "inputHash": "c60b59a4fc01d65964322661b4975d31cdf86f57b008d2220b955e20bca1d875",
+      "solanaWallet": "Vote111111111111111111111111111111111111111",
+      "cardanoWallet": "addr1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "facts": [
+        {
+          "network": "solana:mainnet",
+          "wallet": "Vote111111111111111111111111111111111111111",
+          "tx": "7853d14cf72b4b2d790c8cd9e89eeff7015053fdaada9d9190b2066034a65197",
+          "slot": "380000000",
+          "fee": "5000",
+          "confirmed": true
+        },
+        {
+          "network": "solana:mainnet",
+          "wallet": "Vote111111111111111111111111111111111111111",
+          "tx": "2c32d8214278a9a2268b38c80032e4c29d902cb95d64c6064de8638010facb4b",
+          "slot": "380000001",
+          "fee": "5000",
+          "confirmed": true
+        },
+        {
+          "network": "solana:mainnet",
+          "wallet": "Vote111111111111111111111111111111111111111",
+          "tx": "1ac4af6936e4459406fe5300307dcca0ca1c0bf2cd8b360f43e332a7902b5383",
+          "slot": "380000002",
+          "fee": "5000",
+          "confirmed": true
+        },
+        {
+          "network": "cardano:mainnet",
+          "wallet": "addr1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "tx": "2dd56d2553b753174e91a30e225202405ff4003e12fc84988a4d06fc33900f2e",
+          "slot": "380020000",
+          "fee": "171000",
+          "confirmed": true
+        },
+        {
+          "network": "cardano:mainnet",
+          "wallet": "addr1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "tx": "4f672f5b900cdafc157c02b73aaa5492c928d5e328f398902315396d932b9221",
+          "slot": "380020001",
+          "fee": "171000",
+          "confirmed": true
+        },
+        {
+          "network": "cardano:mainnet",
+          "wallet": "addr1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "tx": "1042661f4ff23abc92b1505f7b2422adbfad05dae8d11114a25de88fa82258f0",
+          "slot": "380020002",
+          "fee": "171000",
+          "confirmed": true
+        }
+      ]
+    },
+    "payment": {
+      "tx": "4fcd093e0708233c6dbbf4a0fffc8de77af3bcdd781e328d6fbdd80e9f3ee6db",
+      "recipient": "rehearsal-seller",
+      "amount": "2000000",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "fee": "171000",
+      "confirmed": true
+    },
+    "receipt": {
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "quoteHash": "7de293d45bf43e45f8e75fc8e9ae493e8e67ed9030fd54eafd0950a57c18bf33",
+      "paymentHash": "4fcd093e0708233c6dbbf4a0fffc8de77af3bcdd781e328d6fbdd80e9f3ee6db",
+      "recipient": "rehearsal-seller",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "resultHash": "14979a217e8f66ff20cf3609e44918f2749a9b1e1598ad58c836a3964757f534",
+      "signature": "93lwr26eE44aeVAwJi4ogLKNYipybuRG46RSBuDK/0fIOA8quWHQmOlH7aIwpW8ByCBKXZC6suJB9tzKhj5lAA=="
+    },
+    "verification": {
+      "accepted": true,
+      "reason": "ALL_CHECKS_PASSED",
+      "checks": [
+        {
+          "name": "Escrow deadline",
+          "passed": true,
+          "detail": "Order must be unexpired"
+        },
+        {
+          "name": "Reserved quote",
+          "passed": true,
+          "detail": "Immutable quote matches its reservation"
+        },
+        {
+          "name": "Input binding",
+          "passed": true,
+          "detail": "Report answers the funded task"
+        },
+        {
+          "name": "Seller signature",
+          "passed": true,
+          "detail": "Ed25519 signature by the registered seller"
+        },
+        {
+          "name": "Receipt binding",
+          "passed": true,
+          "detail": "Order, quote, seller, asset and network agree"
+        },
+        {
+          "name": "Payment confirmation",
+          "passed": true,
+          "detail": "Observed preprod transaction is confirmed"
+        },
+        {
+          "name": "Payment value",
+          "passed": true,
+          "detail": "Correct recipient and quote, within fee reserve"
+        },
+        {
+          "name": "Result integrity",
+          "passed": true,
+          "detail": "Canonical facts match signed SHA-256 digest"
+        },
+        {
+          "name": "Source provenance",
+          "passed": true,
+          "detail": "All cited facts and latest-five completeness independently re-fetched"
+        }
+      ],
+      "mode": "rehearsal",
+      "resultHash": "14979a217e8f66ff20cf3609e44918f2749a9b1e1598ad58c836a3964757f534",
+      "timestamp": 1791268433153
+    }
+  },
+  "events": [
+    {
+      "sequence": 35,
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "timestamp": 1791268430310,
+      "step": "created",
+      "detail": "Immutable task terms created.",
+      "link": null
+    },
+    {
+      "sequence": 36,
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "timestamp": 1791268430316,
+      "step": "funded",
+      "detail": "Rehearsal escrow funded. No assets moved.",
+      "link": null
+    },
+    {
+      "sequence": 37,
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "timestamp": 1791268430539,
+      "step": "reserved",
+      "detail": "Seller and 2 tADA quote reserved within the spending ceiling.",
+      "link": null
+    },
+    {
+      "sequence": 38,
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "timestamp": 1791268431192,
+      "step": "purchasing",
+      "detail": "Rehearsal: simulating HTTP 402 and test payment. No transaction is sent.",
+      "link": null
+    },
+    {
+      "sequence": 39,
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "timestamp": 1791268431848,
+      "step": "paid",
+      "detail": "Rehearsal payment recorded with a real local seller signature.",
+      "link": null
+    },
+    {
+      "sequence": 40,
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "timestamp": 1791268432501,
+      "step": "verifying",
+      "detail": "Rehearsal verifier checks quote, signed receipt and sample facts.",
+      "link": null
+    },
+    {
+      "sequence": 41,
+      "orderId": "d9866f64-5353-4bfa-afd2-4c298d48e607",
+      "timestamp": 1791268433157,
+      "step": "settled",
+      "detail": "Rehearsal complete. The simulated task reward is released.",
+      "link": null
+    }
+  ],
+  "creTranscript": null,
+  "disclosure": "Sample transactions, no sponsor execution, no chain settlement."
+}

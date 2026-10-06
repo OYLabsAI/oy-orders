@@ -1,0 +1,9 @@
+[package]
+name = "orca-orders"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+[lib]
+crate-type = ["cdylib", "lib"]
+[dependencies]
+solana-program = "1.18.26"

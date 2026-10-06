@@ -1,0 +1,11 @@
+{
+  "orderId": "REPLACE_WITH_LIVE_ORDER_UUID",
+  "apiUrl": "http://localhost:8787",
+  "solanaRpc": "https://api.devnet.solana.com",
+  "programId": "REPLACE_WITH_DEPLOYED_PROGRAM",
+  "sellerKey": "REPLACE_WITH_SELLER_SPKI_PUBLIC_KEY_PEM",
+  "worker": "REPLACE_WITH_WORKER_PUBLIC_KEY",
+  "authority": "REPLACE_WITH_AUTHORITY_PUBLIC_KEY",
+  "blockfrostKey": "INJECT_IN_PRIVATE_LOCAL_CONFIG",
+  "nownodesKey": "INJECT_IN_PRIVATE_LOCAL_CONFIG"
+}

@@ -1,0 +1,38 @@
+$ tsx --test packages/core/test/*.test.ts apps/api/test/*.test.ts programs/orca-orders/program.test.ts workflows/verify-order/verifier.test.mjs
+✔ full rehearsal settles with signed receipt and all checks (8.014625ms)
+✔ tampering retains reward and expiry allows refund (8.989125ms)
+✔ jobs are unique and claimed once; restart recovers a claimed job (0.194167ms)
+✔ payment claim rejects cross-order reuse and permits same-order recovery (0.239958ms)
+✔ restart after receipt does not purchase again (7.6985ms)
+✔ canonical digest is stable across object key insertion order (0.796209ms)
+✔ valid signed receipt and independently fetched facts pass (1.785ms)
+✔ rejects forged seller signature (0.439084ms)
+✔ rejects modified result (0.298708ms)
+✔ rejects wrong payment recipient (0.247125ms)
+✔ rejects wrong payment network (0.228833ms)
+✔ rejects unconfirmed payment (0.350167ms)
+✔ rejects underpayment (0.298416ms)
+✔ rejects excess network fee (0.304542ms)
+✔ rejects expired order (0.40475ms)
+✔ rejects receipt from another order (0.327667ms)
+✔ rejects changed input wallet (0.350833ms)
+✔ rejects changed reserved quote (0.566292ms)
+✔ missing or duplicate source facts reject (0.3135ms)
+✔ signer rejects quote over ceiling, wrong supplier, asset, network and expiry before payment (0.5495ms)
+✔ settlement and refund are terminal and mutually exclusive (0.164209ms)
+✔ compiled escrow funds, reserves and pays the fixed worker exactly once (44.479292ms)
+✔ compiled escrow rejects wrong authority, recipient, unreserved quote and early refund (14.707625ms)
+✔ compiled quote guard rejects excess budget, wrong signer, seller, input and replay (12.717542ms)
+✔ compiled expired escrow refunds buyer once and prevents subsequent settlement (13.282042ms)
+✔ compiled program rejects reinitialization and a counterfeit order address (7.245333ms)
+✔ CRE verifier derives the same order PDA as Solana and checks every remote source (38.846458ms)
+✔ CRE verifier rejects counterfeit escrow ownership or reservation (2.104875ms)
+✔ CRE verifier rejects changed report, seller key and payment recipient (5.658875ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 809.028375

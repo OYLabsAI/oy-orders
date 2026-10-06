@@ -1,0 +1,8 @@
+.git
+.local
+.env*
+node_modules
+site
+output
+docs/evidence/screens
+docs/evidence/*.json
