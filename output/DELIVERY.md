@@ -23,7 +23,7 @@ MP4 on Drive: https://drive.google.com/file/d/1In8yVW1ptihBtmVZSYE6-H3VmyhKWnhJ/
 
 Source ZIP on Drive: https://drive.google.com/file/d/1BIkiN84NPLSlaqLNLoyEMu5OcInpoTnG/view
 
-Native file MIME types and sizes are verified. Drive files remain owner-only. Source repository publishing and browser-based sharing are blocked by the locked Mac; no authenticated GitHub write access is configured locally.
+Native file MIME types and sizes are verified. Drive files remain owner-only. Repository publication and judge sharing remain pending. Native browser access is available again as of the latest audit; no authenticated GitHub write credentials are configured locally.
 
 Site audience is preserved under [Sites hosting](</Users/oylabs/.codex/plugins/cache/openai-curated-remote/sites/0.1.75/skills/sites-hosting/SKILL.md>): “Preserve the current audience unless the user requests a change.” Judge access therefore remains a gate.
 

@@ -33,4 +33,4 @@ Solana ELF: 93,728 bytes, SHA-256 `5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1a
 
 The latest-five fact check can reject a busy address if new transactions arrive between purchase and verification. Demo addresses are quieter public addresses. Cardano supplier payments remain final; expiry returns only the Solana reward.
 
-The third and fourth orders completed without operator recovery. Final native-browser publishing/sharing work is blocked while the Mac is locked.
+The third and fourth orders completed without operator recovery. Native browser access is available again at the latest audit. Repository publication and judge sharing remain pending; no authenticated GitHub write credentials are configured locally.
