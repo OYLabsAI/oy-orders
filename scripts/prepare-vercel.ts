@@ -161,7 +161,7 @@ if (!appOnly)
 <main style="max-width:960px;margin:40px auto;padding:24px"><a href="/">← Open OY Orders</a>
 <p class="eyebrow" style="margin-top:32px">OY ORDERS · TOKEN2049 ORIGINS</p><h1>Your shopping agent.<br>Your budget.</h1>
 <p>Give the agent a coffee-pass mission. A tight budget stops the purchase. With enough budget it catches a fake price, refuses the wrong item and an expensive deal, and buys the valid matching pass. The catalog is an OY-operated test. This voucher cannot buy real coffee or entry.</p>
-<video controls preload="metadata" playsinline style="width:100%;border-radius:16px;margin:24px 0" poster="/downloads/OY-Orders-agent-mission.png" src="/downloads/OY-Orders-demo.mp4"></video>
+<video controls preload="metadata" playsinline style="width:100%;aspect-ratio:16/9;object-fit:contain;background:#F4F6EC;border-radius:16px;margin:24px 0" poster="/downloads/OY-Orders-agent-mission.png" src="/downloads/OY-Orders-demo.mp4"></video>
 <p>The 85-second edited tour uses authentic app captures with synthetic narration. It explains the actual shopping purchase and separate signed-lie and paid-refund evidence. It does not present the whole purchase as a continuous recording.</p>
 <p><a href="/api/orders/e63c7700-2bc4-4fe6-adca-a3074149120c/evidence">Inspect the actual shopping execution and eleven passed CRE checks</a></p>
 <p><a href="/downloads/OY-Orders-pitch.pptx" download>Download pitch with embedded video (.pptx)</a></p>
