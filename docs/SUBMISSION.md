@@ -32,7 +32,7 @@ The public retail prototype is functional. Eight genuine paid testnet orders are
 - Drive PPTX: updated six-slide editable deck with its MP4 embedded on slide 3. Published rules list `.ppt` or Keynote; PPTX acceptance remains unconfirmed.
 - Drive PPT: updated visual backup only. Legacy conversion drops the movie, so it does not satisfy the embedded-demo stage requirement.
 
-Draft fields saved and verified on 7 October: main live URL (1/3); Solana live URL (1/3); NOWNodes live URL and architecture (2/4); CRE live URL and successful official simulation evidence (2/4); Cardano live URL and problem/tools/deployment write-up (2/5 before adding the updated video). GitHub and stage-deck fields are intentionally blank until their actual requirements are met. Draft completion does not mean final submission.
+Draft fields saved and verified on 7 October: main live URL (1/3); Solana live URL (1/3); NOWNodes live URL and architecture (2/4); CRE live URL and successful official simulation evidence (2/4); Cardano live URL, 87-second hosted video and problem/tools/deployment write-up (3/5). GitHub and stage-deck fields are intentionally blank until their actual requirements are met. Draft completion does not mean final submission.
 
 ## Track-specific write-up
 
@@ -59,7 +59,7 @@ The MP4 is an **edited authentic-screen tour with synthetic narration**. It incl
 
 ## Remaining gates and fastest human help
 
-1. Complete the local GitHub CLI device approval. The user has signed into `nknwn-eth`; its public `oy-orders` repository is created, and audited source/history are ready to push.
+1. Complete the local GitHub CLI device approval to push the audited source/history. The requested organization transfer was attempted, but GitHub could not find `oylabs`; its exact public URL is 404 and `nknwn-eth` has no organization memberships. The repository remains at `nknwn-eth/oy-orders`. Supply the exact organization URL and sign in with permission to create repositories there.
 2. Ask the on-site organizer to repair all four partner RSVP/check-in records. Main shows 2/2; every partner shows attendance confirmed but RSVP closed and unchecked (1/2). The UI offers no self-service repair.
 3. Click Continue in Keynote personally if you accept its Software License Agreement. Then convert and verify the embedded movie in native Keynote, or obtain explicit organizer acceptance of the existing PPTX. Do not submit the movie-free legacy PPT as compliant.
 4. Read-only link access is now verified for the updated Drive PPTX, MP4 and source ZIP. The final native Keynote deck will need the same judge access. Public Vercel downloads do not replace the required Drive stage-deck link.

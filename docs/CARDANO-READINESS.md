@@ -18,4 +18,4 @@ The agent now buys a supplier-signed digital pass, bound to the funded task inpu
 
 The implementation uses TypeScript, Lucid Evolution and Cardano Foundation's x402 SDK 2.26, with actual NOWNodes Blockfrost-compatible preprod payment observation. Vercel hosts the UI and API proxy; a persistent cloud service runs the worker, SQLite and verifier. Customer wallet authorization, independent merchants and durable queues are the next production steps.
 
-The Cardano draft has its live URL and problem/tools/deployment write-up saved. Its updated video is 87.28 seconds and will use the public hosted MP4 link. Required GitHub and compliant Drive stage-deck fields remain blank until the actual gates are cleared. The track dashboard's RSVP is closed and unchecked, with attendance confirmed (1/2 check-ins).
+The Cardano draft has its live URL, problem/tools/deployment write-up and public 87.28-second hosted MP4 link saved and verified (3/5 required fields). Required GitHub and compliant Drive stage-deck fields remain blank until the actual gates are cleared. The track dashboard's RSVP is closed and unchecked, with attendance confirmed (1/2 check-ins).

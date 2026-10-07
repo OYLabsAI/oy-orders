@@ -46,7 +46,7 @@ Full Cardano hashes and preprod explorer links are in each evidence file.
 
 ## Submission gates
 
-GitHub publication requires an authenticated account or owner-completed signup. A ZIP does not replace the required repository. Verify final Drive judge access, the confirmed partner check-in 1/2 discrepancy, and acceptance/native playback of PPTX with its embedded movie. Legacy PPT loses the recording. No hackathon submission has been made.
+The public GitHub repository is created under `nknwn-eth`, but source publication awaits CLI authorization. The requested transfer to `oylabs` was rejected with "Cannot find new owner 'oylabs'"; no transfer occurred. A ZIP does not replace the required repository. Drive PPTX, MP4 and ZIP judge access is verified. Resolve the partner check-in 1/2 discrepancy and acceptance/native playback of PPTX with its embedded movie. Legacy PPT loses the recording. Cardano's live URL, write-up and video are saved (3/5 fields). No final hackathon submission has been made.
 
 ## Retail pass, 7 October
 
