@@ -98,7 +98,7 @@ function tab(name: string) {
       shop: "OY Shop",
       evidence: "See the demo",
       "live-challenge": "Try a fake answer",
-      orders: "New task",
+      orders: "Wallet report",
       integrations: "How it works",
     } as Record<string, string>
   )[name];

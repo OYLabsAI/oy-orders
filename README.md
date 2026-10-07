@@ -43,7 +43,7 @@ pnpm build
 pnpm start
 ```
 
-Open `http://localhost:8787`. The shop requires the live funded setup. For the default **rehearsal**, choose **New task**: use sample wallets and run the simulated success, rejection and expiry scenarios. `pnpm demo` exports those explicitly labeled fixtures. Live payments require funded test wallets and sponsor configuration from [LIVE_SETUP.md](docs/LIVE_SETUP.md). The live challenge requires the recorded reference order to be present in the live database.
+Open `http://localhost:8787`. The shop requires the live funded setup. For the default **rehearsal**, choose **Wallet report**: use sample wallets and run the simulated success, rejection and expiry scenarios. `pnpm demo` exports those explicitly labeled fixtures. Live payments require funded test wallets and sponsor configuration from [LIVE_SETUP.md](docs/LIVE_SETUP.md). The live challenge requires the recorded reference order to be present in the live database.
 
 ```sh
 pnpm typecheck

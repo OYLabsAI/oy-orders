@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f7f9fc" />
     <meta
       name="description"
-      content="Buy a digital coffee-style demo pass with crypto. Check the payment, accept one scan, and refuse reuse. Test coins only."
+      content="Give a shopping agent a coffee-pass mission and a budget. Watch it refuse bad deals and deliver a verified digital demo pass. Free demo with test coins; no wallet needed."
     />
     <title>OY Orders · Your shopping agent</title>
     <link
@@ -31,7 +31,8 @@
             Try a fake answer
           </button>
           <button class="nav" data-tab="orders">
-            New task <span class="nav-count" id="order-count" hidden>0</span>
+            Wallet report
+            <span class="nav-count" id="order-count" hidden>0</span>
           </button>
           <button class="nav" data-tab="integrations">How it works</button>
         </nav>
@@ -56,13 +57,57 @@
       <main id="main">
         <section id="shop-view" aria-label="OY Shop digital pass">
           <div class="shop-heading">
-            <span class="eyebrow">OY ORDERS · YOUR SHOPPING AGENT</span>
-            <h1>Give it a goal.<br /><span>Let it handle checkout.</span></h1>
+            <span class="eyebrow">OY ORDERS · TRY A SHOPPING AGENT</span>
+            <h1>An agent shops.<br /><span>You stay in control.</span></h1>
             <p>
-              Set a budget. Your agent refuses bad deals and buys the matching
-              pass. You get it after delivery is independently checked.
+              Try buying a digital coffee pass. Set a budget, watch the agent
+              refuse bad deals, and get your pass after the purchase is checked.
             </p>
-            <span class="shop-demo-label">TEST COINS · DEMO VOUCHER</span>
+            <div class="shop-start-actions">
+              <a class="shop-primary" href="#shop-mission"
+                >Try the shopping demo <span aria-hidden="true">→</span></a
+              >
+              <a
+                class="shop-watch"
+                href="/downloads/OY-Orders-demo.mp4"
+                target="_blank"
+                rel="noopener"
+                >Watch the 85-second demo ↗</a
+              >
+            </div>
+            <span class="shop-demo-label"
+              >FREE DEMO · NO WALLET NEEDED · TEST COINS ONLY</span
+            >
+            <ol
+              class="shop-at-a-glance"
+              aria-label="How the shopping demo works"
+            >
+              <li>
+                <b>1</b
+                ><span
+                  ><strong>Set your budget</strong
+                  ><small>The demo mission is a coffee pass.</small></span
+                >
+              </li>
+              <li>
+                <b>2</b
+                ><span
+                  ><strong>Watch it choose</strong
+                  ><small
+                    >Fake price, wrong item, too expensive? Refused.</small
+                  ></span
+                >
+              </li>
+              <li>
+                <b>3</b
+                ><span
+                  ><strong>Get a checked pass</strong
+                  ><small
+                    >The purchase is verified before the QR appears.</small
+                  ></span
+                >
+              </li>
+            </ol>
           </div>
           <section
             id="shop-mission"
@@ -71,12 +116,12 @@
           >
             <div class="mission-controls">
               <div>
-                <span class="eyebrow">YOUR MISSION</span>
+                <span class="eyebrow">START HERE · YOUR DEMO MISSION</span>
                 <h2>“Buy me a coffee pass.”</h2>
-                <p>Four test offers. Let the agent find the valid deal.</p>
+                <p>It compares four demo offers to find the right pass.</p>
               </div>
               <div class="mission-budget">
-                <label for="shop-budget">Supplier budget</label
+                <label for="shop-budget">Your demo budget</label
                 ><select id="shop-budget">
                   <option value="1000000">
                     1 test ADA · try a tight budget
@@ -96,8 +141,8 @@
               role="status"
               aria-live="polite"
             >
-              Try 1 test ADA: the agent must stop without buying. Try 2: it can
-              find the matching pass.
+              Start with 2 test ADA to find a matching pass. Then try 1: the
+              agent must stop without buying. Comparing spends no coins.
             </div>
             <div id="shop-plan-progress" hidden></div>
             <a
