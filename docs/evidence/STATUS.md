@@ -46,7 +46,7 @@ Full Cardano hashes and preprod explorer links are in each evidence file.
 
 ## Submission gates
 
-The public GitHub repository is created under `nknwn-eth`, but source publication awaits CLI authorization. GitHub found the corrected organization OYLabsAI but rejected transfer because `nknwn-eth` lacks permission to create public repositories there; no transfer occurred. A ZIP does not replace the required repository. Drive PPTX, MP4 and ZIP judge access is verified. Resolve the partner check-in 1/2 discrepancy and acceptance/native playback of PPTX with its embedded movie. Legacy PPT loses the recording. Cardano's live URL, write-up and video are saved (3/5 fields). No final hackathon submission has been made.
+The public source and hackathon build history are published at https://github.com/OYLabsAI/oy-orders . The requested organization transfer is verified. A ZIP does not replace the required repository. Drive native Keynote, PPTX, MP4 and ZIP judge access is verified. Native Keynote playback of the byte-identical embedded movie is verified, and all six slides were visually checked. The movie is an edited authentic capture tour, not continuous purchase footage. Legacy PPT loses the recording. Partner check-in 1/2 is an unconfirmed portal discrepancy, not a published second-check-in requirement; the official main page permits relevant partner submissions after applications close. Cardano's live URL, write-up and video are saved (3/5 fields). Final source and stage links still need to be entered. No final hackathon submission has been made.
 
 ## Retail pass, 7 October
 

@@ -10,7 +10,9 @@ The wallet-report journey and signed-false-answer challenge remain available: a 
 
 Built during TOKEN2049 Origins 2026. Main dashboard team: OY Labs. Partner dashboard team: Orca Labs, with the same four members.
 
-[Open the public app](https://oy-orders.vercel.app/) · [Video, pitch and source downloads](https://oy-orders.vercel.app/deliverables/) · [Executed evidence](docs/evidence/STATUS.md)
+[Open the public app](https://oy-orders.vercel.app/) · [Video and downloads](https://oy-orders.vercel.app/deliverables/) · [Native Keynote stage deck](https://drive.google.com/file/d/1yzOd78x3KbnoYOTdTQhAAqMHnr5ersdP/view) · [Executed evidence](docs/evidence/STATUS.md)
+
+Public source: [OYLabsAI/oy-orders](https://github.com/OYLabsAI/oy-orders). Solana program: `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj` on **Devnet**. [Actual shopping settlement](https://explorer.solana.com/tx/4mDHtiBzCamgQGPjRav81AKRk6fUwEdAw6PUoLo94WeUZc9nEnB8jk2hpgRLzEiBGKxwY4a32WUSHgBYJFbbsyNz?cluster=devnet).
 
 ## Try the retail pass
 

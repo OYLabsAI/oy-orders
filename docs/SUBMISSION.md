@@ -28,11 +28,12 @@ The public shopping mission is functional. Nine genuine paid testnet orders are 
 - Demo and downloads: https://oy-orders.vercel.app/deliverables/
 - Cardano demo video: https://oy-orders.vercel.app/downloads/OY-Orders-demo.mp4 — **85.32 seconds**, 1080p H.264/AAC.
 - Actual shopping execution: https://oy-orders.vercel.app/api/orders/e63c7700-2bc4-4fe6-adca-a3074149120c/evidence
-- GitHub: https://github.com/nknwn-eth/oy-orders — public repository created; source upload awaits local CLI authorization. The public MIT source ZIP is a fallback, not a substitute for the required GitHub repository.
-- Drive PPTX: updated six-slide editable deck with its MP4 embedded on slide 3. Published rules list `.ppt` or Keynote; PPTX acceptance remains unconfirmed.
+- GitHub: https://github.com/OYLabsAI/oy-orders — public MIT source repository under the requested organization, with the complete build history. The source ZIP is an additional download.
+- Drive native Keynote stage deck: https://drive.google.com/file/d/1yzOd78x3KbnoYOTdTQhAAqMHnr5ersdP/view — six slides with the exact MP4 embedded, full-slide native playback verified, and anyone-with-link read-only access verified. Use this URL in all five presentation fields.
+- Drive PPTX: updated six-slide editable backup with its MP4 embedded on slide 3. Native Keynote is the stage file.
 - Drive PPT: updated visual backup only. Legacy conversion drops the movie, so it does not satisfy the embedded-demo stage requirement.
 
-Draft fields saved and verified on 7 October: main live URL (1/3); Solana live URL (1/3); NOWNodes live URL and architecture (2/4); CRE live URL and successful official simulation evidence (2/4); Cardano live URL, 85-second hosted video and problem/tools/deployment write-up (3/5). GitHub and stage-deck fields are intentionally blank until their actual requirements are met. Draft completion does not mean final submission.
+Draft fields saved and verified on 7 October: main live URL (1/3); Solana live URL (1/3); NOWNodes live URL and architecture (2/4); CRE live URL and successful official simulation evidence (2/4); Cardano live URL, 85-second hosted video and problem/tools/deployment write-up (3/5). The final GitHub and native Keynote URLs are ready; those draft fields still need to be saved. Draft completion does not mean final submission.
 
 ## Track-specific write-up
 
@@ -55,14 +56,14 @@ Draft fields saved and verified on 7 October: main live URL (1/3); Solana live U
 | 2:22–2:40 | Evidence | “65 tests. 11/11 shopping checks. Nine genuine paid testnet orders. Official simulation and a trusted relayer.” |
 | 2:40–3:00 | First market and URL | “Next: one merchant pilot for digital benefits and customer wallet authorization.” |
 
-The MP4 is an **edited tour of authentic app captures with synthetic narration**. The new purchase and the separately labeled signed-lie and paid-refund evidence are genuine. It does not claim a continuous recording of the entire purchase. Stage rules prohibit live demos and external video links: play the embedded recording. Native Keynote/PowerPoint playback remains unverified.
+The MP4 is an **edited tour of authentic app captures with synthetic narration**. The new purchase and the separately labeled signed-lie and paid-refund evidence are genuine. It does not claim a continuous recording of the entire purchase. Stage rules require embedded screen recording and prohibit live demos and external video links. Native Keynote playback is verified; organizer acceptance of the edited capture-tour footage is not claimed.
 
 ## Remaining gates and fastest human help
 
-1. Complete the local GitHub CLI device approval to push the audited source/history. GitHub found the corrected organization **OYLabsAI**, but rejected the transfer because `nknwn-eth` lacks permission to create public repositories there. The repository remains at `nknwn-eth/oy-orders`. An organization owner must add that account with permission or perform the transfer.
-2. Ask the on-site organizer to repair all four partner RSVP/check-in records. Main shows 2/2; every partner shows attendance confirmed but RSVP closed and unchecked (1/2). The UI offers no self-service repair.
-3. Click Continue in Keynote personally if you accept its Software License Agreement. Then convert and verify the embedded movie in native Keynote, or obtain explicit organizer acceptance of the existing PPTX. Do not submit the movie-free legacy PPT as compliant.
-4. Read-only link access is now verified for the updated Drive PPTX, MP4 and source ZIP. The final native Keynote deck will need the same judge access. Public Vercel downloads do not replace the required Drive stage-deck link.
+1. GitHub publication and the requested organization transfer are complete: https://github.com/OYLabsAI/oy-orders . Use this canonical URL in all entries.
+2. Fill the final GitHub source URL and native Keynote Drive URL into the main entry and all four partner entries. The native deck and its public read-only access are ready.
+3. Rehearse the three-minute pitch using the downloaded Keynote deck and its embedded movie. Do not use the movie-free legacy PPT for the stage.
+4. The partner dashboard's attendance-confirmed/RSVP-closed 1/2 display is an unconfirmed discrepancy, not a published second-check-in requirement. The main event page explicitly permits relevant partner submissions after applications close. Continue submission; request support only if the actual submission action produces a registration error.
 5. Review and submit the main entry and all four partner entries with the user before the deadline. Slides lock at submission. Save each confirmation.
 
 Published technical requirements are covered with testnet funds. Extra mainnet funds, Masumi/Sokosumi registration, NFTs and production CRE are not mandatory for this selected implementation. Deeper Cardano-specific capabilities and genuine merchant validation remain competitive weaknesses. Ask a real merchant one concrete question about vouchers or duplicate redemption if time permits, and record only their actual response.

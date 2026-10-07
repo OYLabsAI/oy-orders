@@ -25,6 +25,6 @@ Official faucet: https://docs.cardano.org/cardano-testnets/tools/faucet
 ## Other useful booth actions
 
 - NOWNodes is activated for Solana and Cardano, and its existing API key is stored in private `.env`. The earlier activation screen advertised a switch to €20/month after the free month; the user completed activation.
-- Organizers: resolve the dashboard's partner check-in 1/2 discrepancy, and verify acceptance/player support for a PPTX with an embedded MP4. Our legacy PPT export loses the recording; native Keynote and PowerPoint are not installed on this machine.
+- Native Keynote is installed and the final stage deck's embedded movie playback and public read-only Drive access are verified. The partner dashboard's 1/2 RSVP display is an unconfirmed discrepancy, not a published eligibility requirement; see `TRACK-READINESS.md`. No additional booth visit is needed unless final submission returns an actual registration error.
 
 Funding was sufficient for seven recorded 2 tADA purchases, official CRE simulations, six settlements and a paid rejection with confirmed reward refund. No further mainnet funds are needed. Re-run the private doctor for current balances before more paid tests.
