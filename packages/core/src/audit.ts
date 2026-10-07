@@ -23,6 +23,41 @@ export type AuditResult = {
     field: string;
   }[];
 };
+// Copying a wallet string into a claim does not establish provenance. The
+// independently read transaction must actually contain the anchored address.
+export function solanaTransactionFact(
+  wallet: string,
+  signature: string,
+  tx: any,
+): SourceFact | undefined {
+  if (
+    !tx?.meta ||
+    tx.meta.err ||
+    !Number.isSafeInteger(tx.slot) ||
+    !Number.isSafeInteger(tx.meta.fee) ||
+    tx.meta.fee < 0
+  )
+    return;
+  const keys = [
+    ...(tx.transaction?.message?.accountKeys ?? []),
+    ...(tx.meta.loadedAddresses?.writable ?? []),
+    ...(tx.meta.loadedAddresses?.readonly ?? []),
+  ];
+  if (
+    !keys.some(
+      (key) => (typeof key === "string" ? key : key?.pubkey) === wallet,
+    )
+  )
+    return;
+  return {
+    network: "solana:mainnet",
+    wallet,
+    tx: signature,
+    slot: String(tx.slot),
+    fee: String(tx.meta.fee),
+    confirmed: true,
+  };
+}
 export function compareAuditFacts(claim: AuditClaim, actual: SourceFact[]) {
   return claim.facts.flatMap((fact) => {
     const source = actual.find(

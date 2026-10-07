@@ -1,0 +1,70 @@
+{
+  "recordedAt": "2026-10-07T08:42:35Z",
+  "failedChallengeId": "e5735eb1-9872-4bed-b8dc-e9470392d1cb",
+  "observedCause": "NOWNodes getTransaction returned null for the older fixed Solana source transaction; CRE rejected missing evidence.",
+  "repair": "Select a currently readable finalized Solana transaction for the anchored wallet before signing. CRE re-fetches the exact pinned signature and checks the transaction contains the wallet. Original Cardano reference and escrow/payment checks remain required.",
+  "checks": [
+    {
+      "preset": "solana",
+      "id": "c7f17884-b2d4-4051-b4b2-feafe9b11f35",
+      "status": "complete",
+      "accepted": false,
+      "signatureValid": true,
+      "differences": [
+        {
+          "network": "solana:mainnet",
+          "tx": "XAyJ5KDR8KhhYEw3W4aLGgR4cUyeMb4CSfvV6XUNx72i1oYwaen7JgWGLcYRrV6io5zM4bTcJWuYFU3CTKXy6R5",
+          "claimed": "6000001",
+          "actual": "6000",
+          "field": "fee"
+        }
+      ]
+    },
+    {
+      "preset": "cardano",
+      "id": "86e35545-d3b9-4c23-90f3-18a592ec8816",
+      "status": "complete",
+      "accepted": false,
+      "signatureValid": true,
+      "differences": [
+        {
+          "network": "cardano:mainnet",
+          "tx": "13d71703a8f8bc1f0f6ac8fed2e6678ba8ec994020bc050ee57aa20a96e92dfa",
+          "claimed": "248762",
+          "actual": "248761",
+          "field": "fee"
+        }
+      ]
+    },
+    {
+      "preset": "honest",
+      "id": "1eb465d3-84a2-4b89-bfb3-a6677690219a",
+      "status": "complete",
+      "accepted": true,
+      "signatureValid": true,
+      "differences": []
+    }
+  ],
+  "cloudResume": {
+    "recordedAt": "2026-10-07T08:42:02.984Z",
+    "test": "Repaired live-audit backend persists through controlled idle stop and public-request resume",
+    "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+    "orderUnchanged": true,
+    "resumeMs": 6879
+  },
+  "ui": {
+    "solana": "Selected logo has audit-spin animation and changing computed transform",
+    "cardano": "Selected logo has audit-spin animation and changing computed transform",
+    "states": [
+      "ready",
+      "checking"
+    ],
+    "reducedMotion": "No rotation when prefers-reduced-motion is reduce"
+  },
+  "tests": {
+    "typecheck": "passed",
+    "passed": 49,
+    "failed": 0
+  },
+  "limits": "Official CRE simulation; no new payment and no production availability guarantee."
+}

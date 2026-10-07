@@ -34,3 +34,5 @@ Local deployment tooling may load short-lived credentials from mode-0600 `.local
 Paths: `/` app; `/deliverables/` downloads; `/downloads/manifest.json` sizes/SHA-256; `/hosting.json` backend mode; `/health` readiness. Build success alone is not end-to-end verification.
 
 Official references checked during implementation: [Function duration](https://vercel.com/docs/functions/configuring-functions/duration), [Sandbox persistence](https://vercel.com/kb/guide/vercel-sandbox-duration-and-persistence), [Sandbox concepts](https://vercel.com/docs/sandbox/concepts), [SDK](https://vercel.com/docs/sandbox/sdk-reference).
+
+The 7 October live-audit recurrence was caused by an older Solana source transaction returning null from NOWNodes. The repaired challenge chooses a recent readable finalized transaction for the anchored wallet before signing, then CRE independently re-fetches that exact signature. A big Solana lie, a one-unit Cardano lie and an honest claim all completed after deployment. An idle stop/public-request resume preserved the settled order, and a new honest check passed after resume. See `live-audit-repair.json` and the repaired challenge transcripts.

@@ -18,10 +18,12 @@ export async function fetchJson(
     try {
       response = await fetch(url, {
         ...init,
-        signal: AbortSignal.timeout(20000),
+        signal: init.signal
+          ? AbortSignal.any([init.signal, AbortSignal.timeout(20000)])
+          : AbortSignal.timeout(20000),
       });
     } catch (error) {
-      if (n >= 2) throw error;
+      if (n >= 2 || init.signal?.aborted) throw error;
       await new Promise((r) => setTimeout(r, 500 * 2 ** n));
       continue;
     }
@@ -39,6 +41,7 @@ export async function solanaRpc(
   method: string,
   params: unknown[],
   mainnet = false,
+  signal?: AbortSignal,
 ) {
   const body = await fetchJson(
     mainnet ? "https://sol.nownodes.io" : config.solanaRpc,
@@ -49,6 +52,7 @@ export async function solanaRpc(
         ...(mainnet ? { "api-key": config.nownodesKey } : {}),
       },
       body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
+      signal,
     },
   );
   if (body.error) throw new Error(`SOLANA_RPC_${body.error.code}`);

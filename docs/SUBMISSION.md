@@ -18,7 +18,7 @@ GitHub authentication/publication, Drive judge access, prior partner check-in 1/
 
 **Memorable feature:** Judges can try to fool a real verifier. Choose a network and a tiny or large false fee claim. The claim receives a valid dedicated challenge signature, but fresh independent CRE reads catch the disagreement. The corrected-answer button runs a new independent check. This isolated audit needs no wallet or charge and never changes a paid order. Separate actual paid rejection/refund evidence proves money protection.
 
-**Current status:** Six paid orders settled through the custom Solana program, genuine Cardano x402, NOWNodes and official CRE simulations. One controlled supplier's signed false report failed provenance and its same-order reward was refunded. The latest success ran through Vercel without operator recovery; persistent session stop/resume preserved the completed order and audit. 47 tests pass. No production DON, TEE deployment, general truth oracle or customer traction is claimed.
+**Current status:** Six paid orders settled through the custom Solana program, genuine Cardano x402, NOWNodes and official CRE simulations. One controlled supplier's signed false report failed provenance and its same-order reward was refunded. The latest success ran through Vercel without operator recovery; persistent session stop/resume preserved the completed order and audit. 49 tests pass. No production DON, TEE deployment, general truth oracle or customer traction is claimed.
 
 **Why now:** Agents can pay for services, but operators still need spending limits and evidence that the deliverable is correct. OY Orders makes that contract concrete for one inspectable task.
 
@@ -41,7 +41,7 @@ GitHub authentication/publication, Drive judge access, prior partner check-in 1/
 | 0:00–0:20 | Cover and claim/actual slide | “A signed answer can still be wrong. Who checks it before your agent pays?” |
 | 0:20–1:53 | Embedded 93-second edited proof tour | Show the real success, fresh signed lie, corrected check, and separate paid rejection/refund. Let narration explain. |
 | 1:53–2:20 | Four sponsor roles | “Solana protects the reward. Cardano buys the report. NOWNodes supplies the facts. CRE checks them independently.” |
-| 2:20–2:40 | Evidence slide | “47 tests, real testnet payments, inspectable proof and a cloud demo. CRE is a simulation with a trusted prototype relayer.” |
+| 2:20–2:40 | Evidence slide | “49 tests, real testnet payments, inspectable proof and a cloud demo. CRE is a simulation with a trusted prototype relayer.” |
 | 2:40–3:00 | Use case and public URL | “We start with repeatable wallet reports for blockchain operations teams. Next, validate real reporting errors and recurring budgets.” |
 
 The video is an **edited authentic screenshot tour with synthetic narration**, not continuous execution footage. Live challenge clicks perform fresh reads; the recorded money-protection story shows an actual earlier payment/refund. Do not claim challenge clicks move money. Stage rules require the technical demo recording in the deck; use the recording for the stage pitch and the live challenge for judge interaction if permitted.

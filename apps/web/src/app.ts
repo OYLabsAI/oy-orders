@@ -1,4 +1,6 @@
 declare const __API_URL__: string;
+import solanaLogo from "./assets/solana.svg";
+import cardanoLogo from "./assets/cardano.svg";
 import { hash } from "../../../packages/core/src/canonical.ts";
 import { verifyWithSignature } from "../../../packages/core/src/verification.ts";
 import { verifyReceiptSignature } from "../../../packages/core/src/receipt-signature.ts";
@@ -668,16 +670,42 @@ $("audit-invite").onclick = () => tab("live-challenge");
 $("audit-refund-story").onclick = () => showSavedEvidence("refund");
 let latestAudit: any;
 let auditBusy = false;
+function checkingLogo(network: string) {
+  const orbit = text("span", "", "arena-orbit");
+  const image = document.createElement("img");
+  image.src = network === "cardano" ? cardanoLogo : solanaLogo;
+  image.alt = network === "cardano" ? "Cardano" : "Solana";
+  image.className = "network-logo";
+  orbit.append(image);
+  return orbit;
+}
+function showAuditReady() {
+  if (auditBusy) return;
+  const panel = $("audit-result");
+  panel.className = "arena-result ready";
+  panel.replaceChildren(
+    checkingLogo($<HTMLSelectElement>("audit-network").value),
+    text("h3", "Signatures prove who said it.\nWe check if it’s true."),
+    text("p", "Even a one-unit lie should be caught."),
+  );
+  $("audit-evidence").hidden = true;
+  latestAudit = undefined;
+}
+$("audit-network").onchange = showAuditReady;
+showAuditReady();
 $("audit-run").onclick = async () => {
   if (auditBusy) return;
   auditBusy = true;
   const button = $<HTMLButtonElement>("audit-run");
   button.disabled = true;
+  const network = $<HTMLSelectElement>("audit-network");
+  const selectedNetwork = network.value;
+  network.disabled = true;
   $("audit-evidence").hidden = true;
   const panel = $("audit-result");
   panel.className = "arena-result checking";
   panel.replaceChildren(
-    text("span", "↻", "arena-orbit"),
+    checkingLogo(selectedNetwork),
     text("h3", "Checking the real records…"),
     text(
       "p",
@@ -686,7 +714,7 @@ $("audit-run").onclick = async () => {
   );
   try {
     latestAudit = await request("/api/challenges", {
-      network: $<HTMLSelectElement>("audit-network").value,
+      network: selectedNetwork,
       change: document.querySelector<HTMLInputElement>(
         'input[name="audit-change"]:checked',
       )!.value,
@@ -789,6 +817,8 @@ $("audit-run").onclick = async () => {
               "Today’s demonstration limit is reached. Open the recorded proof.",
             LIVE_BACKEND_UNAVAILABLE:
               "The cloud service is waking up. Try again in a moment.",
+            LIVE_SOURCE_UNAVAILABLE:
+              "The node provider has no readable recent transaction. Try again in a moment; we never approve missing evidence.",
           } as Record<string, string>
         )[(error as Error).message] ?? (error as Error).message,
       ),
@@ -797,6 +827,7 @@ $("audit-run").onclick = async () => {
   } finally {
     auditBusy = false;
     button.disabled = false;
+    network.disabled = false;
     button.textContent = "Try another claim →";
   }
 };

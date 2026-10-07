@@ -14,4 +14,6 @@ The Cardano x402 adapter is adapted from the MIT-licensed Cardano Foundation dev
 
 Other dependencies retain their respective licenses under the package lock. The interface uses Google Fonts DM Sans and Manrope (SIL Open Font License). The orca mark is an original code-native SVG. No purchased artwork or generated stock imagery is used.
 
+The Solana and Cardano logo paths come from [Simple Icons](https://github.com/simple-icons/simple-icons), distributed under [CC0 1.0](https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md). Their colors are adapted for the dark challenge panel. Brand names and marks identify the selected networks.
+
 The public compiler produced the included Solana ELF; its hash and provenance appear in `docs/evidence/STATUS.md`. No credentials, wallets, or sponsor API keys are part of the public source package.

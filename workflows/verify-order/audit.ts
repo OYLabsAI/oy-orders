@@ -5,6 +5,7 @@ import { sha256 } from "@noble/hashes/sha256";
 import { canonical, hash } from "../../packages/core/src/canonical.ts";
 import {
   auditDecision,
+  solanaTransactionFact,
   type AuditClaim,
 } from "../../packages/core/src/audit.ts";
 import type { Order, SourceFact } from "../../packages/core/src/types.ts";
@@ -102,15 +103,9 @@ export function verifyAudit(
     payment.amount === order.quote?.amount &&
     payment.network === "cardano:preprod";
   const actual: SourceFact[] = claim.facts.map((fact) => {
-    // A claim can only audit immutable transactions already bought in this report.
-    const anchor = order.report!.facts.find(
-      (f) =>
-        f.network === fact.network &&
-        f.wallet === fact.wallet &&
-        f.tx === fact.tx,
-    );
-    if (!anchor) throw new Error("AUDIT_TRANSACTION_NOT_IN_REFERENCE");
     if (fact.network === "solana:mainnet") {
+      if (fact.wallet !== order.input.solanaWallet)
+        throw new Error("AUDIT_WALLET_MISMATCH");
       const tx = rpc(
         "getTransaction",
         [
@@ -119,14 +114,18 @@ export function verifyAudit(
         ],
         true,
       );
-      if (!tx || tx.meta.err) throw new Error("AUDIT_TRANSACTION_UNCONFIRMED");
-      return {
-        ...anchor,
-        slot: String(tx.slot),
-        fee: String(tx.meta.fee),
-        confirmed: true,
-      };
+      const actual = solanaTransactionFact(fact.wallet, fact.tx, tx);
+      if (!actual) throw new Error("AUDIT_SOLANA_SOURCE_UNAVAILABLE");
+      return actual;
     }
+    const anchor = order.report!.facts.find(
+      (f) =>
+        f.network === fact.network &&
+        f.wallet === fact.wallet &&
+        f.tx === fact.tx,
+    );
+    if (!anchor || fact.network !== "cardano:mainnet")
+      throw new Error("AUDIT_TRANSACTION_NOT_IN_REFERENCE");
     const tx = get(
       `https://ada-blockfrost.nownodes.io/txs/${fact.tx}`,
       headers,

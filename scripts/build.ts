@@ -15,6 +15,7 @@ await build({
   format: "esm",
   minify: true,
   target: "es2022",
+  loader: { ".svg": "dataurl" },
   define: { __API_URL__: JSON.stringify(process.env.PUBLIC_API_URL ?? "") },
 });
 for (const file of ["index.html", "style.css"])

@@ -17,6 +17,8 @@ import { config } from "./config.ts";
 import { executeCre } from "./cre-runner.ts";
 import { readCreResult } from "./cre-output.ts";
 import type { Store } from "./store.ts";
+import { solanaRpc } from "./data.ts";
+import { recentAuditFact } from "./challenge-source.ts";
 
 export const challengeInput = z
   .object({
@@ -76,6 +78,7 @@ export class Challenges {
   private key;
   readonly publicKey: string;
   private busy = false;
+  private creating = false;
   constructor(
     private store: Store,
     private execute = executeCre,
@@ -119,9 +122,10 @@ export class Challenges {
       );
     return challenge;
   }
-  create(raw: unknown) {
+  async create(raw: unknown) {
     const input = challengeInput.parse(raw);
     if (config.mode !== "live") throw new Error("LIVE_AUDIT_REQUIRED");
+    if (this.creating) throw new Error("CHALLENGE_BUSY");
     // Global limits survive restarts; arbitrary URLs, transactions and signatures
     // are never accepted. Audits cannot enter the order or settlement queue.
     const active = this.store.db
@@ -145,35 +149,48 @@ export class Challenges {
       !order.payment
     )
       throw new Error("AUDIT_REFERENCE_REQUIRED");
-    const facts = (["solana:mainnet", "cardano:mainnet"] as const).map(
-      (network) => {
-        const fact = order.report!.facts.find((f) => f.network === network);
-        if (!fact) throw new Error("AUDIT_BOTH_NETWORKS_REQUIRED");
-        return { ...fact };
-      },
-    );
-    const target = facts.find((f) => f.network === `${input.network}:mainnet`)!;
-    target.fee =
-      input.change === "tiny"
-        ? (BigInt(target.fee) + 1n).toString()
-        : input.change === "huge"
-          ? (BigInt(target.fee) * 1000n + 1n).toString()
-          : target.fee;
-    const claim: AuditClaim = {
-      id: randomUUID(),
-      referenceOrderId: order.id,
-      issuedAt: Date.now(),
-      facts,
-    };
-    return this.save({
-      id: claim.id,
-      status: "queued",
-      claim,
-      claimHash: hash(claim),
-      signature: sign(null, Buffer.from(canonical(claim)), this.key).toString(
-        "base64",
-      ),
-    });
+    this.creating = true;
+    try {
+      const signal = AbortSignal.timeout(15000);
+      const solanaFact = await recentAuditFact(
+        order.input.solanaWallet,
+        (method, params) => solanaRpc(method, params, true, signal),
+      );
+      const facts = (["solana:mainnet", "cardano:mainnet"] as const).map(
+        (network) => {
+          if (network === "solana:mainnet") return solanaFact;
+          const fact = order.report!.facts.find((f) => f.network === network);
+          if (!fact) throw new Error("AUDIT_BOTH_NETWORKS_REQUIRED");
+          return { ...fact };
+        },
+      );
+      const target = facts.find(
+        (f) => f.network === `${input.network}:mainnet`,
+      )!;
+      target.fee =
+        input.change === "tiny"
+          ? (BigInt(target.fee) + 1n).toString()
+          : input.change === "huge"
+            ? (BigInt(target.fee) * 1000n + 1n).toString()
+            : target.fee;
+      const claim: AuditClaim = {
+        id: randomUUID(),
+        referenceOrderId: order.id,
+        issuedAt: Date.now(),
+        facts,
+      };
+      return this.save({
+        id: claim.id,
+        status: "queued",
+        claim,
+        claimHash: hash(claim),
+        signature: sign(null, Buffer.from(canonical(claim)), this.key).toString(
+          "base64",
+        ),
+      });
+    } finally {
+      this.creating = false;
+    }
   }
   start() {
     this.store.db.exec(

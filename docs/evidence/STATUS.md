@@ -4,19 +4,24 @@
 
 | Evidence | Executed result | Practical limit |
 |---|---|---|
-| Types and tests | Type check and 47 tests pass | VM, fixtures, parsing and recovery tests are distinct from chain execution |
+| Types and tests | Type check and 49 tests pass | VM, fixtures, parsing and recovery tests are distinct from chain execution |
 | Solana program | Devnet `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj`; deployed bytes match tested ELF | Upgrade authority retained; trusted settlement relayer |
 | Paid success | Six actual 2 tADA purchases and Solana settlements, ten CRE checks each | Separate test assets; no bridge or conversion |
 | Paid adversarial order | Controlled seller's valid signature and digest pass; false source fact fails; reward never settled | Deliberate team-controlled supplier test |
 | Same-order refund | Rejected order's 0.01 tSOL reward returned on chain after expiry | Cardano purchase remains final; refund pays its network fee |
-| Fresh live challenge | Thousand-fold Solana lie and one-lovelace Cardano lie caught; honest corrected claim passes six checks | Fixed source transactions, separate signer; no money moves |
+| Fresh live challenge | Thousand-fold Solana lie and one-lovelace Cardano lie caught; honest corrected claim passes six checks | Source transactions pinned per challenge, separate signer; no money moves |
 | NOWNodes | Actual facts from both chains; independent re-fetch; preprod payment network_magic=1 guard | Provider trusted; busy latest-five addresses may change between reads |
 | Chainlink | Authenticated official CLI simulations on real records | Simulation, not production DON/TEE deployment |
 | Cloud | Fresh paid order settled; persistent stop/resume kept order and audit unchanged | Hobby cold starts, 45-minute sessions/free quotas; no production SLA |
 | Recovery | Saved signed payment reused after uncertain proxy response | Recovered run documented separately; latest fresh cloud run needed no recovery |
 
+## Live-check repair
+
+On 7 October, NOWNodes returned null for the older Solana transaction pinned by earlier challenges. The repaired audit selects a currently readable finalized transaction for the same reference wallet, pins it before signing, and has CRE independently re-read it. Missing source data remains a failure. Both network logos rotate on selection and during checking, with reduced-motion support. Fresh Solana and Cardano false claims failed provenance; an honest claim passed all six checks after a controlled cloud stop/resume. Historical proofs below remain unchanged.
+
 ## Public evidence files
 
+- `live-audit-repair.json`, `live-audit-repair-resume.json`, `live-challenge-repaired-solana.json`, `live-challenge-repaired-cardano.json`, `live-challenge-repaired-honest.json`: observed failure cause, repair verification, and fresh official CRE transcripts.
 - `live-vercel-order.json`: clean cloud order `a1672a05-a755-4d35-8e44-475e8c0a2353`, actual payment, ten checks and settlement.
 - `live-vercel-recovered.json`: cloud order `bda7a31e-1917-4a55-ba95-c1890051a337`; HTTP 503 recovery reused the original Cardano transaction. This is not presented as an unaided run.
 - `live-adversarial.json`: paid order `caa423cd-c20f-448f-9186-e98034fa1df1`, accepted signature/digest, rejected provenance, protected escrow and same-order confirmed refund.

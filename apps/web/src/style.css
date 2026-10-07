@@ -1186,7 +1186,12 @@ footer i {
   font-weight: 500;
   color: #b8caff;
 }
-.arena-result.checking .arena-orbit {
+.network-logo {
+  width: 39px;
+  height: 39px;
+}
+.arena-result.ready .network-logo,
+.arena-result.checking .network-logo {
   animation: audit-spin 2s linear infinite;
 }
 .arena-result.caught {
@@ -1309,7 +1314,8 @@ footer i {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .arena-result.checking .arena-orbit {
+  .arena-result.ready .network-logo,
+  .arena-result.checking .network-logo {
     animation: none;
   }
 }

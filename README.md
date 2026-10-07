@@ -10,7 +10,7 @@ Built by Orca Labs for TOKEN2049 Origins 2026. A buyer locks a Solana task rewar
 
 Open **Try to fool it**. Pick Solana or Cardano and an honest claim, a tiny lie, or a big lie. Every claim receives a valid, separate challenge signature. A fresh official CRE simulation reads the real records again. A false fee fails even when its signature passes; **Try the corrected answer** runs a new independent check.
 
-The challenge needs no wallet, makes no payment and never enters the settlement queue. Its scope is two fixed transaction facts and a real settled-order reference, not arbitrary truth verification. The **Demo** tab separately shows genuine paid execution, a controlled signed false report rejected by CRE, and the confirmed refund of that same order's task reward. Recorded proofs remain available when the live API is unavailable.
+The challenge needs no wallet, makes no payment and never enters the settlement queue. Its scope is two transaction facts pinned per challenge and a real settled-order reference, not arbitrary truth verification. The **Demo** tab separately shows genuine paid execution, a controlled signed false report rejected by CRE, and the confirmed refund of that same order's task reward. Recorded proofs remain available when the live API is unavailable.
 
 Seven genuine paid testnet orders are documented: six settled and one rejected with its reward refunded. The latest fresh order executed entirely through the Vercel backend without operator recovery. A controlled session stop/resume preserved its state and a completed challenge. Exact hashes and limitations are in [evidence/STATUS.md](docs/evidence/STATUS.md).
 
@@ -32,7 +32,7 @@ pnpm typecheck
 pnpm test
 ```
 
-47 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, and strict CRE/audit result parsing. Fixture and VM tests are distinct from public-network execution.
+49 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, strict CRE/audit result parsing, and recovery from pruned source transactions. Fixture and VM tests are distinct from public-network execution.
 
 ## One task, four necessary integrations
 

@@ -79,9 +79,9 @@ app.get("/health", (_req, res) =>
   }),
 );
 app.get("/api/orders", (_req, res) => res.json(store.list()));
-app.post("/api/challenges", (req, res, next) => {
+app.post("/api/challenges", async (req, res, next) => {
   try {
-    res.status(202).json(challenges.create(req.body));
+    res.status(202).json(await challenges.create(req.body));
   } catch (error) {
     next(error);
   }

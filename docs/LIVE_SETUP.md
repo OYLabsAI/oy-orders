@@ -45,7 +45,7 @@ The included, untested Dockerfile targets Node 24 with a persistent `/data` dire
 
 ## Live challenge and recorded money proof
 
-The new Try to fool it challenge signs a separate fixed-source claim and performs fresh CRE reads. It catches a one-unit or large false fee despite a valid signature; corrected claims run a fresh check. Its separate signer cannot sign a supplier receipt, and audits never enter the payout queue. The older local-copy tamper replay remains labeled separately. Actual paid rejection and same-order refund evidence are in live-adversarial.json. `pnpm run demo:refund` performs a separate 90-second direct program expiry probe; the UI deadline stays 15 minutes.
+The new Try to fool it challenge signs a separate claim with two pinned source transactions and performs fresh CRE reads. A recent readable finalized Solana transaction is selected before each claim so ordinary RPC retention does not leave the demonstration permanently bound to an unavailable older transaction. The Cardano fact stays anchored to the recorded reference. It catches a one-unit or large false fee despite a valid signature; corrected claims run a fresh check. Its separate signer cannot sign a supplier receipt, and audits never enter the payout queue. The older local-copy tamper replay remains labeled separately. Actual paid rejection and same-order refund evidence are in live-adversarial.json. `pnpm run demo:refund` performs a separate 90-second direct program expiry probe; the UI deadline stays 15 minutes.
 
 ## Endpoint and saved-demo checks
 
