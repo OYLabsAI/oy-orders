@@ -1,0 +1,10 @@
+{
+  "testedAt": "2026-10-07T10:50:38.482Z",
+  "budget": "1000000",
+  "status": 409,
+  "error": "SHOP_NO_MATCH",
+  "ordersBefore": 16,
+  "ordersAfter": 16,
+  "noOrderCreated": true,
+  "scope": "An impossible supplier budget is rejected before any order, escrow or payment job is created. Test coins only."
+}

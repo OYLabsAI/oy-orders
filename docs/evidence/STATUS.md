@@ -1,12 +1,12 @@
 # Executed evidence — 7 October 2026
 
-**Eight genuine paid testnet orders: seven settled, one signed false report rejected and its task reward refunded.** The newest retail pass passed ten official CRE checks, accepted one use and refused replay. The judge-controlled challenge performs fresh independent reads rather than replaying a local copy.
+**Nine genuine paid testnet orders: eight settled, one signed false report rejected and its task reward refunded.** The newest shopping mission passed eleven official CRE checks and delivered a usable pass. The earlier retail pass passed ten checks, accepted one use and refused replay. The judge-controlled challenge performs fresh independent reads rather than replaying a local copy.
 
 | Evidence | Executed result | Practical limit |
 |---|---|---|
-| Types and tests | Type check and 57 tests pass | VM, fixtures, parsing, pass ledger and recovery tests are distinct from chain execution |
+| Types and tests | Type check and 65 tests pass | VM, fixtures, parsing, pass ledger and recovery tests are distinct from chain execution |
 | Solana program | Devnet `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj`; deployed bytes match tested ELF | Upgrade authority retained; trusted settlement relayer |
-| Paid success | Six actual 2 tADA purchases and Solana settlements, ten CRE checks each | Separate test assets; no bridge or conversion |
+| Paid success | Eight actual 2 tADA purchases and Solana settlements. Latest shopping has eleven checks; earlier orders have ten | Separate test assets; no bridge or conversion |
 | Paid adversarial order | Controlled seller's valid signature and digest pass; false source fact fails; reward never settled | Deliberate team-controlled supplier test |
 | Same-order refund | Rejected order's 0.01 tSOL reward returned on chain after expiry | Cardano purchase remains final; refund pays its network fee |
 | Fresh live challenge | Thousand-fold Solana lie and one-lovelace Cardano lie caught; honest corrected claim passes six checks | Source transactions pinned per challenge, separate signer; no money moves |
@@ -32,7 +32,7 @@ On 7 October, NOWNodes returned null for the older Solana transaction pinned by 
 - `solana-deployment.json`, `solana-buffer-upload.json`: deployment and exact byte comparison. ELF: 93,728 bytes; SHA-256 `5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1aeeda71709c0c94bfa9f`.
 - Funding/setup/node probes and preflight document connectivity separately. `rehearsal-*.json` retain simulated-payment labels. All public transcripts redact credentials.
 
-## Exact latest proof links
+## Earlier cloud proof links
 
 [Program on Devnet](https://explorer.solana.com/address/2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj?cluster=devnet).
 
@@ -46,10 +46,19 @@ Full Cardano hashes and preprod explorer links are in each evidence file.
 
 ## Submission gates
 
-The public GitHub repository is created under `nknwn-eth`, but source publication awaits CLI authorization. The requested transfer to `oylabs` was rejected with "Cannot find new owner 'oylabs'"; no transfer occurred. A ZIP does not replace the required repository. Drive PPTX, MP4 and ZIP judge access is verified. Resolve the partner check-in 1/2 discrepancy and acceptance/native playback of PPTX with its embedded movie. Legacy PPT loses the recording. Cardano's live URL, write-up and video are saved (3/5 fields). No final hackathon submission has been made.
+The public GitHub repository is created under `nknwn-eth`, but source publication awaits CLI authorization. GitHub found the corrected organization OYLabsAI but rejected transfer because `nknwn-eth` lacks permission to create public repositories there; no transfer occurred. A ZIP does not replace the required repository. Drive PPTX, MP4 and ZIP judge access is verified. Resolve the partner check-in 1/2 discrepancy and acceptance/native playback of PPTX with its embedded movie. Legacy PPT loses the recording. Cardano's live URL, write-up and video are saved (3/5 fields). No final hackathon submission has been made.
 
 ## Retail pass, 7 October
 
 [retail-pass.json](retail-pass.json): order `29ab7330-93fa-4aef-b74e-02bca9495b3a` bought and settled a supplier-signed coffee-style demo pass through the real cloud service. Solana funding `4pUSKJ31uhbbrvewZ1DAanm8mQiVC5eE6SUiEmttALSaYygUoNCzMRPqcdx7ozmageGSiyzL4V4rCimyh3csZBmi`; Cardano supplier payment `d5f8f92b233a63831ad64adfa72d5b681dd65ebabeff12ab7f763f5216139800`; settlement `2Xp7pF7NEptyCrEW12txmC1u9Rx8gBB6mpSyNSAF4vzELnsmuvZfbxE6DuXLRDKc8rcF6X4VyV73Nde4xsA9D66o`. All ten official CRE checks passed. First redemption was accepted; replay returned `ALREADY_USED`. Redemption is an atomic persistent server write, not an on-chain NFT/physical-delivery proof.
 
 [retail-persistence.json](retail-persistence.json): controlled idle cloud stop and public-request resume took 8.525 seconds. The settled order, used timestamp and private-key-derived pass commitment were preserved. No new payment was made by this recovery test. Free-quota and cold-start limits remain.
+
+
+## Shopping mission, 7 October
+
+[shopping-order.json](shopping-order.json): order `e63c7700-2bc4-4fe6-adca-a3074149120c` committed its goal, 2 test ADA budget and all four signed OY test offers before funding. The agent refused the altered price, wrong item and over-budget offer, bought the valid matching pass, and passed **11/11 official CRE checks** before settlement. Its first cashier use was accepted. [Public execution](https://oy-orders.vercel.app/api/orders/e63c7700-2bc4-4fe6-adca-a3074149120c/evidence). Cardano payment `d396b14691f3319ce6d8b220eafe646433792972f47d3d64427085531956d9a2`. [Solana settlement](https://explorer.solana.com/tx/4mDHtiBzCamgQGPjRav81AKRk6fUwEdAw6PUoLo94WeUZc9nEnB8jk2hpgRLzEiBGKxwY4a32WUSHgBYJFbbsyNz?cluster=devnet).
+
+[shopping-budget.json](shopping-budget.json): 1 test ADA checkout returned `SHOP_NO_MATCH` with 16 orders before and after. No order or funding job was created. Free UI comparison independently showed every offer refused. The server always creates fresh authoritative offers for a paid checkout.
+
+A separate attempt `0feab18e-5574-4d73-b53f-c0223eeaaddc` paused for insufficient operator demo-buyer test SOL. Its saved funding transaction expired unconfirmed, with no escrow or supplier purchase. It is excluded from the paid-order count. Operator-owned test funds replenished the buyer while preserving the worker reserve before the successful fresh mission. Balance and rent preflight now precede checkout allocation.

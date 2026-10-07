@@ -16,6 +16,11 @@ import { readFacts, observePayment } from "./data.ts";
 import { purchase } from "./cardano.ts";
 import { parseCreOutput } from "./cre-output.ts";
 import { reserve, settle, observeEscrow, loadWallet } from "./solana.ts";
+import {
+  chooseOffers,
+  shoppingCommitment,
+} from "../../../packages/core/src/shopping.ts";
+import { verifySignature } from "../../../packages/core/src/domain.ts";
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 export function rehearsalFacts(order: Order): SourceFact[] {
   return (["solana:mainnet", "cardano:mainnet"] as const).flatMap(
@@ -45,7 +50,11 @@ async function simulate(order: Order): Promise<Verification> {
     paymentProvider: config.cardanoPaymentProvider,
     nownodesKey: config.nownodesKey,
   });
-  const result = parseCreOutput(output, order.receipt!.resultHash);
+  const result = parseCreOutput(
+    output,
+    order.receipt!.resultHash,
+    order.shopping ? 11 : 10,
+  );
   return { ...result, transcript: `/api/orders/${order.id}/evidence` };
 }
 export async function runOrder(store: Store, id: string, fast = false) {
@@ -62,15 +71,42 @@ export async function runOrder(store: Store, id: string, fast = false) {
       return;
     }
     if (order.status === "funded") {
-      order.quote = {
-        orderId: id,
-        network: "cardano:preprod",
-        asset: "lovelace",
-        amount: "2000000",
-        recipient: order.seller,
-        expiresAt: order.deadline,
-        resource: `${config.apiUrl}/paid/report?orderId=${id}`,
-      };
+      if (order.shopping) {
+        const plan = order.shopping;
+        if (
+          plan.budget !== order.ceiling ||
+          shoppingCommitment(plan) !== order.input.retail?.shoppingHash
+        )
+          throw Error("SHOPPING_COMMITMENT_MISMATCH");
+        const decision = chooseOffers(
+          { ...order, resource: `${config.apiUrl}/paid/report?orderId=${id}` },
+          plan.offers,
+          verifySignature,
+          Date.now(),
+        );
+        if (
+          decision.selected === null ||
+          decision.selected !== plan.selected ||
+          hash(decision.decisions) !== hash(plan.decisions)
+        )
+          throw Error("SHOPPING_SELECTION_MISMATCH");
+        order.quote = plan.offers[decision.selected].quote;
+        for (const [index, offer] of plan.offers.entries())
+          store.event(
+            id,
+            "offer-reviewed",
+            `${offer.label}: ${decision.decisions[index].reason}.`,
+          );
+      } else
+        order.quote = {
+          orderId: id,
+          network: "cardano:preprod",
+          asset: "lovelace",
+          amount: "2000000",
+          recipient: order.seller,
+          expiresAt: order.deadline,
+          resource: `${config.apiUrl}/paid/report?orderId=${id}`,
+        };
       assertQuote(order, order.quote);
       order.quoteHash = hash(order.quote);
       store.save(order);

@@ -1,6 +1,6 @@
 # OY Shop: a verified digital pass
 
-The retail demo makes the payment checkpoint understandable: buy a coffee-style digital pass, show its QR, accept one use and refuse the same pass a second time. **It is a demo voucher, not a claim to real coffee or admission.**
+The pass is now the delivered result of a shopping mission. Set a budget, compare signed offers, refuse bad deals and buy the valid matching pass. [SHOPPING.md](SHOPPING.md) explains the eleven-check policy and actual settled purchase. The QR and one-use cashier record remain secondary features. **It is a demo voucher, not a claim to real coffee or admission.**
 
 ## What actually ran
 

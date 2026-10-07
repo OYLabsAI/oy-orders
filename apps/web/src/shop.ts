@@ -1,5 +1,6 @@
 import QRCode from "qrcode";
 import { technologyBadge } from "./brands.ts";
+import type { ShoppingPlan } from "../../../packages/core/src/types.ts";
 
 type Checkout = {
   checkoutId: string;
@@ -9,6 +10,7 @@ type Checkout = {
   usedAt: number | null;
   createdAt: number;
   error?: string;
+  shopping?: ShoppingPlan;
   proof: {
     fundingTx?: string;
     cardanoTx?: string;
@@ -74,6 +76,99 @@ export function initShop({
   let busy = false;
   let qrUrl = "";
   let ticketLink = "";
+  let selectedPlan: ShoppingPlan | undefined;
+  const reasons: Record<string, string> = {
+    INVALID_SIGNATURE: "Fake price caught · changed after signing",
+    WRONG_ITEM: "Wrong item · you asked for coffee",
+    PRICE_EXCEEDS_CEILING: "Over your budget · refused",
+    MATCHES_GOAL_AND_BUDGET: "Matches your goal and budget",
+  };
+  function renderPlan(plan: ShoppingPlan, purchased = false) {
+    const offers = $("shop-offers");
+    offers.replaceChildren();
+    for (const [index, offer] of plan.offers.entries()) {
+      const decision = plan.decisions[index],
+        card = text("article", "");
+      card.className = "mission-offer";
+      card.dataset.accepted = String(decision.accepted);
+      card.dataset.selected = String(index === plan.selected);
+      const price = `${Number(offer.quote.amount) / 1000000} test ADA`;
+      card.append(
+        text("small", index === plan.selected ? "✓ SELECTED" : "× REFUSED"),
+        text("h3", offer.label),
+        text("strong", price),
+        text(
+          "p",
+          reasons[decision.reason] ?? "Offer does not meet your mission",
+        ),
+      );
+      offers.append(card);
+    }
+    $("shop-plan-summary").dataset.accepted = String(plan.selected !== null);
+    $("shop-plan-summary").textContent =
+      plan.selected === null
+        ? "Budget respected. No matching deal. No purchase authorized. No coins spent on this comparison."
+        : `${purchased ? "This checkout selected" : "Agent found"} the matching pass for 2 test ADA. ${purchased ? "The signed decision is bound to this order." : "Three bad deals refused. Ready to buy within your budget."}`;
+    $("shop-offer-json").textContent = JSON.stringify(plan, null, 2);
+    $("shop-offer-proof").hidden = false;
+    if (!current?.token && !busy) {
+      $("shop-buy").toggleAttribute("disabled", plan.selected === null);
+      $("shop-buy").textContent =
+        plan.selected === null
+          ? "No deal fits this budget"
+          : "Let the agent buy it ↗";
+    }
+    return plan;
+  }
+  $("shop-plan").onclick = async () => {
+    if (busy) return;
+    busy = true;
+    selectedPlan = undefined;
+    const budget = $<HTMLSelectElement>("shop-budget");
+    const requestedBudget = budget.value;
+    budget.disabled = true;
+    $("shop-buy").setAttribute("disabled", "");
+    const button = $("shop-plan");
+    button.setAttribute("disabled", "");
+    $("shop-plan-summary").textContent =
+      "Checking signed prices, the item and your budget…";
+    try {
+      selectedPlan = renderPlan(
+        await request("/api/shop/plan", {
+          sku: "coffee-pass",
+          budget: requestedBudget,
+        }),
+      );
+    } catch (error) {
+      $("shop-plan-summary").textContent = friendly(error);
+    } finally {
+      busy = false;
+      budget.disabled = !!current && !terminal.includes(current.status);
+      button.removeAttribute("disabled");
+      if (!current?.token) {
+        $("shop-buy").toggleAttribute(
+          "disabled",
+          !selectedPlan || selectedPlan.selected === null,
+        );
+        $("shop-buy").textContent = !selectedPlan
+          ? "Compare offers first ↗"
+          : selectedPlan.selected === null
+            ? "No deal fits this budget"
+            : "Let the agent buy it ↗";
+      }
+    }
+  };
+  $("shop-budget").onchange = () => {
+    selectedPlan = undefined;
+    $("shop-offers").replaceChildren();
+    $("shop-offer-proof").hidden = true;
+    $("shop-plan-summary").textContent =
+      "New budget. Compare the offers again before buying.";
+    if (!current?.token) {
+      $("shop-buy").setAttribute("disabled", "");
+      $("shop-buy").textContent = "Compare offers first ↗";
+    }
+  };
   try {
     access =
       JSON.parse(localStorage.getItem(storageKey) ?? "null") ?? undefined;
@@ -124,6 +219,12 @@ export function initShop({
             "Live checkout is unavailable. The recorded demo is still available.",
           PASS_NOT_FOUND: "This pass link is invalid or incomplete.",
           PASS_NOT_READY: "This pass has not passed its delivery checks yet.",
+          SHOP_NO_MATCH:
+            "No matching offer fits your budget. No purchase was created.",
+          SHOP_INTENT_CHANGED:
+            "Your saved checkout has a different budget. Reconnect to that checkout first.",
+          SHOP_DEMO_WALLET_EMPTY:
+            "The demo wallet needs more test SOL. No order or payment was created. You can still compare offers.",
         } as Record<string, string>
       )[message] ??
       "The live service could not complete this check. Your saved checkout can be retried safely."
@@ -131,6 +232,14 @@ export function initShop({
   }
   async function render(data: Checkout) {
     current = data;
+    if (data.shopping) {
+      $<HTMLSelectElement>("shop-budget").value = data.shopping.budget;
+      selectedPlan = renderPlan(data.shopping, true);
+    }
+    $<HTMLSelectElement>("shop-budget").disabled = !terminal.includes(
+      data.status,
+    );
+    $("shop-plan").toggleAttribute("disabled", !terminal.includes(data.status));
     $("shop-status").textContent = data.usedAt
       ? "This pass has been used once. A second scan is refused."
       : (data.error ?? stateText[data.status] ?? "Checking your order…");
@@ -252,6 +361,7 @@ export function initShop({
       const data = await request("/api/shop/checkout", {
         ...access,
         sku: "coffee-pass",
+        budget: selectedPlan?.budget ?? current?.shopping?.budget ?? "2000000",
       });
       await render(data);
       if (polling) clearTimeout(polling);
@@ -319,8 +429,15 @@ export function initShop({
     ticketLink = "";
     localStorage.removeItem(storageKey);
     $("shop-buy").hidden = false;
-    $("shop-buy").removeAttribute("disabled");
-    $("shop-buy").textContent = "Get my digital pass ↗";
+    $("shop-buy").setAttribute("disabled", "");
+    $("shop-buy").textContent = "Compare offers first ↗";
+    selectedPlan = undefined;
+    $("shop-offers").replaceChildren();
+    $("shop-offer-proof").hidden = true;
+    $<HTMLSelectElement>("shop-budget").disabled = false;
+    $("shop-plan").removeAttribute("disabled");
+    $("shop-plan-summary").textContent =
+      "Give the agent a budget and compare the offers.";
     $("shop-pass-actions").hidden = true;
     $("shop-cashier-panel").hidden = true;
     $("ticket-state").textContent = "PREVIEW · NOT YET ISSUED";
@@ -331,6 +448,12 @@ export function initShop({
       "Ready for a new funded test checkout. Up to five demos are available per day.";
     for (const id of ["shop-step-pay", "shop-step-check", "shop-step-use"])
       $(id).classList.remove("done");
+    $("shop-mission").scrollIntoView({
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+      block: "start",
+    });
   };
   $("shop-copy").onclick = async () => {
     if (!ticketLink) return;

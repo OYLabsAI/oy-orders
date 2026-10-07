@@ -1,6 +1,5 @@
 import type {
   Order,
-  Quote,
   Receipt,
   ReceiptBody,
   Status,
@@ -14,6 +13,8 @@ export { canonical, hash } from "./canonical.ts";
 import { verifyWithSignature } from "./verification.ts";
 import { z } from "zod";
 import { sign, verify, createPublicKey, type KeyObject } from "node:crypto";
+import type { SignedOffer } from "./types.ts";
+export { assertQuote } from "./quote-policy.ts";
 
 export const integer = z.string().regex(/^(0|[1-9][0-9]*)$/);
 export const digest = z.string().regex(/^[0-9a-f]{64}$/);
@@ -25,7 +26,11 @@ export const inputSchema = z
     cardanoWallet: cardanoAddress,
     scenario: z.enum(["success", "tampered", "expiry"]).default("success"),
     retail: z
-      .object({ sku: z.literal("coffee-pass"), commitment: digest })
+      .object({
+        sku: z.literal("coffee-pass"),
+        commitment: digest,
+        shoppingHash: digest.optional(),
+      })
       .strict()
       .optional(),
   })
@@ -40,42 +45,21 @@ export function signReceipt(body: ReceiptBody, key: KeyObject): Receipt {
     signature: sign(null, Buffer.from(canonical(body)), key).toString("base64"),
   };
 }
-export function verifySignature(receipt: Receipt, publicKey: string): boolean {
+export function verifySignature(
+  receipt: Receipt | SignedOffer,
+  publicKey: string,
+): boolean {
   try {
+    const { signature, ...body } = receipt;
     return verify(
       null,
-      Buffer.from(canonical(receiptBody(receipt))),
+      Buffer.from(canonical(body)),
       createPublicKey(publicKey),
-      Buffer.from(receipt.signature, "base64"),
+      Buffer.from(signature, "base64"),
     );
   } catch {
     return false;
   }
-}
-
-export function assertQuote(
-  order: Order,
-  quote: Quote,
-  now = Date.now(),
-): void {
-  if (quote.orderId !== order.id) throw new Error("WRONG_ORDER");
-  if (quote.network !== "cardano:preprod" || quote.asset !== "lovelace")
-    throw new Error("WRONG_ASSET_OR_NETWORK");
-  if (quote.recipient !== order.seller) throw new Error("WRONG_RECIPIENT");
-  if (
-    !integer.safeParse(quote.amount).success ||
-    BigInt(quote.amount) <= 0n ||
-    BigInt(quote.amount) > BigInt(order.ceiling)
-  )
-    throw new Error("PRICE_EXCEEDS_CEILING");
-  if (
-    quote.expiresAt > order.deadline ||
-    quote.expiresAt <= now ||
-    now >= order.deadline
-  )
-    throw new Error("EXPIRED_QUOTE");
-  if (order.quoteHash && order.quoteHash !== hash(quote))
-    throw new Error("QUOTE_ALREADY_RESERVED");
 }
 
 export function verifyEvidence(

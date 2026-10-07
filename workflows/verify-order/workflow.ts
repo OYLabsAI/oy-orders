@@ -21,6 +21,7 @@ import {
 import type {
   Order,
   Receipt,
+  SignedOffer,
   SourceFact,
 } from "../../packages/core/src/types.ts";
 import { verifyAudit } from "./audit.ts";
@@ -39,7 +40,7 @@ export type Config = {
   auditKey?: string;
 };
 const encoder = new TextEncoder();
-function sellerSignature(receipt: Receipt, key: string) {
+function sellerSignature(receipt: Receipt | SignedOffer, key: string) {
   try {
     const { signature, ...body } = receipt;
     const der = Buffer.from(key.replace(/-----[^-]+-----|\s/g, ""), "base64");

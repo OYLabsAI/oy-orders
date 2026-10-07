@@ -1984,3 +1984,175 @@ body[data-view="shop"] .page-heading {
 .shop-node-proof > small {
   font-size: 10px;
 }
+
+/* The mission is the main interaction; the pass is its delivered result. */
+.shop-mission {
+  background: #edf1e7;
+  border: 1px solid #d1dece;
+  border-radius: 24px;
+  padding: 30px;
+  margin: 0 0 45px;
+}
+.mission-controls {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+.mission-controls h2 {
+  color: #173b2b;
+  font-size: clamp(25px, 3vw, 38px);
+  letter-spacing: -1.2px;
+  line-height: 1.16;
+  margin: 12px 0;
+}
+.mission-controls p {
+  color: #627163;
+  font-size: 14px;
+}
+.mission-budget label {
+  display: block;
+  color: #3c5844;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.mission-budget select {
+  width: 100%;
+  background: #fff;
+  color: #173b2b;
+  border: 1px solid #c1d2bf;
+  border-radius: 10px;
+  padding: 12px;
+  font: inherit;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.mission-budget small {
+  display: block;
+  color: #667a6a;
+  font-size: 10px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+.mission-summary {
+  color: #536758;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #d0dccd;
+}
+.mission-summary[data-accepted="false"] {
+  color: #8d4535;
+  font-weight: 650;
+}
+.mission-summary[data-accepted="true"] {
+  color: #1b6340;
+  font-weight: 650;
+}
+.mission-offers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.mission-offers:empty {
+  margin: 0;
+}
+.mission-offer {
+  background: #f8faf3;
+  border: 1px solid #dce4d5;
+  border-radius: 14px;
+  padding: 16px;
+  animation: offer-arrive 0.35s ease both;
+}
+.mission-offer:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.mission-offer:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.mission-offer:nth-child(4) {
+  animation-delay: 0.18s;
+}
+.mission-offer small {
+  color: #8d5347;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+}
+.mission-offer h3 {
+  font-size: 14px;
+  line-height: 1.45;
+  color: #435346;
+  min-height: 41px;
+  margin: 10px 0;
+}
+.mission-offer strong {
+  display: block;
+  color: #284d34;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+.mission-offer p {
+  font-size: 11px;
+  color: #7a6f61;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+.mission-offer[data-selected="true"] {
+  background: #183d2a;
+  border-color: #183d2a;
+}
+.mission-offer[data-selected="true"] :is(small, h3, strong, p) {
+  color: #e7f5db;
+}
+.shop-mission details {
+  margin-top: 18px;
+  font-size: 12px;
+  color: #526957;
+}
+.shop-mission pre {
+  max-height: 250px;
+  overflow: auto;
+  font-size: 10px;
+}
+@keyframes offer-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 1000px) {
+  .mission-offers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .shop-mission {
+    padding: 22px;
+  }
+  .mission-controls {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .mission-offer {
+    padding: 13px;
+  }
+  .mission-offer strong {
+    font-size: 19px;
+  }
+  .shop-heading h1 {
+    letter-spacing: -2px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mission-offer {
+    animation: none;
+  }
+}

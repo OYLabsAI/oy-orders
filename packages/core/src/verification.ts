@@ -1,5 +1,6 @@
 import { hash } from "./canonical.ts";
 import { taskInput, passMatchesTask } from "./retail.ts";
+import { verifyShoppingPlan, type SignatureCheck } from "./shopping.ts";
 import type {
   Order,
   Payment,
@@ -12,7 +13,7 @@ export function verifyWithSignature(
   order: Order,
   payment: Payment,
   sourceFacts: SourceFact[],
-  signatureCheck: (receipt: Receipt, publicKey: string) => boolean,
+  signatureCheck: SignatureCheck,
   now: number,
 ): Verification {
   const checks: Check[] = [];
@@ -98,6 +99,12 @@ export function verifyWithSignature(
       ? "One-use pass commitment matches the funded task and signed delivery"
       : "All cited facts and latest-five completeness independently re-fetched",
   );
+  if (order.shopping || order.input.retail?.shoppingHash)
+    check(
+      "Agent shopping policy",
+      verifyShoppingPlan(order, signatureCheck, now),
+      "Signed offers, cheapest valid selection and budget bound to the funded task",
+    );
   const failure = checks.find((c) => !c.passed);
   return {
     accepted: !failure,

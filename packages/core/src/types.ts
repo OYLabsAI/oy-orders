@@ -1,4 +1,8 @@
-export type RetailTerms = { sku: "coffee-pass"; commitment: string };
+export type RetailTerms = {
+  sku: "coffee-pass";
+  commitment: string;
+  shoppingHash?: string;
+};
 export type OrderInput = {
   solanaWallet: string;
   cardanoWallet: string;
@@ -53,6 +57,21 @@ export type ReceiptBody = {
   resultHash: string;
 };
 export type Receipt = ReceiptBody & { signature: string };
+export type SignedOffer = {
+  version: 1;
+  label: string;
+  sku: string;
+  quote: Quote;
+  signature: string;
+};
+export type ShoppingPlan = {
+  goal: string;
+  budget: string;
+  offers: SignedOffer[];
+  decisions: { accepted: boolean; reason: string }[];
+  selected: number | null;
+  evaluatedAt: number;
+};
 export type Payment = {
   tx: string;
   recipient: string;
@@ -88,6 +107,7 @@ export type Order = {
   seller: string;
   sellerKey: string;
   quote?: Quote;
+  shopping?: ShoppingPlan;
   quoteHash?: string;
   report?: Report;
   receipt?: Receipt;

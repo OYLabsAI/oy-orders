@@ -1,69 +1,62 @@
 {
-  "duration": 87.17,
+  "duration": 85.27,
   "chapters": [
     {
-      "source": "output/OY-Orders-pass-closeup.png",
+      "source": ".local/shopping-demo/mission.png",
       "startsAt": 0,
-      "duration": 11.36,
-      "title": "A little crypto magic",
-      "narration": "Meet OY Orders. Buy a digital coffee-style pass with crypto. The prototype uses a funded test wallet. These test coins have no cash value and this voucher cannot buy real coffee.",
+      "duration": 8.2,
+      "title": "A goal. A budget. An agent that follows both.",
+      "narration": "Meet OY Orders. Tell the agent: buy me a coffee pass within my budget. It compares signed offers and explains every refusal.",
       "screenRecording": false
     },
     {
-      "source": ".local/retail-demo/ready.png",
-      "startsAt": 11.36,
-      "duration": 11.25,
-      "title": "A real testnet checkout",
-      "narration": "A Solana program holds the test payment. Our agent purchases the supplier-signed pass on Cardano. Chainlink checks the exact payment and pass. Only then does the QR appear.",
+      "source": ".local/shopping-demo/budget.png",
+      "startsAt": 8.2,
+      "duration": 11.04,
+      "title": "Tight budget? No purchase.",
+      "narration": "With one test ADA, nothing fits. The fake cheap price fails its signature. The cheaper item is wrong. The real coffee offers cost too much. The agent spends nothing.",
       "screenRecording": false
     },
     {
-      "source": ".local/retail-demo/first-scan.png",
-      "startsAt": 22.61,
-      "duration": 6.46,
-      "title": "First scan accepted",
-      "narration": "At the counter, one scan checks the confirmed payment and records the pass first use. Accepted.",
+      "source": ".local/shopping-demo/mission.png",
+      "startsAt": 19.24,
+      "duration": 11.469999999999999,
+      "title": "Three bad deals refused. One valid deal selected.",
+      "narration": "Raise the budget to two test ADA. The agent selects the genuine matching offer. Our catalog deliberately includes bad deals. This decision uses rules, not a language model.",
       "screenRecording": false
     },
     {
-      "source": "live",
-      "startsAt": 29.07,
-      "duration": 8.65,
-      "title": "Same pass. Second scan refused.",
-      "narration": "Try that same pass again. Refused. Two cashiers cannot both consume it. The one-use record stays saved when the cloud restarts.",
-      "screenRecording": true
+      "source": ".local/shopping-demo/delivery.png",
+      "startsAt": 30.709999999999997,
+      "duration": 12.209999999999999,
+      "title": "The selected offer becomes a real purchased pass.",
+      "narration": "Authorize the selected deal. Our actual testnet purchase paid the supplier on Cardano through x four oh two. The pass arrived. Solana held the separate agent reward until delivery checks succeeded.",
+      "screenRecording": false
     },
     {
-      "source": ".local/retail-demo/proof.png",
-      "startsAt": 37.72,
-      "duration": 15.84,
-      "title": "Open the real execution proof",
-      "narration": "Open the proof. NOW Nodes provides the Cardano payment records. An official Chainlink CRE simulation passed ten checks. Solana released the payment. The supplier purchase used separately funded Cardano test coins. There is no currency swap.",
+      "source": ".local/shopping-demo/proof.png",
+      "startsAt": 42.919999999999995,
+      "duration": 14.469999999999999,
+      "title": "11 independent checks before the reward releases.",
+      "narration": "Open the proof. NOW Nodes supplies the original Cardano payment records. An official Chainlink C R E simulation rechecks the shopping decision, the signed pass and the Solana escrow. Eleven checks passed. The reward released.",
       "screenRecording": false
     },
     {
       "source": "output/OY-Orders-simple-check.jpg",
-      "startsAt": 53.56,
-      "duration": 9.18,
-      "title": "A valid signature can still hide a lie",
-      "narration": "The checker can do more. This signed report has a tiny wrong transaction fee. Its signature passes. Fresh independent records catch the lie.",
+      "startsAt": 57.38999999999999,
+      "duration": 12.51,
+      "title": "A signed answer can still be wrong.",
+      "narration": "There is another trap. A valid signature can hide a false transaction fee. Fresh source records catch it. In a separate paid test, a wrong delivery kept the reward locked until its expiry refund.",
       "screenRecording": false
     },
     {
-      "source": ".local/oy-demo/03-refund.jpg",
-      "startsAt": 62.74,
-      "duration": 10.06,
-      "title": "Separate paid rejection and refund",
-      "narration": "A separate real paid test kept the worker reward locked after a wrong report. After expiry, that same reward was refunded. The supplier purchase stayed spent.",
-      "screenRecording": false
-    },
-    {
-      "source": "output/OY-Orders-pass-closeup.png",
-      "startsAt": 72.8,
-      "duration": 14.37,
-      "title": "OY Orders. Inspect payment and delivery.",
-      "narration": "This is an edited tour of authentic app screens with synthetic narration. The prototype uses a trusted relayer, and pass redemption is a server record. OY Orders. A familiar checkout, with inspectable payment and delivery checks.",
+      "source": ".local/shopping-demo/mission.png",
+      "startsAt": 69.89999999999999,
+      "duration": 15.37,
+      "title": "Your goal. Your budget. Inspectable delivery.",
+      "narration": "This is an edited tour of authentic app captures with synthetic narration. It uses operator funded test coins, an OY demo catalog and a trusted relayer. The voucher cannot buy real coffee. OY Orders: a shopping agent with inspectable delivery.",
       "screenRecording": false
     }
-  ]
+  ],
+  "encodedDurationSeconds": 85.32
 }

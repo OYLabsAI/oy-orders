@@ -55,3 +55,15 @@ test("preserves genuine rejection when the tampered report has a different diges
   assert.equal(rejected.accepted, false);
   assert.equal(rejected.reason, "Result integrity");
 });
+test("shopping execution requires its additional policy check in the complete CRE result", () => {
+  assert.throws(() => parseCreOutput(transcript, digest, 11), /MISMATCH/);
+  const result = parseCreOutput(transcript, digest);
+  result.checks.push({
+    name: "Agent shopping policy",
+    passed: true,
+    detail: "Committed signed offers and budget checked",
+  });
+  const output = `Workflow Simulation Result:\n${JSON.stringify(JSON.stringify(result))}`;
+  assert.equal(parseCreOutput(output, digest, 11).accepted, true);
+  assert.throws(() => parseCreOutput(output, digest), /MISMATCH/);
+});

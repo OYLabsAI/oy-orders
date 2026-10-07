@@ -27,13 +27,19 @@ import {
 } from "./solana.ts";
 import { PassLedger, credentialHash } from "./pass-ledger.ts";
 import type { Store } from "./store.ts";
+import { shoppingPlan } from "./shopping-offers.ts";
+import { shoppingCommitment } from "../../../packages/core/src/shopping.ts";
+import { assertSolanaDevnet } from "../../../packages/core/src/networks.ts";
 
 const key = z.string().regex(/^[a-f0-9]{64}$/);
+const budget = z.enum(["1000000", "2000000", "3000000"]);
+const planInput = z.object({ sku: z.literal("coffee-pass"), budget }).strict();
 const checkoutInput = z
   .object({
     idempotencyKey: z.string().uuid(),
     accessKey: key,
     sku: z.literal("coffee-pass"),
+    budget: budget.default("2000000"),
   })
   .strict();
 const statusInput = z
@@ -57,21 +63,54 @@ export class Shop {
       .update(`OY_DEMO_PASS_V1:${orderId}`)
       .digest("hex");
   }
-  create(raw: unknown) {
+  plan(raw: unknown) {
+    const input = planInput.parse(raw);
+    const now = Date.now();
+    return {
+      ...shoppingPlan(
+        {
+          id: randomUUID(),
+          seller: config.seller,
+          ceiling: input.budget,
+          deadline: now + 15 * 60000,
+        },
+        now,
+      ),
+      disclosure:
+        "Comparison only. No coins spent. Four OY-operated test offers; no independent merchants or AI model claimed.",
+    };
+  }
+  async create(raw: unknown) {
     const input = checkoutInput.parse(raw);
     const existing = this.ledger.find(input.idempotencyKey);
-    if (existing)
-      return this.describe(this.ledger.owned(existing.id, input.accessKey));
+    if (existing) {
+      const row = this.ledger.owned(existing.id, input.accessKey);
+      if (this.store.get(row.order_id).ceiling !== input.budget)
+        throw Error("SHOP_INTENT_CHANGED");
+      return this.describe(row);
+    }
     if (config.mode !== "live" || readiness().some((i) => !i.ready))
       throw Error("SHOP_LIVE_SETUP_REQUIRED");
-    if (this.ledger.active()) throw Error("SHOP_CHECKOUT_BUSY");
     // This public demo spends operator-owned TEST coins. Its persistent global
     // limit bounds spending to 0.05 tSOL + rent and 10 tADA per rolling day.
-    if (this.ledger.countSince(Date.now() - 86400000) >= 5)
-      throw Error("SHOP_DEMO_LIMIT");
-    const buyer = loadWallet("demo-buyer");
-    const reference = this.store.get("8456603d-6318-4a72-a403-af2c992cc84a");
     const id = randomUUID();
+    const now = Date.now();
+    const deadline = now + 15 * 60000;
+    const shopping = shoppingPlan(
+      { id, seller: config.seller, ceiling: input.budget, deadline },
+      now,
+    );
+    // An unfulfillable budget creates no escrow, order, job or Cardano payment.
+    if (shopping.selected === null) throw Error("SHOP_NO_MATCH");
+    const buyer = loadWallet("demo-buyer");
+    assertSolanaDevnet(await connection.getGenesisHash());
+    const [balance, rent] = await Promise.all([
+      connection.getBalance(buyer.publicKey),
+      connection.getMinimumBalanceForRentExemption(328),
+    ]);
+    if (balance < Number(COFFEE_PASS.reward) + rent + 10000)
+      throw Error("SHOP_DEMO_WALLET_EMPTY");
+    const reference = this.store.get("8456603d-6318-4a72-a403-af2c992cc84a");
     const orderInput = {
       solanaWallet: reference.input.solanaWallet,
       cardanoWallet: reference.input.cardanoWallet,
@@ -79,26 +118,33 @@ export class Shop {
       retail: {
         sku: COFFEE_PASS.sku,
         commitment: credentialHash(this.token(id)),
+        shoppingHash: shoppingCommitment(shopping),
       },
     };
     const order: Order = {
       id,
       mode: "live",
       status: "created",
-      createdAt: Date.now(),
-      deadline: Date.now() + 15 * 60000,
+      createdAt: now,
+      deadline,
       input: orderInput,
       inputHash: hash(taskInput(orderInput)),
       reward: COFFEE_PASS.reward,
-      ceiling: COFFEE_PASS.supplierPrice,
+      ceiling: input.budget,
       feeCeiling: "1000000",
       buyer: buyer.publicKey.toBase58(),
       worker: workerAddress(),
       seller: config.seller,
       sellerKey: sellerPublicKey,
+      shopping,
     };
     this.store.db.exec("BEGIN IMMEDIATE");
     try {
+      // Recheck inside the transaction after asynchronous RPC calls so two
+      // simultaneous callers cannot bypass the single-checkout or daily cap.
+      if (this.ledger.active()) throw Error("SHOP_CHECKOUT_BUSY");
+      if (this.ledger.countSince(Date.now() - 86400000) >= 5)
+        throw Error("SHOP_DEMO_LIMIT");
       this.store.save(order);
       this.ledger.insert(
         input.idempotencyKey,
@@ -151,6 +197,7 @@ export class Shop {
         settleTx: order.solana?.settleTx,
         resultHash: order.receipt?.resultHash,
       },
+      shopping: order.shopping,
       verification: order.verification,
       ...(order.error
         ? {
@@ -275,9 +322,16 @@ export class Shop {
 
 export function mountShop(app: Express, store: Store) {
   const shop = new Shop(store);
-  app.post("/api/shop/checkout", (req, res, next) => {
+  app.post("/api/shop/plan", (req, res, next) => {
     try {
-      res.status(202).json(shop.create(req.body));
+      res.json(shop.plan(req.body));
+    } catch (e) {
+      next(e);
+    }
+  });
+  app.post("/api/shop/checkout", async (req, res, next) => {
+    try {
+      res.status(202).json(await shop.create(req.body));
     } catch (e) {
       next(e);
     }

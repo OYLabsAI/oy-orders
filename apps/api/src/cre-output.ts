@@ -19,6 +19,7 @@ export function readCreResult(output: string): unknown {
 export function parseCreOutput(
   output: string,
   expectedHash: string,
+  expectedChecks = 10,
 ): Verification {
   const result = readCreResult(output) as Verification;
   if (
@@ -30,7 +31,7 @@ export function parseCreOutput(
     typeof result.reason !== "string" ||
     !Number.isFinite(result.timestamp) ||
     !Array.isArray(result.checks) ||
-    result.checks.length !== 10 ||
+    result.checks.length !== expectedChecks ||
     result.checks.some(
       (check) =>
         !check ||

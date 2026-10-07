@@ -8,7 +8,7 @@
       name="description"
       content="Buy a digital coffee-style demo pass with crypto. Check the payment, accept one scan, and refuse reuse. Test coins only."
     />
-    <title>OY Orders · Your coffee, paid with crypto</title>
+    <title>OY Orders · Your shopping agent</title>
     <link
       rel="icon"
       type="image/svg+xml"
@@ -43,16 +43,63 @@
       <main id="main">
         <section id="shop-view" aria-label="OY Shop digital pass">
           <div class="shop-heading">
-            <span class="eyebrow">OY SHOP · A LITTLE TASTE OF WHAT’S NEXT</span>
-            <h1>
-              A coffee.<br />A click.<br /><span>A little crypto magic.</span>
-            </h1>
+            <span class="eyebrow">OY ORDERS · YOUR SHOPPING AGENT</span>
+            <h1>Give it a goal.<br /><span>Let it handle checkout.</span></h1>
             <p>
-              Buy a digital pass. Show its QR code.<br />Use it once. Try it
-              twice—we’ll catch it.
+              Set a budget. Your agent refuses bad deals and buys the matching
+              pass. You get it after delivery is independently checked.
             </p>
             <span class="shop-demo-label">TEST COINS · DEMO VOUCHER</span>
           </div>
+          <section
+            id="shop-mission"
+            class="shop-mission"
+            aria-label="Give your agent a shopping mission"
+          >
+            <div class="mission-controls">
+              <div>
+                <span class="eyebrow">YOUR MISSION</span>
+                <h2>“Buy me a coffee pass.”</h2>
+                <p>Four test offers. Let the agent find the valid deal.</p>
+              </div>
+              <div class="mission-budget">
+                <label for="shop-budget">Supplier budget</label
+                ><select id="shop-budget">
+                  <option value="1000000">
+                    1 test ADA · try a tight budget
+                  </option>
+                  <option value="2000000" selected>2 test ADA</option>
+                  <option value="3000000">3 test ADA</option></select
+                ><button id="shop-plan" class="shop-primary">
+                  Find my best deal <span>↗</span></button
+                ><small
+                  >Comparing costs nothing. Network fees are separate.</small
+                >
+              </div>
+            </div>
+            <div
+              id="shop-plan-summary"
+              class="mission-summary"
+              role="status"
+              aria-live="polite"
+            >
+              Try 1 test ADA: the agent must stop without buying. Try 2: it can
+              find the matching pass.
+            </div>
+            <div id="shop-offers" class="mission-offers"></div>
+            <details id="shop-offer-proof" hidden>
+              <summary>Inspect the signed offers and decision</summary>
+              <p>
+                These offers are operated by OY for the demo. The agent uses a
+                deterministic policy; it does not call an AI model or shop at
+                independent cafés.
+              </p>
+              <pre id="shop-offer-json"></pre>
+            </details>
+            <p class="shop-fineprint">
+              Demo catalog operated by OY, including deliberately bad deals.
+            </p>
+          </section>
           <div class="shop-layout">
             <article class="coffee-ticket" id="coffee-ticket">
               <div class="ticket-top">
@@ -133,22 +180,23 @@
               </div>
             </article>
             <div class="shop-checkout">
-              <span class="eyebrow">THE SIMPLE PART</span>
-              <h2>Your pass.<br />Ready when you are.</h2>
+              <span class="eyebrow">THE RESULT OF YOUR MISSION</span>
+              <h2>Your goal.<br />A verified pass.</h2>
               <p class="shop-intro">
-                No card number. No checkout form.<br />Try a real crypto
-                checkout with our funded test wallet.
+                The agent buys the selected offer with our funded test wallet.
+                The pass appears after independent delivery checks succeed.
               </p>
               <div class="shop-price">
                 <span>OY Coffee Club demo pass</span
-                ><strong>0.01 <small>tSOL</small></strong>
+                ><strong>2 <small>test ADA</small></strong>
               </div>
-              <button id="shop-buy" class="shop-primary">
-                Get my digital pass <span>↗</span>
+              <button id="shop-buy" class="shop-primary" disabled>
+                Compare offers first <span>↗</span>
               </button>
               <p class="shop-fineprint">
-                Test coins have no cash value. This demo pass cannot buy real
-                coffee or entry.
+                The supplier gets 2 test ADA plus network fees. A separate 0.01
+                test SOL agent reward stays locked until verified delivery. Test
+                coins have no cash value; no real coffee or entry.
               </p>
               <div
                 id="shop-status"
@@ -169,14 +217,14 @@
                   Copy pass link ↗
                 </button>
                 <button id="shop-new" class="shop-secondary" hidden>
-                  New demo checkout
+                  Start another mission
                 </button>
               </div>
               <ol class="shop-journey">
                 <li id="shop-step-pay">
                   <b>01</b
                   ><span
-                    ><strong>Pay with crypto</strong
+                    ><strong>Lock the agent reward</strong
                     ><small
                       >A Solana program holds the test payment.</small
                     ></span
@@ -185,7 +233,7 @@
                 <li id="shop-step-check">
                   <b>02</b
                   ><span
-                    ><strong>The agent gets your pass</strong
+                    ><strong>Agent buys the valid offer</strong
                     ><small
                       >It buys from a supplier on Cardano. The checker verifies
                       delivery.</small
@@ -228,7 +276,7 @@
             </button>
           </section>
           <details id="shop-proof" class="shop-proof">
-            <summary>What makes this more than a QR code?</summary>
+            <summary>How the agent’s purchase is checked</summary>
             <p>
               A supplier-signed pass is bound to the original order. Payment
               releases only after the independent checker confirms the purchase

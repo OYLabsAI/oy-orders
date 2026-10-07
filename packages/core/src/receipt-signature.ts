@@ -1,9 +1,12 @@
 import { ed25519 } from "@noble/curves/ed25519";
 import { base64 } from "@scure/base";
 import { canonical } from "./canonical.ts";
-import type { Receipt } from "./types.ts";
+import type { Receipt, SignedOffer } from "./types.ts";
 
-export function verifyReceiptSignature(receipt: Receipt, key: string): boolean {
+export function verifyReceiptSignature(
+  receipt: Receipt | SignedOffer,
+  key: string,
+): boolean {
   try {
     const { signature, ...body } = receipt;
     const der = base64.decode(key.replace(/-----[^-]+-----|\s/g, ""));

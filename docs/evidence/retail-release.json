@@ -1,13 +1,16 @@
 {
   "checkedAt": "2026-10-07",
-  "videoDurationSeconds": 87.28,
-  "videoSha256": "96f2ec2cddb6e5200dae5c03c9c1dddb80587c115a69cc664049a4d31e3b3c48",
-  "pitchSha256": "1ecdcc7a3576b1a816edf65945dd86f6f513258b9f019e69d00d00f94caf3a40",
+  "videoDurationSeconds": 85.32,
+  "videoSha256": "88c7c59b29166f4b26953c3aff6d979daf5d79fe8beb6572d2487486d0ad7811",
+  "pitchSha256": "6505551aa4d98dff56f0f7bb192f05e7124a6316979963bd6bff39ad8a5e019f",
   "slides": 6,
   "embeddedMp4ByteMatch": true,
   "movieExternalRelationship": false,
   "nativePlaybackVerified": false,
   "legacyPpt": "visual-only; embedded video lost on conversion",
+  "tests": 65,
+  "shoppingChecks": 11,
+  "shoppingOrder": "e63c7700-2bc4-4fe6-adca-a3074149120c",
   "knownSecretScan": "pass",
-  "sourceFileCount": 177
+  "sourceFileCount": 187
 }

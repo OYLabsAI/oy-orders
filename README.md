@@ -1,8 +1,8 @@
 # OY Orders
 
-**Crypto checkout with proof before payout.**
+**Give your agent a goal and a budget. It buys the valid deal.**
 
-Open **OY Shop**, buy a beautiful coffee-style digital demo pass with our funded test wallet, then show its QR at the cashier. The first scan works. The same pass is refused on the next scan. This is a demo voucher using test coins, with no real coffee or admission.
+Open **OY Shop** and give the agent a coffee-pass mission. At a budget of 1 test ADA it stops without creating a purchase. At 2 it compares four OY-operated test offers, catches a price changed after signing, refuses a signed wrong item and an overpriced offer, and selects the matching pass. Let it buy that offer with the funded test wallets. The digital pass is the delivered result. It cannot buy real coffee or admission.
 
 The agent buys the supplier-signed pass on Cardano. An independent Chainlink CRE workflow checks the payment and the promised pass before releasing the Solana task payment. NOWNodes provides the original payment records. The prototype uses separate test-asset funds, official CRE simulation and a trusted settlement relayer. Pass redemption uses a persistent server ledger.
 
@@ -14,9 +14,9 @@ Built during TOKEN2049 Origins 2026. Main dashboard team: OY Labs. Partner dashb
 
 ## Try the retail pass
 
-Choose **OY Shop**. The fixed 0.01 tSOL checkout pays with an operator-funded Solana Devnet wallet. The worker buys the digital pass resource for 2 tADA on Cardano preprod. Only after ten independent delivery checks and settlement does the QR appear. Open the cashier, use it once, then try the exact same pass again. No wallet installation is needed for this funded demo. A persistent global limit allows five checkouts per rolling day.
+Choose **OY Shop**, set a supplier budget, and click **Find my best deal**. Comparison spends no coins. **Let the agent buy it** creates a separate, authoritative order with signed offers and the budget committed before funding. An operator-funded Solana Devnet wallet locks a 0.01 tSOL agent reward. The worker selects and buys the valid 2 tADA resource on Cardano preprod. Eleven independent checks, including the shopping policy, must pass before settlement and QR issuance. Supplier fees are separate from the price budget. No wallet installation is needed for this funded demo. A persistent global limit allows five checkouts per rolling day.
 
-The real executed order, receipt, transactions and replay refusal are in [RETAIL.md](docs/RETAIL.md). Its order and used-pass commitment survived a controlled cloud-session stop/resume. The pass is neither an NFT nor a physical-delivery guarantee.
+The new shopping purchase passed 11/11 official CRE checks and settled on chain: [execution evidence](docs/evidence/shopping-order.json). [SHOPPING.md](docs/SHOPPING.md) explains the committed decisions. The earlier pass and its used-state commitment survived a controlled cloud-session stop/resume, documented in [RETAIL.md](docs/RETAIL.md). The pass is neither an NFT nor a physical-delivery guarantee.
 
 ## Try the checker
 
@@ -24,7 +24,7 @@ Open **Try a fake answer**. Pick Solana or Cardano and a correct fee, a tiny err
 
 The challenge needs no wallet, makes no payment and never enters the settlement queue. Its scope is two transaction facts pinned per challenge and a real settled-order reference, not arbitrary truth verification. The **See the demo** tab separately shows genuine paid execution, a controlled signed false report rejected by CRE, and the confirmed refund of that same order's task reward. Recorded proofs remain available when the live API is unavailable.
 
-Eight genuine paid testnet orders are documented: seven settled and one rejected with its reward refunded. The latest fresh order executed entirely through the Vercel backend without operator recovery. A controlled session stop/resume preserved its state and a completed challenge. Exact hashes and limitations are in [evidence/STATUS.md](docs/evidence/STATUS.md).
+Nine genuine paid testnet orders are documented: eight settled and one rejected with its reward refunded. The newest shopping mission settled after the demo buyer was replenished with operator-owned test funds following a separate failed funding attempt. That unfunded attempt had no escrow or supplier purchase and is excluded from the paid count. A controlled session stop/resume preserved an earlier order and a completed challenge. Exact hashes and limitations are in [evidence/STATUS.md](docs/evidence/STATUS.md).
 
 ## Run locally
 
@@ -44,14 +44,14 @@ pnpm typecheck
 pnpm test
 ```
 
-57 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, strict CRE/audit result parsing, and recovery from pruned source transactions. Fixture and VM tests are distinct from public-network execution.
+65 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, strict CRE/audit result parsing, and recovery from pruned source transactions. Fixture and VM tests are distinct from public-network execution.
 
 ## One task, four necessary integrations
 
 1. **Solana:** 0.01 tSOL in a Devnet order PDA. Immutable terms bind buyer, worker, authority, input, seller, ceiling and expiry. Quote reservation, settlement and refund are enforced by the custom Rust program.
-2. **Cardano:** an exact preprod x402 purchase of a 2 tADA reporting resource, with a separate 1 tADA network-fee ceiling. The signed payment is persisted before broadcast and reused after an uncertain response.
+2. **Cardano:** an exact preprod x402 purchase of the selected 2 tADA pass or reporting resource, with a separate 1 tADA network-fee ceiling. The signed payment is persisted before broadcast and reused after an uncertain response.
 3. **NOWNodes:** real Solana and Cardano mainnet transaction facts produce the report. NOWNodes preprod reads establish the supplier payment after a network-magic guard.
-4. **Chainlink CRE:** independent reads of escrow, payment, configured seller signature and facts precede settlement. Actual authenticated CLI simulations pass ten order checks; the isolated live challenge performs six checks.
+4. **Chainlink CRE:** independent reads of escrow, payment, configured seller signature and facts precede settlement. Shopping orders add an eleventh check for the committed signed-offer selection. Earlier order simulations have ten checks; the isolated live challenge performs six checks.
 
 Supplier payment and task reward are separate test-asset payments. Cardano payment is final; expiry refunds only the Solana task reward. There is no bridge, conversion or atomic cross-chain settlement.
 

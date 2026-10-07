@@ -64,3 +64,10 @@ A payment HTTP timeout/5xx can occur after broadcast. Recovery resolves the exac
 The shop reuses the same quote, x402 purchase, signed receipt, CRE verifier and Solana settlement. Its funded input additionally commits the pass SKU and the SHA-256 digest of a private HMAC bearer token. The supplier-signed response commits that exact pass instead of unrelated wallet facts. CRE independently checks the real escrow and Cardano payment, then compares the signed pass commitment with funded terms. Only a settled, verified order can expose its QR token through an authorized checkout/pass request.
 
 Checkout IDs and random private access keys provide idempotent recovery. SQLite stores credential digests only. A cashier verifies fresh settled escrow state and result binding before an atomic conditional redemption write. This write survives restart and lets only one scanner accept a pass. Redemption is deliberately a server ledger, not an on-chain token transfer. A single active checkout and five-per-rolling-day cap bound sponsored test spending. Signed Solana funding is saved before broadcast, like the durable Cardano purchase. See [RETAIL.md](RETAIL.md) for executed evidence and limits.
+
+
+## Shopping policy
+
+`/api/shop/plan` is a free deterministic comparison of four signed OY test offers. Checkout generates a fresh order-bound plan and commits its goal, budget and signed offer set into the escrow input. The worker rechecks that commitment and selects the cheapest eligible offer before x402 payment. CRE independently recomputes the decision as its eleventh check. Browser preview indices never authorize a payment. Goal/item, signature, registered seller, recipient, network, asset, expiry, fixed resource and price ceiling share a pure policy in `packages/core`. One active checkout and the five-per-day limit are rechecked in an atomic database transaction after asynchronous balance/rent preflight. See [SHOPPING.md](SHOPPING.md).
+
+Hosting uses Vercel and its persistent Sandbox/Drive. The application does not directly integrate AWS services.
