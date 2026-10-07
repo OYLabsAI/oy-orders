@@ -174,9 +174,14 @@ export async function purchase(order: Order) {
       order.seller,
     );
   }
-  if (response.status >= 500 || response.status === 408) {
-    // A gateway can time out after the facilitator has broadcast. Resolve the
-    // exact saved transaction on chain; never build a replacement purchase.
+  if (
+    response.status >= 500 ||
+    response.status === 408 ||
+    response.status === 402
+  ) {
+    // The facilitator can return a payment-required response after broadcast,
+    // as well as time out. Only confirmed chain evidence can resolve the exact
+    // saved transaction; an HTTP error alone never proves payment or delivery.
     return waitForPayment(
       decodeCardanoTransaction(
         (payload.payload as { transaction: string }).transaction,

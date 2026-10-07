@@ -1,0 +1,109 @@
+{
+  "recordedAt": "2026-10-07T13:54:15.914Z",
+  "orderId": "4b722b39-0a23-41de-a60b-ab977f16cd98",
+  "duration": 89.02,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "rawCapturedFrames": 1196,
+  "captureTargetFps": 8,
+  "chapters": [
+    {
+      "chapter": 1,
+      "startsAt": 0,
+      "duration": 9,
+      "title": "An agent shops. You stay in control.",
+      "narration": "This is OY Orders. Give a shopping agent a goal and a budget. It must earn your trust before it earns its reward.",
+      "actualFrames": 37,
+      "sourceSegments": [
+        9
+      ]
+    },
+    {
+      "chapter": 2,
+      "startsAt": 9,
+      "duration": 12,
+      "title": "Too little budget? No purchase.",
+      "narration": "Start with one test ADA. A fake cheap price, the wrong item, and the expensive coffee passes all fail. Nothing fits, so the agent authorizes no purchase.",
+      "actualFrames": 108,
+      "sourceSegments": [
+        0,
+        1
+      ]
+    },
+    {
+      "chapter": 3,
+      "startsAt": 21,
+      "duration": 11,
+      "title": "Three bad deals out. One good deal in.",
+      "narration": "Raise the budget to two. Three bad deals are refused. The signed coffee offer fits both the goal and the budget. Now the agent can buy it.",
+      "actualFrames": 98,
+      "sourceSegments": [
+        1,
+        2
+      ]
+    },
+    {
+      "chapter": 4,
+      "startsAt": 32,
+      "duration": 13,
+      "title": "A real purchase. A protected reward.",
+      "narration": "This is a real testnet checkout. Solana locks the separate agent reward. Cardano pays the supplier two test ADA. The timer shows the genuine confirmation wait, shortened here.",
+      "actualFrames": 365,
+      "sourceSegments": [
+        3,
+        4
+      ]
+    },
+    {
+      "chapter": 5,
+      "startsAt": 45,
+      "duration": 18,
+      "title": "Delivery checked. Pass unlocked.",
+      "narration": "We recovered the same confirmed payment with operator assistance, without paying twice. Chainlink independently checked the delivery. Eleven checks passed. Only then Solana released the reward, and your digital pass appeared.",
+      "actualFrames": 131,
+      "sourceSegments": [
+        5,
+        6
+      ]
+    },
+    {
+      "chapter": 6,
+      "startsAt": 63,
+      "duration": 8,
+      "title": "Your pass is ready. Use it once.",
+      "narration": "At the counter, open cashier view and use the pass. The confirmed purchase unlocks exactly one demo coffee moment.",
+      "actualFrames": 70,
+      "sourceSegments": [
+        6
+      ]
+    },
+    {
+      "chapter": 7,
+      "startsAt": 71,
+      "duration": 6,
+      "title": "Same pass again? Nice try.",
+      "narration": "Try the same pass again. The saved record refuses a second use.",
+      "actualFrames": 60,
+      "sourceSegments": [
+        7,
+        8
+      ]
+    },
+    {
+      "chapter": 8,
+      "startsAt": 77,
+      "duration": 12,
+      "title": "Open the proof. See what happened.",
+      "narration": "Open the proof. NOW Nodes reads the Cardano records. An official Chainlink C R E simulation passed eleven checks. Test coins, an OY demo catalog, and no real coffee.",
+      "actualFrames": 53,
+      "sourceSegments": [
+        8
+      ]
+    }
+  ],
+  "bytes": 4171273,
+  "sha256": "c83ce5747704bac62889b42bcaa16362de1cfd89f1eb335184ee96f915283fc1",
+  "audio": "Synthetic Samantha narration, AAC mono",
+  "limits": "Edited actual public-app interaction captured around 8 FPS; pauses and confirmation waits shortened. The same order required operator-assisted recovery of its confirmed payment after an HTTP402 response. No second purchase. Operator-funded test coins, OY demo catalog, official CRE simulation and trusted settlement relayer. Pass use is a persistent server write, not on chain; no real coffee."
+}

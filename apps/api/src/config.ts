@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { z } from "zod";
 import {
   generateKeyPairSync,
   createPrivateKey,
@@ -22,6 +23,13 @@ export const config = {
     process.env.CARDANO_PAYMENT_PROVIDER === "nownodes"
       ? ("nownodes" as const)
       : ("legacy" as const),
+  shopDailyLimit: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(10)
+    .default(5)
+    .parse(process.env.SHOP_DEMO_DAILY_LIMIT),
   seller: process.env.CARDANO_SELLER_ADDRESS ?? "",
   creBin: process.env.CRE_BIN ?? ".local/bin/cre",
   creTarget: process.env.CRE_TARGET ?? "staging-settings",

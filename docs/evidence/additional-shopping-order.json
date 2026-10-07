@@ -1,0 +1,317 @@
+{
+  "order": {
+    "id": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+    "mode": "live",
+    "status": "settled",
+    "createdAt": 1791379894502,
+    "deadline": 1791380794502,
+    "input": {
+      "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "scenario": "success",
+      "retail": {
+        "sku": "coffee-pass",
+        "commitment": "7f7b279338c04daa7ad1e5efb7d686139f5b3649b1b588e88f3beeacfc267236",
+        "shoppingHash": "3aa1368eeb203337213412138c8eb467584df047af33212829fc0dc254588e4a"
+      }
+    },
+    "inputHash": "bd58e1469f9cacef5b8e11f91ea31d2c36d60be555667cdde44bd000c8358aa6",
+    "reward": "10000000",
+    "ceiling": "2000000",
+    "feeCeiling": "1000000",
+    "buyer": "2sTMaoCTxMDUWnBJnamno6wQDFJK812rreLvWRuBu8iF",
+    "worker": "4J96kKF7xjeB2WEC5xmZ1SwMVpKfTqxFRau2YK8L4eC2",
+    "seller": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+    "sellerKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA+SG7IyWIKUUUHxAhNSamdSGhGsZCjSzxpEB0rv/Ft00=\n-----END PUBLIC KEY-----\n",
+    "shopping": {
+      "goal": "Buy me an OY coffee demo pass",
+      "budget": "2000000",
+      "offers": [
+        {
+          "version": 1,
+          "label": "Too-good-to-be-true price",
+          "sku": "coffee-pass",
+          "quote": {
+            "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+            "network": "cardano:preprod",
+            "asset": "lovelace",
+            "amount": "100000",
+            "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "expiresAt": 1791380794502,
+            "resource": "https://oy-orders.vercel.app/paid/report?orderId=30d925fe-04de-4cee-a3a4-60f8141a8396"
+          },
+          "signature": "6X3FPo/ez9Ndnn2Q3H/2w+fB3ut/XV3vWQAodjwK+nfRR4mvWruHxmntSY34+eDo1luPvygjdkaKwRHr69m4Dg=="
+        },
+        {
+          "version": 1,
+          "label": "Cheaper, but the wrong item",
+          "sku": "music-pass",
+          "quote": {
+            "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+            "network": "cardano:preprod",
+            "asset": "lovelace",
+            "amount": "200000",
+            "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "expiresAt": 1791380794502,
+            "resource": "https://oy-orders.vercel.app/paid/report?orderId=30d925fe-04de-4cee-a3a4-60f8141a8396"
+          },
+          "signature": "zy7xn0Pww+DtmN/+/qedTr6+M6XKwV4fIMoRLE0/fD0RyrO37QhZ8GH7rLRwNO16e7iVdkhA2H6tulLFO90sBQ=="
+        },
+        {
+          "version": 1,
+          "label": "Right item, too expensive",
+          "sku": "coffee-pass",
+          "quote": {
+            "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+            "network": "cardano:preprod",
+            "asset": "lovelace",
+            "amount": "4000000",
+            "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "expiresAt": 1791380794502,
+            "resource": "https://oy-orders.vercel.app/paid/report?orderId=30d925fe-04de-4cee-a3a4-60f8141a8396"
+          },
+          "signature": "TcbzFWULAqg00V/NhDfXa26EEK6TCqq6FzvaVZgAaLaBqP8At2x63+u1z/oIcVPhU5JEpj7TJH/SPvuLl8YwDA=="
+        },
+        {
+          "version": 1,
+          "label": "The matching coffee pass",
+          "sku": "coffee-pass",
+          "quote": {
+            "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+            "network": "cardano:preprod",
+            "asset": "lovelace",
+            "amount": "2000000",
+            "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "expiresAt": 1791380794502,
+            "resource": "https://oy-orders.vercel.app/paid/report?orderId=30d925fe-04de-4cee-a3a4-60f8141a8396"
+          },
+          "signature": "ywyVtdXjQnWOuyovYPZ2B2OlqNkOqY/Xd9axSYkB3bVXm157IoOQ13br4yR2Djn/fBZ/GgwI9m5kyRabN0sMCg=="
+        }
+      ],
+      "decisions": [
+        {
+          "accepted": false,
+          "reason": "INVALID_SIGNATURE"
+        },
+        {
+          "accepted": false,
+          "reason": "WRONG_ITEM"
+        },
+        {
+          "accepted": false,
+          "reason": "PRICE_EXCEEDS_CEILING"
+        },
+        {
+          "accepted": true,
+          "reason": "MATCHES_GOAL_AND_BUDGET"
+        }
+      ],
+      "selected": 3,
+      "evaluatedAt": 1791379894502
+    },
+    "solana": {
+      "pda": "GUF8DSTHNXhLotTb665gDtmFAUfEb2uaVzCX3pDP59iG",
+      "fundingTx": "vb33n2j6w6QqVa2KAcevYMWtiNz4Bugzw4ES2MeC3zDn8D57wUonoyXkLaE7LomUd2XJ9zawpkmX2d9bxPxJBgs",
+      "reserveTx": "DYh1ewMJR2Rby5WFaVCH4cRnAobQWh5DMz6nz7fuy5ZHmo41Q9jNvLeWGoFr3CVwnBuec1CkTLkKfWhQ7kat6Zs",
+      "settleTx": "D3PUNufmYFZM9Q5VJTs5h8tcLotKJi3MBkwLeAf4bP1t8aD98KcUstQQHuY5qaneZtHkpHpKp7c695JRcXb8Rby"
+    },
+    "quote": {
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "expiresAt": 1791380794502,
+      "resource": "https://oy-orders.vercel.app/paid/report?orderId=30d925fe-04de-4cee-a3a4-60f8141a8396"
+    },
+    "quoteHash": "91d08243404c18383ed7b329060f762f24b67599861091af506e9a47ba128d0e",
+    "report": {
+      "inputHash": "bd58e1469f9cacef5b8e11f91ea31d2c36d60be555667cdde44bd000c8358aa6",
+      "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "facts": [],
+      "retail": {
+        "sku": "coffee-pass",
+        "commitment": "7f7b279338c04daa7ad1e5efb7d686139f5b3649b1b588e88f3beeacfc267236",
+        "shoppingHash": "3aa1368eeb203337213412138c8eb467584df047af33212829fc0dc254588e4a"
+      }
+    },
+    "payment": {
+      "tx": "c5602fa1a50c25161a7f303851a97801b8289c47451feebdcc72947eaf6a8a0b",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "amount": "2000000",
+      "fee": "170517",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "confirmed": true
+    },
+    "receipt": {
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "quoteHash": "91d08243404c18383ed7b329060f762f24b67599861091af506e9a47ba128d0e",
+      "paymentHash": "c5602fa1a50c25161a7f303851a97801b8289c47451feebdcc72947eaf6a8a0b",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "resultHash": "88b1e191e770fe9d758ef8e1e7c7193ccd8bf89c0978d8b00c4b7d39e5f66d3e",
+      "signature": "5LV0bhd03BJFzcS+S0SDtVarNUZ3D0nB5qyhLc4DNqFz5iNHZNkFJOzeHTHK70yYBAfWmhBZNFuejUgiJ4mOCg=="
+    },
+    "verification": {
+      "accepted": true,
+      "reason": "ALL_CHECKS_PASSED",
+      "checks": [
+        {
+          "name": "Solana escrow",
+          "passed": true,
+          "detail": "Actual reserved PDA and immutable chain terms match"
+        },
+        {
+          "name": "Escrow deadline",
+          "passed": true,
+          "detail": "Order must be unexpired"
+        },
+        {
+          "name": "Reserved quote",
+          "passed": true,
+          "detail": "Immutable quote matches its reservation"
+        },
+        {
+          "name": "Input binding",
+          "passed": true,
+          "detail": "Report answers the funded task"
+        },
+        {
+          "name": "Seller signature",
+          "passed": true,
+          "detail": "Ed25519 signature by the registered seller"
+        },
+        {
+          "name": "Receipt binding",
+          "passed": true,
+          "detail": "Order, quote, seller, asset and network agree"
+        },
+        {
+          "name": "Payment confirmation",
+          "passed": true,
+          "detail": "Observed preprod transaction is confirmed"
+        },
+        {
+          "name": "Payment value",
+          "passed": true,
+          "detail": "Correct recipient and quote, within fee reserve"
+        },
+        {
+          "name": "Result integrity",
+          "passed": true,
+          "detail": "Canonical facts match signed SHA-256 digest"
+        },
+        {
+          "name": "Digital pass commitment",
+          "passed": true,
+          "detail": "One-use pass commitment matches the funded task and signed delivery"
+        },
+        {
+          "name": "Agent shopping policy",
+          "passed": true,
+          "detail": "Signed offers, cheapest valid selection and budget bound to the funded task"
+        }
+      ],
+      "mode": "cre-simulation",
+      "resultHash": "88b1e191e770fe9d758ef8e1e7c7193ccd8bf89c0978d8b00c4b7d39e5f66d3e",
+      "timestamp": 1791379989620,
+      "transcript": "/api/orders/30d925fe-04de-4cee-a3a4-60f8141a8396/evidence"
+    }
+  },
+  "events": [
+    {
+      "sequence": 145,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379894623,
+      "step": "created",
+      "detail": "Coffee demo pass ordered. One-use pass commitment bound before payment.",
+      "link": null
+    },
+    {
+      "sequence": 146,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379895714,
+      "step": "funded",
+      "detail": "Demo buyer’s 0.01 tSOL locked for the committed coffee pass. Cardano supplier purchase is funded separately by the operator worker.",
+      "link": null
+    },
+    {
+      "sequence": 147,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379896021,
+      "step": "offer-reviewed",
+      "detail": "Too-good-to-be-true price: INVALID_SIGNATURE.",
+      "link": null
+    },
+    {
+      "sequence": 148,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379896022,
+      "step": "offer-reviewed",
+      "detail": "Cheaper, but the wrong item: WRONG_ITEM.",
+      "link": null
+    },
+    {
+      "sequence": 149,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379896023,
+      "step": "offer-reviewed",
+      "detail": "Right item, too expensive: PRICE_EXCEEDS_CEILING.",
+      "link": null
+    },
+    {
+      "sequence": 150,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379896024,
+      "step": "offer-reviewed",
+      "detail": "The matching coffee pass: MATCHES_GOAL_AND_BUDGET.",
+      "link": null
+    },
+    {
+      "sequence": 151,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379897007,
+      "step": "reserved",
+      "detail": "Seller and 2 tADA quote reserved within the spending ceiling.",
+      "link": null
+    },
+    {
+      "sequence": 152,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379897659,
+      "step": "purchasing",
+      "detail": "Agent handles the Cardano x402 payment challenge.",
+      "link": null
+    },
+    {
+      "sequence": 153,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379951842,
+      "step": "paid",
+      "detail": "Confirmed preprod payment; seller receipt signed.",
+      "link": null
+    },
+    {
+      "sequence": 154,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379952494,
+      "step": "verifying",
+      "detail": "CRE simulation rechecks escrow, payment, receipt and chain facts.",
+      "link": null
+    },
+    {
+      "sequence": 155,
+      "orderId": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "timestamp": 1791379998235,
+      "step": "settled",
+      "detail": "Verified task reward released on Solana Devnet.",
+      "link": null
+    }
+  ],
+  "creTranscript": "<jemalloc>: Out-of-range conf value: narenas:0\nInitializing...\nLoading settings...\n! Using default private key for chain write simulation. To use your own key, set CRE_ETH_PRIVATE_KEY in your .env file or system environment.\nChecking RPC connectivity...\nCompiling workflow...\n✓ Workflow compiled\n✓ Simulation limits enabled\n  HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb\n  Binary hash: f2ebcb7a1a68a9a6eb359721c3b64ed101aa2d3902e9bfd9bedf155eb6901d2a\n  Config hash: 85c01f31969206f7e72c9829a0a711ae51c7990eaf335744ad62efe75fc23fd4\n2026-10-07T13:33:09Z [SIMULATION] Simulator Initialized\n\n2026-10-07T13:33:09Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0\n2026-10-07T13:33:17Z [USER LOG] ORCA_VERIFICATION:{\"accepted\":true,\"reason\":\"ALL_CHECKS_PASSED\",\"checks\":[{\"name\":\"Solana escrow\",\"passed\":true,\"detail\":\"Actual reserved PDA and immutable chain terms match\"},{\"name\":\"Escrow deadline\",\"passed\":true,\"detail\":\"Order must be unexpired\"},{\"name\":\"Reserved quote\",\"passed\":true,\"detail\":\"Immutable quote matches its reservation\"},{\"name\":\"Input binding\",\"passed\":true,\"detail\":\"Report answers the funded task\"},{\"name\":\"Seller signature\",\"passed\":true,\"detail\":\"Ed25519 signature by the registered seller\"},{\"name\":\"Receipt binding\",\"passed\":true,\"detail\":\"Order, quote, seller, asset and network agree\"},{\"name\":\"Payment confirmation\",\"passed\":true,\"detail\":\"Observed preprod transaction is confirmed\"},{\"name\":\"Payment value\",\"passed\":true,\"detail\":\"Correct recipient and quote, within fee reserve\"},{\"name\":\"Result integrity\",\"passed\":true,\"detail\":\"Canonical facts match signed SHA-256 digest\"},{\"name\":\"Digital pass commitment\",\"passed\":true,\"detail\":\"One-use pass commitment matche ...(truncated)\n\n✓ Workflow Simulation Result:\n\"{\\\"accepted\\\":true,\\\"reason\\\":\\\"ALL_CHECKS_PASSED\\\",\\\"checks\\\":[{\\\"name\\\":\\\"Solana escrow\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Actual reserved PDA and immutable chain terms match\\\"},{\\\"name\\\":\\\"Escrow deadline\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Order must be unexpired\\\"},{\\\"name\\\":\\\"Reserved quote\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Immutable quote matches its reservation\\\"},{\\\"name\\\":\\\"Input binding\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Report answers the funded task\\\"},{\\\"name\\\":\\\"Seller signature\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Ed25519 signature by the registered seller\\\"},{\\\"name\\\":\\\"Receipt binding\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Order, quote, seller, asset and network agree\\\"},{\\\"name\\\":\\\"Payment confirmation\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Observed preprod transaction is confirmed\\\"},{\\\"name\\\":\\\"Payment value\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Correct recipient and quote, within fee reserve\\\"},{\\\"name\\\":\\\"Result integrity\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Canonical facts match signed SHA-256 digest\\\"},{\\\"name\\\":\\\"Digital pass commitment\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"One-use pass commitment matches the funded task and signed delivery\\\"},{\\\"name\\\":\\\"Agent shopping policy\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Signed offers, cheapest valid selection and budget bound to the funded task\\\"}],\\\"mode\\\":\\\"cre-simulation\\\",\\\"resultHash\\\":\\\"88b1e191e770fe9d758ef8e1e7c7193ccd8bf89c0978d8b00c4b7d39e5f66d3e\\\",\\\"timestamp\\\":1791379989620}\"\n\n2026-10-07T13:33:17Z [SIMULATION] Execution finished signal received\n2026-10-07T13:33:17Z [SIMULATION] Skipping WorkflowEngineV2\n\n╭──────────────────────────────────────────────────────╮\n│ Simulation complete! Ready to deploy your workflow?  │\n│                                                      │\n│ Run cre account access to request deployment access. │\n╰──────────────────────────────────────────────────────╯\n",
+  "disclosure": "CRE local simulation with trusted demo relayer; no DON deployment."
+}

@@ -1,0 +1,82 @@
+{
+  "checkedAt": "2026-10-07T14:22:51.031Z",
+  "paid": 12,
+  "settled": 10,
+  "signedLieRejectedRewardRefunded": 1,
+  "expiredPaymentErrorRewardRefunded": 1,
+  "orders": [
+    {
+      "id": "4b722b39-0a23-41de-a60b-ab977f16cd98",
+      "status": "settled",
+      "paymentTx": "a2a9ff84459a1501c7ca44f2ed6d5957af560c91e215e80dfb220f694c50e158",
+      "settlementTx": "2D3HF3dxhNgSP4zUHYr99TUVGP8AbiyMb9RoTgvhfa6i5QBZrXyrpLFzePUpkDCDaJETmgLQmK9ygGbsHHQnjTWC"
+    },
+    {
+      "id": "30d925fe-04de-4cee-a3a4-60f8141a8396",
+      "status": "settled",
+      "paymentTx": "c5602fa1a50c25161a7f303851a97801b8289c47451feebdcc72947eaf6a8a0b",
+      "settlementTx": "D3PUNufmYFZM9Q5VJTs5h8tcLotKJi3MBkwLeAf4bP1t8aD98KcUstQQHuY5qaneZtHkpHpKp7c695JRcXb8Rby"
+    },
+    {
+      "id": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "status": "refunded",
+      "paymentTx": "e6206c86e349baca44387bd70c99e50e611ef9c4aad2f3c4092f9becf4bf48df",
+      "refundTx": "497unpAirG7znodSH9RoXSs9j4j312PFZPbpjfsgsvu8xbKeAhFrG25jkW7JTndJCcKLKrER5uGdKvUhG7PaV7gd"
+    },
+    {
+      "id": "e63c7700-2bc4-4fe6-adca-a3074149120c",
+      "status": "settled",
+      "paymentTx": "d396b14691f3319ce6d8b220eafe646433792972f47d3d64427085531956d9a2",
+      "settlementTx": "4mDHtiBzCamgQGPjRav81AKRk6fUwEdAw6PUoLo94WeUZc9nEnB8jk2hpgRLzEiBGKxwY4a32WUSHgBYJFbbsyNz"
+    },
+    {
+      "id": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "status": "settled",
+      "paymentTx": "d5f8f92b233a63831ad64adfa72d5b681dd65ebabeff12ab7f763f5216139800",
+      "settlementTx": "2Xp7pF7NEptyCrEW12txmC1u9Rx8gBB6mpSyNSAF4vzELnsmuvZfbxE6DuXLRDKc8rcF6X4VyV73Nde4xsA9D66o"
+    },
+    {
+      "id": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "status": "settled",
+      "paymentTx": "04a8a5f7c90794114689baee36236a9a33fd8a64b38b5fbe1cb322cb9556f7a1",
+      "settlementTx": "2qjS36DjpGmDZ79PvrR6Tx6f7ih373g6KKa3WTm1g7tqKJjJYHCfbKFRQqhPpouU6iKAvmrv1JqYqtRffd3ji8bL"
+    },
+    {
+      "id": "bda7a31e-1917-4a55-ba95-c1890051a337",
+      "status": "settled",
+      "paymentTx": "8d315431ff6bc01892f8a3d1f15c67adc1070992ee6b776fb54b891493c7ccb1",
+      "settlementTx": "2w72YYbTvceS7WJsmy5eC99FDfVNhYE8sAjcsV63bsdrH2nUuEe6ZtG6barNvoF3bBGWdHfEPXdt5wquYKi4yyCK"
+    },
+    {
+      "id": "caa423cd-c20f-448f-9186-e98034fa1df1",
+      "status": "refunded",
+      "paymentTx": "76834a257c001dd4c3bd4c5e176c043ddb89ace6b406e1e94a1b0f635dca231d",
+      "refundTx": "w9qZmkBDYr6hRxJN1WhUoJH2h7N6Qc4iZxrP8uXJNQK9DgcM1uJFwcrRjKHqX9k6YeUmcZqzcLjmN5hCuTPKCaP"
+    },
+    {
+      "id": "8456603d-6318-4a72-a403-af2c992cc84a",
+      "status": "settled",
+      "paymentTx": "5bbf93b751ea2c005e21e972e191dc3d2f2a18481e1a5a9d6fda06c845e662a7",
+      "settlementTx": "gwbnK55qnZJpjjx1zZ12XTCUsVbCr5d6ZqsXNTuio9R3FHBx87GPtPLn1b4GB1xgH5J93uLY8iDJGwUXkb9XEqW"
+    },
+    {
+      "id": "905ca8fe-3593-409f-88d3-5488d89dec09",
+      "status": "settled",
+      "paymentTx": "9a3b35a72cb5fdeeb8ca687e33ffb32a6d8b8819d96a3e8e1eff7afd5a073ca4",
+      "settlementTx": "3FcE6xE3s3FPjFS7LL6XZnQchzBqM1SH2gda8rNJwxmCP8LTcbmu2xdH1pWTyU9tecPtmwyu7H6gnsQq4bXEXHGU"
+    },
+    {
+      "id": "67ae1a56-7160-4903-96ef-d67ec16b0b42",
+      "status": "settled",
+      "paymentTx": "4fac2b2e2952724c62fd09b137b302e35d8dcce9f48c33af39440cfa2c1aa764",
+      "settlementTx": "2TcnACu2ysfdfKrtae5sQvpz5EFYshd2Yt2iBjFdtndoL1eBeuqauZAuFFj4ZsQ2rRGDRdg5688zgyVY13kQLAXx"
+    },
+    {
+      "id": "7bc135eb-9e1a-473d-b9dd-241e467a2c45",
+      "status": "settled",
+      "paymentTx": "6e356513dcb58823d84f8a56828c6c237f129a7c9c5b45d056439573f260c279",
+      "settlementTx": "XgGmbs1wnWDyAFsh9eo4jP67bpphaYA7BDRquKLBMdnM9ARgEo2pxkeUkJWSVE3YNQJHFr6PT21oEp6QPHkJYdo"
+    }
+  ],
+  "disclosure": "Two distinct task reward refunds: one rejected signed false report and one payment-response-error order expired without delivery. Cardano supplier payments remain final. One separate unfunded attempt is excluded."
+}

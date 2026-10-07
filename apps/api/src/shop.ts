@@ -92,7 +92,8 @@ export class Shop {
     if (config.mode !== "live" || readiness().some((i) => !i.ready))
       throw Error("SHOP_LIVE_SETUP_REQUIRED");
     // This public demo spends operator-owned TEST coins. Its persistent global
-    // limit bounds spending to 0.05 tSOL + rent and 10 tADA per rolling day.
+    // limit defaults to five purchases per rolling day. An operator can set
+    // at most ten; transaction fees and escrow rent remain separate.
     const id = randomUUID();
     const now = Date.now();
     const deadline = now + 15 * 60000;
@@ -143,7 +144,7 @@ export class Shop {
       // Recheck inside the transaction after asynchronous RPC calls so two
       // simultaneous callers cannot bypass the single-checkout or daily cap.
       if (this.ledger.active()) throw Error("SHOP_CHECKOUT_BUSY");
-      if (this.ledger.countSince(Date.now() - 86400000) >= 5)
+      if (this.ledger.countSince(Date.now() - 86400000) >= config.shopDailyLimit)
         throw Error("SHOP_DEMO_LIMIT");
       this.store.save(order);
       this.ledger.insert(

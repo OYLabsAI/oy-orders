@@ -276,7 +276,7 @@ export function initShop({
       (
         {
           SHOP_DEMO_LIMIT:
-            "Today’s five funded demos have been used. Explore the recorded demo instead.",
+            "Today’s funded demo allowance has been used. Explore the recorded demo instead.",
           SHOP_CHECKOUT_BUSY:
             "Another demo checkout is running. Try again after it finishes.",
           SHOP_LIVE_SETUP_REQUIRED:

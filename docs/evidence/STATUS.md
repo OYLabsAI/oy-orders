@@ -1,12 +1,12 @@
 # Executed evidence — 7 October 2026
 
-**Nine genuine paid testnet orders: eight settled, one signed false report rejected and its task reward refunded.** The newest shopping mission passed eleven official CRE checks and delivered a usable pass. The earlier retail pass passed ten checks, accepted one use and refused replay. The judge-controlled challenge performs fresh independent reads rather than replaying a local copy.
+**Twelve genuine paid testnet orders: ten settled, one signed false report rejected with its task reward refunded, and one payment-response-error order expired without delivery with its separate task reward refunded.** Both refunded orders’ Cardano supplier purchases remain final. [Recorded payment tally](paid-order-tally.json). The newest shopping mission passed eleven official CRE checks and delivered a usable pass. The earlier retail pass passed ten checks, accepted one use and refused replay. The judge-controlled challenge performs fresh independent reads rather than replaying a local copy.
 
 | Evidence | Executed result | Practical limit |
 |---|---|---|
-| Types and tests | Type check and 65 tests pass | VM, fixtures, parsing, pass ledger and recovery tests are distinct from chain execution |
+| Types and tests | Type check and 69 tests pass | VM, fixtures, parsing, pass ledger and recovery tests are distinct from chain execution |
 | Solana program | Devnet `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj`; deployed bytes match tested ELF | Upgrade authority retained; trusted settlement relayer |
-| Paid success | Eight actual 2 tADA purchases and Solana settlements. Latest shopping has eleven checks; earlier orders have ten | Separate test assets; no bridge or conversion |
+| Paid success | Ten actual 2 tADA purchases and Solana settlements. Latest shopping has eleven checks; earlier orders have ten | Separate test assets; no bridge or conversion |
 | Paid adversarial order | Controlled seller's valid signature and digest pass; false source fact fails; reward never settled | Deliberate team-controlled supplier test |
 | Same-order refund | Rejected order's 0.01 tSOL reward returned on chain after expiry | Cardano purchase remains final; refund pays its network fee |
 | Fresh live challenge | Thousand-fold Solana lie and one-lovelace Cardano lie caught; honest corrected claim passes six checks | Source transactions pinned per challenge, separate signer; no money moves |
@@ -46,7 +46,7 @@ Full Cardano hashes and preprod explorer links are in each evidence file.
 
 ## Submission gates
 
-The public source and hackathon build history are published at https://github.com/OYLabsAI/oy-orders . The requested organization transfer is verified. A ZIP does not replace the required repository. Drive native Keynote, PPTX, MP4 and ZIP judge access is verified. Native Keynote playback of the byte-identical embedded movie is verified, and all six slides were visually checked. The movie is an edited authentic capture tour, not continuous purchase footage. Legacy PPT loses the recording. BuilderBase support confirmed on 7 October in the [Telegram support topic](https://web.telegram.org/a/#-1003985854926_137) that attendance-confirmed/RSVP-closed 1/2 does not affect submission; the official main page also permits relevant partner submissions after applications close. All required draft fields are saved and verified: main 3/3, Solana 3/3, Cardano 5/5, CRE 4/4 and NOWNodes 4/4. Every dashboard shows **You're ready to submit**. No final hackathon submission has been made.
+The public source and hackathon build history are published at https://github.com/OYLabsAI/oy-orders . The requested organization transfer is verified. A ZIP does not replace the required repository. Drive native Keynote, PPTX, MP4 and ZIP judge access is verified. Native Keynote playback of the byte-identical embedded movie is verified, and all six slides were visually checked. The replacement 89.02-second movie records actual public-app interaction, with edited waits and synthetic narration. The successful recorded order required operator-assisted same-payment recovery, which is disclosed. Older expired checkouts are excluded from its footage. Legacy PPT loses the recording. BuilderBase support confirmed on 7 October in the [Telegram support topic](https://web.telegram.org/a/#-1003985854926_137) that attendance-confirmed/RSVP-closed 1/2 does not affect submission; the official main page also permits relevant partner submissions after applications close. All required draft fields are saved and verified: main 3/3, Solana 3/3, Cardano 5/5, CRE 4/4 and NOWNodes 4/4. Every dashboard shows **You're ready to submit**. No final hackathon submission has been made.
 
 ## Retail pass, 7 October
 
@@ -62,3 +62,13 @@ The public source and hackathon build history are published at https://github.co
 [shopping-budget.json](shopping-budget.json): 1 test ADA checkout returned `SHOP_NO_MATCH` with 16 orders before and after. No order or funding job was created. Free UI comparison independently showed every offer refused. The server always creates fresh authoritative offers for a paid checkout.
 
 A separate attempt `0feab18e-5574-4d73-b53f-c0223eeaaddc` paused for insufficient operator demo-buyer test SOL. Its saved funding transaction expired unconfirmed, with no escrow or supplier purchase. It is excluded from the paid-order count. Operator-owned test funds replenished the buyer while preserving the worker reserve before the successful fresh mission. Balance and rent preflight now precede checkout allocation.
+
+## Recorded checkout and payment-response repair, 7 October
+
+[recorded-shopping-order.json](recorded-shopping-order.json): order `4b722b39-0a23-41de-a60b-ab977f16cd98` actually paid 2 tADA on Cardano preprod, passed 11/11 official CRE checks and settled on Solana Devnet. The issued pass accepted its first use and refused replay. The x402 purchase response returned HTTP 402 after broadcast; NOWNodes independently confirmed the exact saved transaction. The reward stayed locked. An operator resumed that same order after checking its escrow, recipient, amount, fee and deadline. No second purchase was made. The payment code now resolves a post-broadcast HTTP 402 through the saved transaction’s independent chain evidence, as it already does for network timeouts; an HTTP error itself proves no payment or delivery.
+
+[recorded-shopping-video.json](recorded-shopping-video.json): 89.02 seconds, 1920×1080 H.264/AAC, actual timestamped browser captures at approximately 8 FPS encoded at 30 FPS, synthetic narration and captions. Pauses and confirmation waits are edited. Only the successful recorded checkout and pass are shown; the older expired checkout is excluded. The previous edited screenshot tour is retained privately as a backup.
+
+[expired-payment-error.json](expired-payment-error.json): earlier order `e0e6e66e-fb94-4327-a601-9fe04be7b583` had the same post-payment HTTP 402 error. Its confirmed Cardano purchase is recorded, but its deadline had expired without delivery. Its 0.01 tSOL task reward was returned to the buyer on chain, escrow state 3, with a 5000-lamport refund fee. The Cardano purchase remains final. This is distinct from the signed false-report rejection/refund test; neither is a successful delivery.
+
+[additional-shopping-order.json](additional-shopping-order.json) preserves another actual settled shopping execution. The full tally is 12 paid orders, 10 settled successes and the two distinct task reward refunds. One separate unfunded attempt created no escrow or Cardano payment and is excluded.

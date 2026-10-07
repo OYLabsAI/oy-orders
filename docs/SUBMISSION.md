@@ -4,7 +4,7 @@
 
 **7 October 2026, 23:59 Singapore / 17:59 Berlin.** Internal target: 22:00 Singapore / 16:00 Berlin. The main dashboard team is OY Labs; the inspected NOWNodes team is Orca Labs with the same four members. The product is OY Orders. Main event, Solana, Cardano, Chainlink CRE and NOWNodes are the intended entries. No final submission has been sent.
 
-The public shopping mission is functional. Nine genuine paid testnet orders are documented: eight settled and one signed false reporting delivery rejected with its same-order reward refunded. The new mission passed **11/11** official CRE checks before settling. A one-test-ADA budget was refused without creating an order or funding job. 69 tests passed, including interrupted browser polling and safe reconnection. The earlier pass survived a controlled persistent-cloud stop/resume. Exact transactions and limits are in [evidence/STATUS.md](evidence/STATUS.md) and [SHOPPING.md](SHOPPING.md).
+The public shopping mission is functional. Twelve confirmed Cardano paid testnet orders are documented: ten settled successes, one signed false-report rejection with its agent reward refunded, and one expired payment-response-error order with its agent reward refunded. The two refunds are different failure cases; the Cardano supplier purchases remain final. The recorded mission passed **11/11** official CRE checks before settling and accepted its first pass use while refusing replay. Its confirmed payment required disclosed operator-assisted recovery of the same order, without a second purchase. A one-test-ADA budget was refused without creating an order or funding job. 69 tests passed, including interrupted browser polling and safe reconnection. The earlier pass survived a controlled persistent-cloud stop/resume. Exact transactions and limits are in [evidence/STATUS.md](evidence/STATUS.md) and [SHOPPING.md](SHOPPING.md).
 
 ## Copy-ready description
 
@@ -26,8 +26,8 @@ The public shopping mission is functional. Nine genuine paid testnet orders are 
 
 - Live app: https://oy-orders.vercel.app/
 - Demo and downloads: https://oy-orders.vercel.app/deliverables/
-- Cardano demo video: https://oy-orders.vercel.app/downloads/OY-Orders-demo.mp4 — **85.32 seconds**, 1080p H.264/AAC.
-- Actual shopping execution: https://oy-orders.vercel.app/api/orders/e63c7700-2bc4-4fe6-adca-a3074149120c/evidence
+- Cardano demo video: https://oy-orders.vercel.app/downloads/OY-Orders-demo.mp4 — **89.02 seconds**, 1080p H.264/AAC, actual public-app click-through with narration.
+- Recorded shopping execution: https://oy-orders.vercel.app/api/orders/4b722b39-0a23-41de-a60b-ab977f16cd98/evidence
 - GitHub: https://github.com/OYLabsAI/oy-orders — public MIT source repository under the requested organization, with the complete build history. The source ZIP is an additional download.
 - Drive native Keynote stage deck: https://drive.google.com/file/d/1yzOd78x3KbnoYOTdTQhAAqMHnr5ersdP/view — six slides with the exact MP4 embedded, full-slide native playback verified, and anyone-with-link read-only access verified. Use this URL in all five presentation fields.
 - Drive PPTX: updated six-slide editable backup with its MP4 embedded on slide 3. Native Keynote is the stage file.
@@ -49,14 +49,16 @@ All required draft fields are saved and verified on 7 October: **main 3/3; Solan
 
 | Time | Show | Say |
 |---|---|---|
-| 0:00–0:15 | Cover | “Tell your agent what you want and what it can spend. It refuses bad deals and buys the valid one.” |
-| 0:15–0:30 | Budget comparison | “One test ADA buys nothing. Two buys the genuine coffee pass. Fake prices and wrong items still fail.” |
-| 0:30–1:56 | Embedded 85-second demo | Let the recorded budget refusal, selection, actual purchase and verification explain the product. |
-| 1:56–2:22 | Four technology roles | “Solana protects the reward. Cardano buys the selected offer. NOWNodes supplies payment records. CRE rechecks the decision and delivery.” |
-| 2:22–2:40 | Evidence | “65 tests. 11/11 shopping checks. Nine genuine paid testnet orders. Official simulation and a trusted relayer.” |
-| 2:40–3:00 | First market and URL | “Next: one merchant pilot for digital benefits and customer wallet authorization.” |
+| 0:00–0:12 | Cover | “Tell your agent what you want and what it can spend. It refuses bad deals and buys the valid one.” |
+| 0:12–0:24 | Budget comparison | “One test ADA buys nothing. Two buys the genuine coffee pass. Fake prices and wrong items still fail.” |
+| 0:24–1:54 | Embedded 89-second demo | Let the narrated actual click-through explain the selection, purchase recovery, verification and pass use. |
+| 1:54–2:18 | Four technology roles | “Solana protects the reward. Cardano buys the selected offer. CRE rechecks the decision and delivery. NOWNodes supplies payment records.” |
+| 2:18–2:36 | Evidence | “69 tests. 11/11 delivery checks. Twelve paid testnet orders, ten settled and two different agent-reward refunds. Official simulation and a trusted relayer.” |
+| 2:36–2:55 | First market and URL | “Next: one merchant pilot for digital benefits and customer wallet authorization.” |
 
-The MP4 is an **edited tour of authentic app captures with synthetic narration**. The new purchase and the separately labeled signed-lie and paid-refund evidence are genuine. It does not claim a continuous recording of the entire purchase. Stage rules require embedded screen recording and prohibit live demos and external video links. Native Keynote playback is verified; organizer acceptance of the edited capture-tour footage is not claimed.
+The native Keynote uses 0.5-second dissolve transitions and presenter-controlled builds. Advance once to reveal the coffee pass on the cover; twice for the budget outcomes; four times for the technology explanations; twice for the delivery and paid-order proof; and once for the closing URL. The embedded movie starts on entering slide three. Use the timing above as a rehearsal target; allow the movie to finish before advancing.
+
+The MP4 is an **actual public-app click-through screen recording with synthetic narration**. It shows the successful recorded checkout, verified pass and accepted first use with replay refused. Shortened waiting and operator-assisted recovery of an already confirmed Cardano payment are disclosed. The signed-lie rejection and older expired payment-error reward refund are separate supporting evidence; they are not presented as steps in this successful checkout. It does not claim uninterrupted automatic execution. Stage rules require embedded screen recording and prohibit live demos and external video links. Native Keynote playback is verified; organizer acceptance of the edited screen recording is not claimed. Rehearse to the 2:55 target, leaving five seconds before the three-minute limit.
 
 ## Remaining gates and fastest human help
 

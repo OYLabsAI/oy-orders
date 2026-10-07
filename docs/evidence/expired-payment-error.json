@@ -1,0 +1,234 @@
+{
+  "order": {
+    "id": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+    "mode": "live",
+    "status": "refunded",
+    "createdAt": 1791377327817,
+    "deadline": 1791378227817,
+    "input": {
+      "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "scenario": "success",
+      "retail": {
+        "sku": "coffee-pass",
+        "commitment": "5cb02d197146b57bbfe2cb4a71112193861f033ebbd7facbefde4eba9ca66e53",
+        "shoppingHash": "74e87822be15c8037500e020c7d0994c8ffdfe48f38924a0d95e1b4f677ba144"
+      }
+    },
+    "inputHash": "c00ec183dbb4ac801e1afa63e0755c3ec1c019610a430a825623e9eb21eda5c5",
+    "reward": "10000000",
+    "ceiling": "2000000",
+    "feeCeiling": "1000000",
+    "buyer": "2sTMaoCTxMDUWnBJnamno6wQDFJK812rreLvWRuBu8iF",
+    "worker": "4J96kKF7xjeB2WEC5xmZ1SwMVpKfTqxFRau2YK8L4eC2",
+    "seller": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+    "sellerKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA+SG7IyWIKUUUHxAhNSamdSGhGsZCjSzxpEB0rv/Ft00=\n-----END PUBLIC KEY-----\n",
+    "shopping": {
+      "goal": "Buy me an OY coffee demo pass",
+      "budget": "2000000",
+      "offers": [
+        {
+          "version": 1,
+          "label": "Too-good-to-be-true price",
+          "sku": "coffee-pass",
+          "quote": {
+            "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+            "network": "cardano:preprod",
+            "asset": "lovelace",
+            "amount": "100000",
+            "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "expiresAt": 1791378227817,
+            "resource": "https://oy-orders.vercel.app/paid/report?orderId=e0e6e66e-fb94-4327-a601-9fe04be7b583"
+          },
+          "signature": "4Qr6RznMQN0BzCPOhrUkY3Fu92ItHgaant5q9Mf4E2rZxzNX2n1nWGFdKEey+ntyYufwC4xsf4B+mpb3KeYdCg=="
+        },
+        {
+          "version": 1,
+          "label": "Cheaper, but the wrong item",
+          "sku": "music-pass",
+          "quote": {
+            "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+            "network": "cardano:preprod",
+            "asset": "lovelace",
+            "amount": "200000",
+            "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "expiresAt": 1791378227817,
+            "resource": "https://oy-orders.vercel.app/paid/report?orderId=e0e6e66e-fb94-4327-a601-9fe04be7b583"
+          },
+          "signature": "lm6vYtwAD0pQP4PN65MDWjtbOq/gBOh4WuRwRJAmjQKnbh7kj9ZUgqBWVp5B6F+jM/b85Jga2A1h/aOnGLiHBg=="
+        },
+        {
+          "version": 1,
+          "label": "Right item, too expensive",
+          "sku": "coffee-pass",
+          "quote": {
+            "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+            "network": "cardano:preprod",
+            "asset": "lovelace",
+            "amount": "4000000",
+            "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "expiresAt": 1791378227817,
+            "resource": "https://oy-orders.vercel.app/paid/report?orderId=e0e6e66e-fb94-4327-a601-9fe04be7b583"
+          },
+          "signature": "goN+Nqt92th0N/pTqGF7VB/796l/ChzD+7bIkfbBavgbT5TK0IyzZO8dTIppGs3umqd0GWg9MIEDjVFAuxtUBg=="
+        },
+        {
+          "version": 1,
+          "label": "The matching coffee pass",
+          "sku": "coffee-pass",
+          "quote": {
+            "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+            "network": "cardano:preprod",
+            "asset": "lovelace",
+            "amount": "2000000",
+            "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+            "expiresAt": 1791378227817,
+            "resource": "https://oy-orders.vercel.app/paid/report?orderId=e0e6e66e-fb94-4327-a601-9fe04be7b583"
+          },
+          "signature": "XOi2/vUgIQTBCi+KhngEbFzdnz6fAr/YhAxmqnwb9DsGyOGca7jmGQmK/tSmPDAwpBJgaShK2vTc+uZrsdXjDA=="
+        }
+      ],
+      "decisions": [
+        {
+          "accepted": false,
+          "reason": "INVALID_SIGNATURE"
+        },
+        {
+          "accepted": false,
+          "reason": "WRONG_ITEM"
+        },
+        {
+          "accepted": false,
+          "reason": "PRICE_EXCEEDS_CEILING"
+        },
+        {
+          "accepted": true,
+          "reason": "MATCHES_GOAL_AND_BUDGET"
+        }
+      ],
+      "selected": 3,
+      "evaluatedAt": 1791377327817
+    },
+    "solana": {
+      "pda": "CaBKfChNtyzJDAMk7WBJLNbamRzqikC2fyS5B6v4Q2SU",
+      "fundingTx": "WnLeXHtkGpuWTbMwniSRcwSGq12EwSC4spxqM7b4ZDrx1Gf3k3gGtt9oPVXk2N3aaMmVCTK53XCYi5SWw6TXjti",
+      "reserveTx": "5B7XNtT83H1iN1bGy9TQBgGW2Xzx9vC57RsSVRuS13Ae9KyKjFr6RpgJxynjn3nhZfNtP1MmmJTxv3p3AibbkiBi",
+      "refundTx": "497unpAirG7znodSH9RoXSs9j4j312PFZPbpjfsgsvu8xbKeAhFrG25jkW7JTndJCcKLKrER5uGdKvUhG7PaV7gd"
+    },
+    "quote": {
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "expiresAt": 1791378227817,
+      "resource": "https://oy-orders.vercel.app/paid/report?orderId=e0e6e66e-fb94-4327-a601-9fe04be7b583"
+    },
+    "quoteHash": "670698af4384242995955ab48ebcf83c780ca26cb17b98dfdf9e58b7e9006936",
+    "report": {
+      "inputHash": "c00ec183dbb4ac801e1afa63e0755c3ec1c019610a430a825623e9eb21eda5c5",
+      "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "facts": [],
+      "retail": {
+        "sku": "coffee-pass",
+        "commitment": "5cb02d197146b57bbfe2cb4a71112193861f033ebbd7facbefde4eba9ca66e53",
+        "shoppingHash": "74e87822be15c8037500e020c7d0994c8ffdfe48f38924a0d95e1b4f677ba144"
+      }
+    },
+    "error": "X402_PAYMENT_HTTP_402",
+    "payment": {
+      "tx": "e6206c86e349baca44387bd70c99e50e611ef9c4aad2f3c4092f9becf4bf48df",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "amount": "2000000",
+      "fee": "170517",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "confirmed": true
+    }
+  },
+  "events": [
+    {
+      "sequence": 136,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377327888,
+      "step": "created",
+      "detail": "Coffee demo pass ordered. One-use pass commitment bound before payment.",
+      "link": null
+    },
+    {
+      "sequence": 137,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377328854,
+      "step": "funded",
+      "detail": "Demo buyer’s 0.01 tSOL locked for the committed coffee pass. Cardano supplier purchase is funded separately by the operator worker.",
+      "link": null
+    },
+    {
+      "sequence": 138,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377329159,
+      "step": "offer-reviewed",
+      "detail": "Too-good-to-be-true price: INVALID_SIGNATURE.",
+      "link": null
+    },
+    {
+      "sequence": 139,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377329160,
+      "step": "offer-reviewed",
+      "detail": "Cheaper, but the wrong item: WRONG_ITEM.",
+      "link": null
+    },
+    {
+      "sequence": 140,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377329161,
+      "step": "offer-reviewed",
+      "detail": "Right item, too expensive: PRICE_EXCEEDS_CEILING.",
+      "link": null
+    },
+    {
+      "sequence": 141,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377329161,
+      "step": "offer-reviewed",
+      "detail": "The matching coffee pass: MATCHES_GOAL_AND_BUDGET.",
+      "link": null
+    },
+    {
+      "sequence": 142,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377329798,
+      "step": "reserved",
+      "detail": "Seller and 2 tADA quote reserved within the spending ceiling.",
+      "link": null
+    },
+    {
+      "sequence": 143,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377330449,
+      "step": "purchasing",
+      "detail": "Agent handles the Cardano x402 payment challenge.",
+      "link": null
+    },
+    {
+      "sequence": 144,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791377394271,
+      "step": "blocked",
+      "detail": "Execution paused: X402_PAYMENT_HTTP_402. No unverified settlement.",
+      "link": null
+    },
+    {
+      "sequence": 170,
+      "orderId": "e0e6e66e-fb94-4327-a601-9fe04be7b583",
+      "timestamp": 1791382512135,
+      "step": "refunded",
+      "detail": "Expired payment-response-error order: confirmed Cardano supplier payment stays final; Solana task reward returned to buyer. No delivery or successful verification claimed.",
+      "link": null
+    }
+  ],
+  "creTranscript": null,
+  "disclosure": "CRE local simulation with trusted demo relayer; no DON deployment."
+}
