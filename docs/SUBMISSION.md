@@ -4,7 +4,7 @@
 
 **7 October 2026, 23:59 Singapore / 17:59 Berlin.** Internal target: 22:00 Singapore / 16:00 Berlin. The main dashboard team is OY Labs; the inspected NOWNodes team is Orca Labs with the same four members. The product is OY Orders. Main event, Solana, Cardano, Chainlink CRE and NOWNodes are the intended entries. No final submission has been sent.
 
-The public shopping mission is functional. Nine genuine paid testnet orders are documented: eight settled and one signed false reporting delivery rejected with its same-order reward refunded. The new mission passed **11/11** official CRE checks before settling. A one-test-ADA budget was refused without creating an order or funding job. 65 tests passed. The earlier pass survived a controlled persistent-cloud stop/resume. Exact transactions and limits are in [evidence/STATUS.md](evidence/STATUS.md) and [SHOPPING.md](SHOPPING.md).
+The public shopping mission is functional. Nine genuine paid testnet orders are documented: eight settled and one signed false reporting delivery rejected with its same-order reward refunded. The new mission passed **11/11** official CRE checks before settling. A one-test-ADA budget was refused without creating an order or funding job. 69 tests passed, including interrupted browser polling and safe reconnection. The earlier pass survived a controlled persistent-cloud stop/resume. Exact transactions and limits are in [evidence/STATUS.md](evidence/STATUS.md) and [SHOPPING.md](SHOPPING.md).
 
 ## Copy-ready description
 
@@ -63,7 +63,7 @@ The MP4 is an **edited tour of authentic app captures with synthetic narration**
 1. GitHub publication and the requested organization transfer are complete: https://github.com/OYLabsAI/oy-orders . Use this canonical URL in all entries.
 2. All five entries have their final source and native Keynote links saved. Review the actual saved entries before final submission.
 3. Rehearse the three-minute pitch using the downloaded Keynote deck and its embedded movie. Do not use the movie-free legacy PPT for the stage.
-4. The partner dashboard's attendance-confirmed/RSVP-closed 1/2 display is an unconfirmed discrepancy, not a published second-check-in requirement. The main event page explicitly permits relevant partner submissions after applications close. Continue submission; request support only if the actual submission action produces a registration error.
+4. BuilderBase support confirmed on 7 October in its [Telegram topic](https://web.telegram.org/a/#-1003985854926_137) that the attendance-confirmed/RSVP-closed 1/2 discrepancy does not affect submission. The main event page also permits relevant partner submissions after applications close. This clarification does not replace the five final submission confirmations.
 5. Review and submit the main entry and all four partner entries with the user before the deadline. Slides lock at submission. Save each confirmation.
 
 Published technical requirements are covered with testnet funds. Extra mainnet funds, Masumi/Sokosumi registration, NFTs and production CRE are not mandatory for this selected implementation. Deeper Cardano-specific capabilities and genuine merchant validation remain competitive weaknesses. Ask a real merchant one concrete question about vouchers or duplicate redemption if time permits, and record only their actual response.

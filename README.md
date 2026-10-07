@@ -14,11 +14,15 @@ Built during TOKEN2049 Origins 2026. Main dashboard team: OY Labs. Partner dashb
 
 Public source: [OYLabsAI/oy-orders](https://github.com/OYLabsAI/oy-orders). Solana program: `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj` on **Devnet**. [Actual shopping settlement](https://explorer.solana.com/tx/4mDHtiBzCamgQGPjRav81AKRk6fUwEdAw6PUoLo94WeUZc9nEnB8jk2hpgRLzEiBGKxwY4a32WUSHgBYJFbbsyNz?cluster=devnet).
 
+The same shopping order paid the supplier 2 tADA on **Cardano preprod**: [`d396b146…56d9a2`](https://preprod.cardanoscan.io/transaction/d396b14691f3319ce6d8b220eafe646433792972f47d3d64427085531956d9a2). [Full payment hash and official CRE execution](docs/evidence/shopping-order.json).
+
 ## Try the retail pass
 
 Choose **OY Shop**, set a supplier budget, and click **Find my best deal**. Comparison spends no coins. **Let the agent buy it** creates a separate, authoritative order with signed offers and the budget committed before funding. An operator-funded Solana Devnet wallet locks a 0.01 tSOL agent reward. The worker selects and buys the valid 2 tADA resource on Cardano preprod. Eleven independent checks, including the shopping policy, must pass before settlement and QR issuance. Supplier fees are separate from the price budget. No wallet installation is needed for this funded demo. A persistent global limit allows five checkouts per rolling day.
 
 The new shopping purchase passed 11/11 official CRE checks and settled on chain: [execution evidence](docs/evidence/shopping-order.json). [SHOPPING.md](docs/SHOPPING.md) explains the committed decisions. The earlier pass and its used-state commitment survived a controlled cloud-session stop/resume, documented in [RETAIL.md](docs/RETAIL.md). The pass is neither an NFT nor a physical-delivery guarantee.
+
+While you wait, the interface shows the confirmed checkout stage and elapsed time. A missed status response reconnects to the same saved checkout automatically. Reloading restores that checkout; status recovery does not start another purchase. Free offer comparisons and independent checks also show activity and retry interrupted reads.
 
 ## Try the checker
 
@@ -46,7 +50,7 @@ pnpm typecheck
 pnpm test
 ```
 
-65 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, strict CRE/audit result parsing, and recovery from pruned source transactions. Fixture and VM tests are distinct from public-network execution.
+69 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, strict CRE/audit result parsing, recovery from pruned source transactions, and interrupted browser polling without duplicate jobs or invented completion. Fixture and VM tests are distinct from public-network execution.
 
 ## One task, four necessary integrations
 

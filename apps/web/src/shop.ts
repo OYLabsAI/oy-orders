@@ -1,5 +1,11 @@
 import QRCode from "qrcode";
 import { technologyBadge } from "./brands.ts";
+import {
+  buttonActivity,
+  canRetry,
+  pollForResult,
+  startActivity,
+} from "./activity.ts";
 import type { ShoppingPlan } from "../../../packages/core/src/types.ts";
 
 type Checkout = {
@@ -22,7 +28,7 @@ type Checkout = {
     checks: { name: string; passed: boolean }[];
   };
 };
-type Access = { idempotencyKey: string; accessKey: string };
+type Access = { idempotencyKey: string; accessKey: string; budget?: string };
 const $ = <T extends HTMLElement = HTMLElement>(id: string) =>
   document.getElementById(id) as T;
 const text = (tag: string, value: string) => {
@@ -45,7 +51,7 @@ const roles = [
     title: "Let the agent buy",
     detail:
       "The agent pays 2 tADA via x402 for the supplier-signed digital pass.",
-    target: "shop-step-check",
+    target: "shop-step-buy",
   },
   {
     name: "Chainlink CRE",
@@ -72,7 +78,9 @@ export function initShop({
 }) {
   let access: Access | undefined;
   let current: Checkout | undefined;
-  let polling: ReturnType<typeof setTimeout> | undefined;
+  let watcher: AbortController | undefined;
+  let activity: ReturnType<typeof startActivity> | undefined;
+  let restoring = false;
   let busy = false;
   let qrUrl = "";
   let ticketLink = "";
@@ -130,19 +138,45 @@ export function initShop({
     $("shop-buy").setAttribute("disabled", "");
     const button = $("shop-plan");
     button.setAttribute("disabled", "");
+    buttonActivity(button, true, "Finding your best deal…");
+    $("shop-offers").replaceChildren();
+    $("shop-offer-proof").hidden = true;
+    const comparing = startActivity($("shop-plan-progress"), {
+      title: "Comparing four signed offers",
+      detail:
+        "Checking the item, the price signature and your budget. This comparison spends no coins.",
+    });
     $("shop-plan-summary").textContent =
       "Checking signed prices, the item and your budget…";
+    $("shop-plan-summary").removeAttribute("data-accepted");
     try {
       selectedPlan = renderPlan(
-        await request("/api/shop/plan", {
-          sku: "coffee-pass",
-          budget: requestedBudget,
+        await pollForResult<ShoppingPlan>({
+          read: () =>
+            request("/api/shop/plan", {
+              sku: "coffee-pass",
+              budget: requestedBudget,
+            }),
+          pending: () => false,
+          timeout: 90000,
+          onValue: () => {},
+          onRetry: () =>
+            comparing.update(
+              "Reconnecting to the offer comparison",
+              "The service hasn’t replied yet. Retrying automatically; comparison spends no coins.",
+            ),
         }),
       );
     } catch (error) {
       $("shop-plan-summary").textContent = friendly(error);
     } finally {
       busy = false;
+      comparing.stop();
+      buttonActivity(
+        button,
+        false,
+        selectedPlan ? "Compare the offers again ↗" : "Try comparing again ↗",
+      );
       budget.disabled = !!current && !terminal.includes(current.status);
       button.removeAttribute("disabled");
       if (!current?.token) {
@@ -206,6 +240,32 @@ export function initShop({
     expired: "Checkout expired. No usable pass was issued.",
     refunded: "Test payment refunded. No usable pass was issued.",
   };
+  const waitingText: Record<string, string> = {
+    created:
+      "Waiting for payment protection to be confirmed. Your checkout is saved.",
+    funded:
+      "The reward is protected. The agent is preparing the supplier purchase.",
+    reserved:
+      "The supplier price is agreed. Waiting for the purchase to complete.",
+    purchasing:
+      "Waiting for the Cardano payment confirmation. No need to click again.",
+    paid: "The supplier payment is confirmed. The independent delivery check is next.",
+    verifying:
+      "Independent delivery checks can take a minute or more. Your pass appears only after they succeed and the reward is released.",
+  };
+  function showActivity(title: string, detail: string, startedAt?: number) {
+    if (!activity)
+      activity = startActivity($("shop-progress"), {
+        title,
+        detail,
+        startedAt,
+      });
+    else activity.update(title, detail);
+  }
+  function stopActivity() {
+    activity?.stop();
+    activity = undefined;
+  }
   function friendly(error: unknown) {
     const message = error instanceof Error ? error.message : "";
     return (
@@ -225,13 +285,17 @@ export function initShop({
             "Your saved checkout has a different budget. Reconnect to that checkout first.",
           SHOP_DEMO_WALLET_EMPTY:
             "The demo wallet needs more test SOL. No order or payment was created. You can still compare offers.",
+          RATE_LIMITED:
+            "Too many checks at once. Wait a moment, then try again.",
         } as Record<string, string>
       )[message] ??
-      "The live service could not complete this check. Your saved checkout can be retried safely."
+      "We couldn’t reach the live service. Please try again; your saved checkout is kept."
     );
   }
   async function render(data: Checkout) {
     current = data;
+    restoring = false;
+    $("shop-resume").hidden = true;
     if (data.shopping) {
       $<HTMLSelectElement>("shop-budget").value = data.shopping.budget;
       selectedPlan = renderPlan(data.shopping, true);
@@ -246,12 +310,43 @@ export function initShop({
     $("shop-status").dataset.status = data.status;
     for (const [id, done] of [
       ["shop-step-pay", !!data.proof.fundingTx],
+      ["shop-step-buy", !!data.proof.cardanoTx],
       ["shop-step-check", !!data.token],
       ["shop-step-use", !!data.usedAt],
     ] as const)
       $(id).classList.toggle("done", done);
+    const running = !terminal.includes(data.status);
+    const activeStep = !data.proof.fundingTx
+      ? "shop-step-pay"
+      : !data.proof.cardanoTx
+        ? "shop-step-buy"
+        : "shop-step-check";
+    for (const id of [
+      "shop-step-pay",
+      "shop-step-buy",
+      "shop-step-check",
+      "shop-step-use",
+    ]) {
+      $(id).classList.toggle("active-step", running && id === activeStep);
+      if (running && id === activeStep)
+        $(id).setAttribute("aria-current", "step");
+      else $(id).removeAttribute("aria-current");
+    }
+    if (running)
+      showActivity(
+        "Your agent is working",
+        waitingText[data.status] ??
+          "Checking the saved order. No need to click again.",
+        data.createdAt,
+      );
+    else stopActivity();
     $("shop-buy").hidden = !!data.token;
     $("shop-buy").toggleAttribute("disabled", !terminal.includes(data.status));
+    buttonActivity(
+      $("shop-buy"),
+      running,
+      running ? "Agent is handling checkout…" : undefined,
+    );
     if (!data.token && terminal.includes(data.status))
       $("shop-buy").textContent = "Start another demo checkout ↗";
     $("shop-pass-actions").hidden = !data.token;
@@ -263,7 +358,9 @@ export function initShop({
       ? data.usedAt
         ? "USED · ONE GOOD MOMENT"
         : "READY TO USE · PAYMENT VERIFIED"
-      : "CHECKOUT IN PROGRESS";
+      : running
+        ? "CHECKOUT IN PROGRESS"
+        : "CHECKOUT STOPPED · NO PASS ISSUED";
     $("ticket-use").textContent = data.usedAt
       ? `Used ${new Date(data.usedAt).toLocaleTimeString()}`
       : "One use · demo only";
@@ -271,22 +368,27 @@ export function initShop({
       ? data.usedAt
         ? "used"
         : "ready"
-      : "pending";
+      : running
+        ? "pending"
+        : "stopped";
     if (data.token) {
-      ticketLink = `${location.origin}/#pass=${data.orderId}.${data.token}`;
-      qrUrl = await QRCode.toDataURL(ticketLink, {
-        margin: 1,
-        width: 360,
-        errorCorrectionLevel: "M",
-        color: { dark: "#173b2b", light: "#ffffff" },
-      });
-      const img = document.createElement("img");
-      img.src = qrUrl;
-      img.alt = "QR code for this one-use demo pass";
-      img.width = 112;
-      img.height = 112;
-      $("pass-qr").replaceChildren(img);
-      $("pass-qr").title = "Anyone with this QR can use this demo pass.";
+      const link = `${location.origin}/#pass=${data.orderId}.${data.token}`;
+      if (ticketLink !== link || !qrUrl) {
+        ticketLink = link;
+        qrUrl = await QRCode.toDataURL(ticketLink, {
+          margin: 1,
+          width: 360,
+          errorCorrectionLevel: "M",
+          color: { dark: "#173b2b", light: "#ffffff" },
+        });
+        const img = document.createElement("img");
+        img.src = qrUrl;
+        img.alt = "QR code for this one-use demo pass";
+        img.width = 112;
+        img.height = 112;
+        $("pass-qr").replaceChildren(img);
+        $("pass-qr").title = "Anyone with this QR can use this demo pass.";
+      }
       $("shop-cashier").textContent = data.usedAt
         ? "Show the duplicate-scan test →"
         : "Open cashier view →";
@@ -328,25 +430,73 @@ export function initShop({
   }
   async function refresh() {
     if (!access) return;
+    watcher?.abort();
+    const controller = new AbortController();
+    watcher = controller;
+    const saved = access;
+    if (!current) {
+      restoring = true;
+      $("shop-plan").setAttribute("disabled", "");
+      $<HTMLSelectElement>("shop-budget").disabled = true;
+      $("shop-buy").setAttribute("disabled", "");
+      buttonActivity($("shop-buy"), true, "Restoring your checkout…");
+      $("shop-status").textContent =
+        "Checking your saved checkout. A new purchase won’t be started.";
+      showActivity(
+        "Restoring your checkout",
+        "Retrieving the last confirmed state from the live service.",
+      );
+    }
     try {
-      const data = await request("/api/shop/status", {
-        checkoutId: access.idempotencyKey,
-        accessKey: access.accessKey,
+      await pollForResult<Checkout>({
+        read: () =>
+          request("/api/shop/status", {
+            checkoutId: saved.idempotencyKey,
+            accessKey: saved.accessKey,
+          }),
+        pending: (data) => !terminal.includes(data.status),
+        onValue: render,
+        signal: controller.signal,
+        onRetry: () => {
+          showActivity(
+            "Reconnecting to your checkout",
+            "Connection interrupted. Retrying automatically with the same saved checkout; no new purchase is started.",
+          );
+          $("shop-resume").hidden = false;
+        },
       });
-      await render(data);
-      if (!terminal.includes(data.status))
-        polling = setTimeout(() => void refresh(), 4000);
     } catch (error) {
-      $("shop-status").textContent = friendly(error);
-      $("shop-buy").removeAttribute("disabled");
-      $("shop-buy").textContent = "Reconnect to my checkout ↗";
+      if (controller.signal.aborted) return;
+      restoring = false;
+      stopActivity();
+      buttonActivity($("shop-buy"), false);
+      $("shop-status").textContent =
+        error instanceof Error && error.message === "PASS_NOT_FOUND"
+          ? "The service hasn’t found this saved checkout. Retry with the same checkout details; an existing purchase won’t be duplicated."
+          : friendly(error);
+      $("shop-resume").hidden = false;
+      if (!current) {
+        $("shop-buy").removeAttribute("disabled");
+        $("shop-buy").textContent = "Retry my saved checkout ↗";
+        $("shop-plan").removeAttribute("disabled");
+        $<HTMLSelectElement>("shop-budget").disabled = false;
+      }
     }
   }
+  $("shop-resume").onclick = () => void refresh();
   $("shop-buy").onclick = async () => {
-    if (busy) return;
+    if (busy || restoring || (current && !terminal.includes(current.status)))
+      return;
     busy = true;
     $("shop-buy").setAttribute("disabled", "");
+    buttonActivity($("shop-buy"), true, "Starting your checkout…");
     $("shop-status").textContent = "Starting your funded test checkout…";
+    $("shop-plan").setAttribute("disabled", "");
+    $<HTMLSelectElement>("shop-budget").disabled = true;
+    showActivity(
+      "Starting your checkout",
+      "Preparing the saved order with your budget. Payment and delivery confirmations come next.",
+    );
     try {
       if (!access || (current && terminal.includes(current.status))) {
         const random = crypto.getRandomValues(new Uint8Array(32));
@@ -355,21 +505,49 @@ export function initShop({
           accessKey: Array.from(random, (b) =>
             b.toString(16).padStart(2, "0"),
           ).join(""),
+          budget: selectedPlan?.budget ?? "2000000",
         };
         localStorage.setItem(storageKey, JSON.stringify(access));
+        current = undefined;
       }
       const data = await request("/api/shop/checkout", {
         ...access,
         sku: "coffee-pass",
-        budget: selectedPlan?.budget ?? current?.shopping?.budget ?? "2000000",
+        budget:
+          access.budget ??
+          selectedPlan?.budget ??
+          current?.shopping?.budget ??
+          "2000000",
       });
       await render(data);
-      if (polling) clearTimeout(polling);
-      if (!terminal.includes(data.status))
-        polling = setTimeout(() => void refresh(), 2500);
+      if (!terminal.includes(data.status)) void refresh();
     } catch (error) {
-      $("shop-status").textContent = friendly(error);
-      $("shop-buy").removeAttribute("disabled");
+      if (canRetry(error)) {
+        $("shop-status").textContent =
+          "The response was interrupted. Checking whether your saved checkout was created…";
+        void refresh();
+      } else {
+        stopActivity();
+        $("shop-status").textContent = friendly(error);
+        if (
+          !current &&
+          error instanceof Error &&
+          [
+            "SHOP_NO_MATCH",
+            "SHOP_LIVE_SETUP_REQUIRED",
+            "SHOP_DEMO_WALLET_EMPTY",
+            "SHOP_CHECKOUT_BUSY",
+            "SHOP_DEMO_LIMIT",
+          ].includes(error.message)
+        ) {
+          access = undefined;
+          localStorage.removeItem(storageKey);
+        }
+        buttonActivity($("shop-buy"), false, "Try checkout again ↗");
+        $("shop-buy").removeAttribute("disabled");
+        $("shop-plan").removeAttribute("disabled");
+        $<HTMLSelectElement>("shop-budget").disabled = false;
+      }
     } finally {
       busy = false;
     }
@@ -396,6 +574,7 @@ export function initShop({
     if (!current?.token || busy) return;
     busy = true;
     $("shop-redeem").setAttribute("disabled", "");
+    buttonActivity($("shop-redeem"), true, "Checking your pass…");
     $("cashier-result").textContent = "Checking the payment and pass…";
     try {
       const result = await request("/api/shop/redeem", {
@@ -419,16 +598,25 @@ export function initShop({
       $("cashier-result").textContent = friendly(error);
     } finally {
       busy = false;
+      buttonActivity(
+        $("shop-redeem"),
+        false,
+        current?.usedAt ? "Try this pass again →" : "Use this pass →",
+      );
       $("shop-redeem").removeAttribute("disabled");
     }
   };
   $("shop-new").onclick = () => {
+    watcher?.abort();
+    stopActivity();
+    restoring = false;
     current = undefined;
     access = undefined;
     qrUrl = "";
     ticketLink = "";
     localStorage.removeItem(storageKey);
     $("shop-buy").hidden = false;
+    buttonActivity($("shop-buy"), false);
     $("shop-buy").setAttribute("disabled", "");
     $("shop-buy").textContent = "Compare offers first ↗";
     selectedPlan = undefined;
@@ -439,15 +627,27 @@ export function initShop({
     $("shop-plan-summary").textContent =
       "Give the agent a budget and compare the offers.";
     $("shop-pass-actions").hidden = true;
+    $("shop-resume").hidden = true;
+    $("shop-proof-links").replaceChildren();
+    $("shop-node-proof").hidden = true;
     $("shop-cashier-panel").hidden = true;
     $("ticket-state").textContent = "PREVIEW · NOT YET ISSUED";
+    $("coffee-ticket").dataset.state = "preview";
+    $("shop-status").removeAttribute("data-status");
     $("ticket-serial").textContent = "OY / ORIGINS / 2026";
     $("ticket-use").textContent = "One use · demo only";
     $("pass-qr").replaceChildren(text("span", "YOUR QR GOES HERE ↗"));
     $("shop-status").textContent =
       "Ready for a new funded test checkout. Up to five demos are available per day.";
-    for (const id of ["shop-step-pay", "shop-step-check", "shop-step-use"])
-      $(id).classList.remove("done");
+    for (const id of [
+      "shop-step-pay",
+      "shop-step-buy",
+      "shop-step-check",
+      "shop-step-use",
+    ]) {
+      $(id).classList.remove("done", "active-step");
+      $(id).removeAttribute("aria-current");
+    }
     $("shop-mission").scrollIntoView({
       behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
         ? "instant"
@@ -479,20 +679,37 @@ export function initShop({
   if (pass) {
     showPage();
     $("shop-buy").hidden = true;
-    void request("/api/shop/pass", { orderId: pass[1], token: pass[2] })
+    showActivity(
+      "Opening your pass",
+      "Retrieving the verified pass before showing the cashier controls.",
+    );
+    $("shop-status").textContent = "Opening your saved pass…";
+    void pollForResult<Checkout>({
+      read: () =>
+        request("/api/shop/pass", { orderId: pass[1], token: pass[2] }),
+      pending: () => false,
+      onValue: () => {},
+      timeout: 90000,
+      onRetry: () =>
+        showActivity(
+          "Reconnecting",
+          "The connection was interrupted. Retrying your existing pass automatically.",
+        ),
+    })
       .then(async (data) => {
         await render(data);
         showCashier();
       })
       .catch((error) => {
+        stopActivity();
         $("shop-status").textContent = friendly(error);
       });
   } else if (access) void refresh();
-  window.addEventListener(
-    "pagehide",
-    () => {
-      if (polling) clearTimeout(polling);
-    },
-    { once: true },
-  );
+  window.addEventListener("pagehide", () => {
+    watcher?.abort();
+    stopActivity();
+  });
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted && access) void refresh();
+  });
 }

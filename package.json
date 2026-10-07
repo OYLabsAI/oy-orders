@@ -13,7 +13,7 @@
     "build": "tsx scripts/build.ts",
     "vercel:prepare": "tsx scripts/prepare-vercel.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test packages/core/test/*.test.ts apps/api/test/*.test.ts programs/orca-orders/program.test.ts workflows/verify-order/verifier.test.mjs",
+    "test": "tsx --test packages/core/test/*.test.ts apps/api/test/*.test.ts apps/web/test/*.test.ts programs/orca-orders/program.test.ts workflows/verify-order/verifier.test.mjs",
     "program:build": "tsx scripts/build-program.ts",
     "program:deploy": "tsx scripts/deploy-program.ts",
     "wallets": "tsx scripts/wallets.ts",

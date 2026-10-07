@@ -1728,8 +1728,125 @@ body[data-view="shop"] .page-heading {
   background: #285b42;
 }
 .shop-primary:disabled {
-  cursor: wait;
+  cursor: not-allowed;
   opacity: 0.65;
+}
+button[data-busy] {
+  cursor: wait;
+}
+button[data-busy]::after,
+.work-spinner {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: work-spin 0.85s linear infinite;
+}
+button[data-busy]::after {
+  margin-left: 8px;
+}
+@keyframes work-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.work-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  margin: 8px 0 18px;
+  border: 1px solid #d4e4d9;
+  border-radius: 14px;
+  background: #edf4ee;
+  color: #173b2b;
+  text-align: left;
+}
+.work-status[hidden] {
+  display: none;
+}
+.work-status .work-spinner {
+  margin-top: 2px;
+}
+.work-status strong {
+  font-size: 13px;
+}
+.work-status p {
+  margin: 5px 0 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #53675a;
+}
+.work-status small {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: #64786b;
+}
+.connection-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 1120px;
+  margin: auto;
+  padding: 10px 36px;
+  font-size: 11px;
+  color: #64786b;
+}
+.connection-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b18c36;
+}
+.connection-status[data-state="connected"] .connection-dot {
+  background: #16864f;
+}
+.connection-status:not([data-state="connected"]) .connection-dot {
+  animation: connection-pulse 1.5s ease-in-out infinite;
+}
+.connection-status .text-button {
+  font-size: 11px;
+  padding: 0;
+}
+.connection-status button[hidden] {
+  display: none;
+}
+@keyframes connection-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (max-width: 720px) {
+  .connection-status {
+    padding: 10px 20px;
+  }
+}
+.shop-journey .active-step {
+  border-radius: 10px;
+  background: #edf4ee;
+  padding: 15px 10px;
+  margin: 0 -10px;
+}
+.shop-journey .active-step > b {
+  color: #13744a;
+}
+.shop-journey .active-step strong::after {
+  content: " · IN PROGRESS";
+  font-size: 9px;
+  color: #13744a;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  button[data-busy]::after,
+  .work-spinner,
+  .connection-dot {
+    animation: none !important;
+  }
 }
 .shop-secondary {
   background: #eaf0eb;

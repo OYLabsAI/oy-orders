@@ -18,7 +18,7 @@
     <script type="module" src="/app.js"></script>
   </head>
   <body id="top" data-view="shop">
-    <a class="skip" href="#main">Skip to orders</a>
+    <a class="skip" href="#main">Skip to content</a>
     <div class="shell">
       <header class="topbar">
         <a class="brand" href="#top" aria-label="OY Orders home"
@@ -40,6 +40,19 @@
         </button>
         <strong id="page-name" class="sr-only">Demo</strong>
       </header>
+      <div
+        class="connection-status"
+        id="connection-status"
+        role="status"
+        aria-live="polite"
+        data-state="connecting"
+      >
+        <span class="connection-dot" aria-hidden="true"></span>
+        <span id="connection-copy">Connecting to the live demo…</span>
+        <button id="connection-retry" class="text-button" hidden>
+          Reconnect now ↗
+        </button>
+      </div>
       <main id="main">
         <section id="shop-view" aria-label="OY Shop digital pass">
           <div class="shop-heading">
@@ -86,6 +99,7 @@
               Try 1 test ADA: the agent must stop without buying. Try 2: it can
               find the matching pass.
             </div>
+            <div id="shop-plan-progress" hidden></div>
             <div id="shop-offers" class="mission-offers"></div>
             <details id="shop-offer-proof" hidden>
               <summary>Inspect the signed offers and decision</summary>
@@ -207,6 +221,10 @@
                 Your pass is issued after the payment and delivery checks
                 succeed.
               </div>
+              <div id="shop-progress" hidden></div>
+              <button id="shop-resume" class="shop-secondary" hidden>
+                Check my saved checkout ↗
+              </button>
               <div id="shop-node-proof" class="shop-node-proof" hidden></div>
               <div id="shop-pass-actions" class="shop-actions" hidden>
                 <button id="shop-cashier" class="shop-primary">
@@ -230,18 +248,27 @@
                     ></span
                   >
                 </li>
-                <li id="shop-step-check">
+                <li id="shop-step-buy">
                   <b>02</b
                   ><span
                     ><strong>Agent buys the valid offer</strong
                     ><small
-                      >It buys from a supplier on Cardano. The checker verifies
-                      delivery.</small
+                      >The supplier payment is confirmed on Cardano.</small
+                    ></span
+                  >
+                </li>
+                <li id="shop-step-check">
+                  <b>03</b
+                  ><span
+                    ><strong>Verify before releasing the reward</strong
+                    ><small
+                      >The independent checker confirms the pass and
+                      payment.</small
                     ></span
                   >
                 </li>
                 <li id="shop-step-use">
-                  <b>03</b
+                  <b>04</b
                   ><span
                     ><strong>Show it. Use it. That’s it.</strong
                     ><small>A second scan is refused.</small></span

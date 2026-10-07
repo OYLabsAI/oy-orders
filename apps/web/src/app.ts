@@ -2,6 +2,13 @@ declare const __API_URL__: string;
 import solanaLogo from "./assets/solana.svg";
 import cardanoLogo from "./assets/cardano.svg";
 import { initShop } from "./shop.ts";
+import {
+  buttonActivity,
+  canRetry,
+  pollForResult,
+  RequestError,
+  startActivity,
+} from "./activity.ts";
 import { partnerLogos, technologyLogo } from "./brands.ts";
 import { hash } from "../../../packages/core/src/canonical.ts";
 import { verifyWithSignature } from "../../../packages/core/src/verification.ts";
@@ -59,8 +66,17 @@ async function request(path: string, body?: unknown, timeout = 25000) {
         }),
     signal: AbortSignal.timeout(timeout),
   });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.error ?? `HTTP ${response.status}`);
+  const data = await response.json().catch(() => {
+    throw new RequestError(
+      `HTTP ${response.status}`,
+      response.ok ? 502 : response.status,
+    );
+  });
+  if (!response.ok)
+    throw new RequestError(
+      data.error ?? `HTTP ${response.status}`,
+      response.status,
+    );
   return data;
 }
 function tab(name: string) {
@@ -744,6 +760,7 @@ $("audit-run").onclick = async () => {
   auditBusy = true;
   const button = $<HTMLButtonElement>("audit-run");
   button.disabled = true;
+  buttonActivity(button, true, "Checking your answer…");
   const network = $<HTMLSelectElement>("audit-network");
   const selectedNetwork = network.value;
   network.disabled = true;
@@ -759,26 +776,48 @@ $("audit-run").onclick = async () => {
       "The checker is getting the original transaction records and comparing the fees. This usually takes 20–90 seconds.",
     ),
   );
+  const progress = text("div", "");
+  panel.append(progress);
+  const activity = startActivity(progress, {
+    title: "Getting the original records",
+    detail:
+      "First we fetch the real transaction, then the independent checker compares your answer. No money moves in this check.",
+  });
   try {
-    latestAudit = await request("/api/challenges", {
-      network: selectedNetwork,
-      change: document.querySelector<HTMLInputElement>(
-        'input[name="audit-change"]:checked',
-      )!.value,
+    // A retry of an interrupted audit reads the existing job rather than
+    // creating another job while the first one is still running.
+    if (!latestAudit || !["queued", "running"].includes(latestAudit.status))
+      latestAudit = await request("/api/challenges", {
+        network: selectedNetwork,
+        change: document.querySelector<HTMLInputElement>(
+          'input[name="audit-change"]:checked',
+        )!.value,
+      });
+    const auditId = latestAudit.id;
+    latestAudit = await pollForResult<any>({
+      read: () => request(`/api/challenges/${auditId}`),
+      pending: (audit) => ["queued", "running"].includes(audit.status),
+      interval: 2500,
+      timeout: 210000,
+      onValue: (audit) => {
+        latestAudit = audit;
+        activity.update(
+          audit.status === "queued"
+            ? "Waiting for the independent checker"
+            : "Independent checker is running",
+          "Your check is saved. Waiting for its actual result; you don’t need to click again.",
+        );
+      },
+      onRetry: () =>
+        activity.update(
+          "Reconnecting to your check",
+          "A connection was missed. Retrying the same check automatically; no extra check is being created.",
+        ),
     });
-    // Poll asynchronously; animation communicates activity, never simulated progress.
-    const until = Date.now() + 210000;
-    while (
-      ["queued", "running"].includes(latestAudit.status) &&
-      Date.now() < until
-    ) {
-      await new Promise((done) => setTimeout(done, 1800));
-      latestAudit = await request(`/api/challenges/${latestAudit.id}`);
-    }
     if (latestAudit.status !== "complete")
       throw Error(
         latestAudit.error ??
-          "The audit is taking longer than expected. Try again or open the recorded proof.",
+          "The checker could not finish this run. Try again or open the recorded proof.",
       );
     const result = latestAudit.result;
     panel.className = `arena-result ${result.accepted ? "honest" : "caught"}`;
@@ -854,9 +893,16 @@ $("audit-run").onclick = async () => {
     $("audit-evidence").hidden = false;
   } catch (error) {
     panel.className = "arena-result unavailable";
+    const stillRunning =
+      latestAudit && ["queued", "running"].includes(latestAudit.status);
     panel.replaceChildren(
       text("span", "!", "arena-orbit"),
-      text("h3", "We couldn’t check it yet."),
+      text(
+        "h3",
+        stillRunning
+          ? "Still waiting for your check."
+          : "We couldn’t check it yet.",
+      ),
       text(
         "p",
         (
@@ -869,17 +915,38 @@ $("audit-run").onclick = async () => {
               "The cloud service is waking up. Try again in a moment.",
             LIVE_SOURCE_UNAVAILABLE:
               "The node provider has no readable recent transaction. Try again in a moment; we never approve missing evidence.",
+            CHECK_STILL_RUNNING:
+              "The check is taking longer than expected. Reconnect to this same check, or watch the recorded demo while it finishes.",
           } as Record<string, string>
-        )[(error as Error).message] ?? (error as Error).message,
+        )[(error as Error).message] ??
+          (canRetry(error)
+            ? "The connection was interrupted. No answer has been confirmed. Reconnect or watch a completed demo."
+            : "The checker couldn’t finish this request. Try again or watch a completed demo."),
       ),
       text("p", "You can still watch completed tasks in See the demo."),
     );
+    const recorded = text(
+      "button",
+      "Watch the completed demo →",
+      "button secondary small",
+    );
+    recorded.onclick = () =>
+      savedEvidence ? showSavedEvidence() : tab("evidence");
+    panel.append(recorded);
   } finally {
+    activity.stop();
     auditBusy = false;
+    buttonActivity(button, false);
     button.disabled = false;
-    network.disabled = false;
-    $<HTMLFieldSetElement>("audit-options").disabled = false;
-    button.textContent = "Check another answer →";
+    const pending =
+      latestAudit && ["queued", "running"].includes(latestAudit.status);
+    network.disabled = !!pending;
+    $<HTMLFieldSetElement>("audit-options").disabled = !!pending;
+    button.textContent = pending
+      ? "Reconnect to this check →"
+      : latestAudit?.status === "complete"
+        ? "Check another answer →"
+        : "Try this check again →";
   }
 };
 $("audit-download").onclick = () => {
@@ -944,9 +1011,85 @@ $("export").onclick = async () => {
   a.click();
   URL.revokeObjectURL(url);
 };
+let connection: AbortController | undefined;
+async function connectLive() {
+  connection?.abort();
+  const controller = new AbortController();
+  connection = controller;
+  $("connection-status").dataset.state = "connecting";
+  $("connection-copy").textContent = "Connecting to the live demo…";
+  $("connection-retry").hidden = true;
+  try {
+    health = await pollForResult<any>({
+      read: async () => {
+        const result = await request("/health", undefined, 15000);
+        if (!result.ok) throw new RequestError("INVALID_HEALTH_RESPONSE", 502);
+        return result;
+      },
+      pending: () => false,
+      signal: controller.signal,
+      onValue: () => {},
+      onRetry: () => {
+        serviceAvailable = false;
+        $("connection-status").dataset.state = "reconnecting";
+        $("connection-copy").textContent =
+          "Reconnecting automatically. Your saved checkout is kept.";
+        $("connection-retry").hidden = false;
+        $("mode-notice").replaceChildren(
+          text("span", "RECONNECTING", "pill amber"),
+          text(
+            "span",
+            "The live service has not replied yet. We’ll retry automatically; recorded proof is available in See the demo.",
+          ),
+        );
+        $("create-order").setAttribute("disabled", "");
+        $("wallet").setAttribute("disabled", "");
+      },
+    });
+    serviceAvailable = true;
+    $("connection-status").dataset.state = "connected";
+    $("connection-copy").textContent =
+      health.mode === "live"
+        ? "Live service connected · Test coins only"
+        : "Rehearsal service connected · No real payments";
+    $("connection-retry").hidden = true;
+    $("create-order").removeAttribute("disabled");
+    $("wallet").removeAttribute("disabled");
+    if (health.mode === "live") {
+      $("mode-notice").replaceChildren(
+        text("span", "TEST COINS ONLY", "pill green"),
+        text(
+          "span",
+          "Real records. Demo payments use test coins with no cash value.",
+        ),
+      );
+      $("create-order").textContent = "Set the reward & start";
+      $("scenario").hidden = true;
+      document
+        .querySelector('label[for="scenario"]')
+        ?.setAttribute("hidden", "");
+      $("sample").textContent = "Fill in example accounts";
+      $("sample").hidden = !savedEvidence;
+    }
+    renderIntegrations(health.integrations);
+    // Task history is optional: failure here must not mark a healthy service offline.
+    await loadRecent().catch(() => {
+      if (savedEvidence) renderRecent([savedEvidence.order]);
+    });
+  } catch {
+    if (controller.signal.aborted) return;
+    serviceAvailable = false;
+    $("connection-status").dataset.state = "reconnecting";
+    $("connection-copy").textContent =
+      "Live connection unavailable. Reconnect or view the recorded demo.";
+    $("connection-retry").hidden = false;
+    $("create-order").setAttribute("disabled", "");
+    $("wallet").setAttribute("disabled", "");
+  }
+}
+$("connection-retry").onclick = () => void connectLive();
 async function init() {
-  // Static, genuine proof survives an unavailable live backend. It remains
-  // visibly historical and never unlocks wallet writes or claims a new run.
+  // Historical evidence loads independently from the live connection.
   const proof = fetch("/proof.json")
     .then(async (r) => {
       if (!r.ok) throw new Error("SAVED_PROOF_UNAVAILABLE");
@@ -968,77 +1111,13 @@ async function init() {
       )
         $("refund-story").removeAttribute("disabled");
       showSavedEvidence("success", true);
+      if (health?.mode === "live") $("sample").hidden = false;
+      if (!serviceAvailable) renderRecent([savedEvidence.order]);
     })
     .catch(() => {
       savedEvidence = undefined;
     });
-  try {
-    health = await request("/health", undefined, 20000);
-    serviceAvailable = true;
-    $("create-order").removeAttribute("disabled");
-    $("wallet").removeAttribute("disabled");
-    await proof;
-    if (health.mode === "live") {
-      $("mode-notice").replaceChildren(
-        text("span", "TEST COINS ONLY", "pill green"),
-        text(
-          "span",
-          "Real records. Demo payments use test coins with no cash value.",
-        ),
-      );
-      $("create-order").textContent = "Set the reward & start";
-      $("scenario").hidden = true;
-      document
-        .querySelector('label[for="scenario"]')
-        ?.setAttribute("hidden", "");
-      $("sample").textContent = "Fill in example accounts";
-      $("sample").hidden = !savedEvidence;
-    }
-    renderIntegrations(health.integrations);
-    await loadRecent();
-    if (savedEvidence) showSavedEvidence("success", true);
-  } catch {
-    await proof;
-    serviceAvailable = false;
-    $("mode-notice").replaceChildren(
-      text("span", "SAVED TESTNET PROOF", "pill amber"),
-      text(
-        "span",
-        "Live service offline. Explore the recorded order; new purchases are unavailable.",
-      ),
-    );
-    const reconnect = text(
-      "button",
-      "Reconnect live service",
-      "btn small ghost",
-    );
-    reconnect.onclick = () => {
-      reconnect.setAttribute("disabled", "");
-      reconnect.textContent = "Connecting…";
-      void init();
-    };
-    $("mode-notice").append(reconnect);
-    $("create-order").setAttribute("disabled", "");
-    $("wallet").setAttribute("disabled", "");
-    $("create-order").textContent = "Live service offline";
-    if (savedEvidence) {
-      showSavedEvidence("success", true);
-      renderRecent([savedEvidence.order]);
-      renderIntegrations(
-        ["Solana escrow", "Cardano x402", "NOWNodes", "Chainlink CRE"].map(
-          (name) => ({
-            name,
-            ready: false,
-            recorded: true,
-            detail:
-              "Saved evidence of actual testnet execution. Live service currently offline.",
-          }),
-        ),
-      );
-    } else
-      $("form-error").textContent =
-        "Order service unavailable. Reconnect the hosted service.";
-  }
+  await Promise.allSettled([proof, connectLive()]);
 }
 initShop({ request, showPage: () => tab("shop") });
 void init();
