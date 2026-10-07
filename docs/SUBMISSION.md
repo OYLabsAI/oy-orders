@@ -33,7 +33,7 @@ The public shopping mission is functional. Nine genuine paid testnet orders are 
 - Drive PPTX: updated six-slide editable backup with its MP4 embedded on slide 3. Native Keynote is the stage file.
 - Drive PPT: updated visual backup only. Legacy conversion drops the movie, so it does not satisfy the embedded-demo stage requirement.
 
-Draft fields saved and verified on 7 October: main live URL (1/3); Solana live URL (1/3); NOWNodes live URL and architecture (2/4); CRE live URL and successful official simulation evidence (2/4); Cardano live URL, 85-second hosted video and problem/tools/deployment write-up (3/5). The final GitHub and native Keynote URLs are ready; those draft fields still need to be saved. Draft completion does not mean final submission.
+All required draft fields are saved and verified on 7 October: **main 3/3; Solana 3/3; Cardano 5/5; Chainlink CRE 4/4; NOWNodes 4/4**. Every dashboard shows **You're ready to submit! All required fields are complete**. All five have the canonical OYLabsAI GitHub URL, public live app and native Keynote Drive link. Track-specific video, write-up, architecture and CRE evidence are saved. Draft completion does not mean final submission. No final submission has been sent.
 
 ## Track-specific write-up
 
@@ -61,7 +61,7 @@ The MP4 is an **edited tour of authentic app captures with synthetic narration**
 ## Remaining gates and fastest human help
 
 1. GitHub publication and the requested organization transfer are complete: https://github.com/OYLabsAI/oy-orders . Use this canonical URL in all entries.
-2. Fill the final GitHub source URL and native Keynote Drive URL into the main entry and all four partner entries. The native deck and its public read-only access are ready.
+2. All five entries have their final source and native Keynote links saved. Review the actual saved entries before final submission.
 3. Rehearse the three-minute pitch using the downloaded Keynote deck and its embedded movie. Do not use the movie-free legacy PPT for the stage.
 4. The partner dashboard's attendance-confirmed/RSVP-closed 1/2 display is an unconfirmed discrepancy, not a published second-check-in requirement. The main event page explicitly permits relevant partner submissions after applications close. Continue submission; request support only if the actual submission action produces a registration error.
 5. Review and submit the main entry and all four partner entries with the user before the deadline. Slides lock at submission. Save each confirmation.

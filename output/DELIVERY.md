@@ -25,6 +25,6 @@ Native Keynote, PPTX, MP4 and source ZIP have verified read-only access for anyo
 
 ## Remaining gates
 
-The public source is at https://github.com/OYLabsAI/oy-orders . Enter the final source and native Keynote links into all five entries, rehearse, and submit with the user. Native Keynote playback and public read-only Drive access are verified. The partner attendance-confirmed/RSVP-closed 1/2 display is an unconfirmed portal discrepancy, not a published second-check-in requirement. The official main event page permits relevant partner submissions after applications close. No final submission has been made.
+The public source is at https://github.com/OYLabsAI/oy-orders . All five drafts have their required fields saved: main 3/3, Solana 3/3, Cardano 5/5, CRE 4/4 and NOWNodes 4/4. The portal marks all five ready to submit. Rehearse, review and submit with the user. Native Keynote playback and public read-only Drive access are verified. The partner attendance-confirmed/RSVP-closed 1/2 display is an unconfirmed portal discrepancy, not a published second-check-in requirement. The official main event page permits relevant partner submissions after applications close. No final submission has been made.
 
 [Submission text and timed pitch](../docs/SUBMISSION.md) and [all-track plan](../docs/TRACK-READINESS.md) are ready. Deadline: 7 October 2026, 23:59 Singapore / 17:59 Berlin; internal target 22:00 Singapore / 16:00 Berlin. Do not add unverified traction or claim prize certainty.
