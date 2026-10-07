@@ -65,3 +65,9 @@ The strongest case is now a judge-controlled fresh audit connected to actual pro
 ## Official sources
 
 [Main event](https://builderbase.com/event/token2049-origins-hackathon), [Solana](https://builderbase.com/track/solana-best-use-of-solana), [Cardano](https://builderbase.com/track/cardano-agentic-commerce), [Chainlink CRE](https://builderbase.com/track/chainlink-best-workflow-with-cre), [NOWNodes](https://builderbase.com/track/nownodes-multichain-infrastructure-challenge). Rules were read during this session; re-check the dashboard for changes before submission. Winning remains a judging decision.
+
+## Plain-language explanation
+
+“Imagine paying a worker to check a set of transactions. What if their report makes up a number? OY holds their reward until a separate checker compares the answer with the original records. Correct work gets paid. Wrong work keeps the reward locked, and the buyer can reclaim it after the deadline. The report’s purchase fee is separate and stays spent. Today’s demo uses an automated reporting worker and test coins.”
+
+Demo route: **See the demo** shows completed correct-work, rejected-work and refund examples. **Try a fake answer** checks a newly signed fee claim against fresh records for free. **How it works** explains the two costs; sponsor connections and verification details are expandable. Fees are displayed in SOL or ADA with enough precision to show a smallest-unit error.

@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f7f9fc" />
     <meta
       name="description"
-      content="OY Orders — proof before payday. Reward AI work only after independent verification."
+      content="OY Orders checks a worker’s answer before paying its reward. Try changing a number and watch the checker catch it."
     />
     <title>OY Orders · Proof before payday</title>
     <link
@@ -25,8 +25,10 @@
           ><span class="brand-mark">OY</span><span>OY <b>Orders</b></span></a
         >
         <nav aria-label="Workspace">
-          <button class="nav active" data-tab="evidence">Demo</button>
-          <button class="nav" data-tab="live-challenge">Try to fool it</button>
+          <button class="nav active" data-tab="evidence">See the demo</button>
+          <button class="nav" data-tab="live-challenge">
+            Try a fake answer
+          </button>
           <button class="nav" data-tab="orders">
             New task <span class="nav-count" id="order-count" hidden>0</span>
           </button>
@@ -40,9 +42,12 @@
       <main id="main">
         <section class="page-heading">
           <div>
-            <div class="eyebrow">BUYER PROTECTION FOR AI WORK</div>
-            <h1>Proof before <span>payday.</span></h1>
-            <p>Hire an AI. Set its budget. Reward work that checks out.</p>
+            <div class="eyebrow">A PAYMENT CHECKPOINT FOR AUTOMATED WORK</div>
+            <h1>Check the answer.<br /><span>Then pay.</span></h1>
+            <p>
+              Put aside a reward. A separate checker confirms the work before
+              the worker gets paid.
+            </p>
           </div>
           <div class="notice" id="mode-notice" role="status">
             <span class="pill neutral">LOADING PROOF</span>
@@ -51,67 +56,73 @@
         <section id="live-challenge-view" hidden>
           <div class="live-arena">
             <div class="arena-intro">
-              <span class="eyebrow">THE TRUTH CHALLENGE</span>
-              <h2>Can you make a lie<br />look like the truth?</h2>
+              <span class="eyebrow">TRY THE CHECKER · FREE</span>
+              <h2>Can it spot<br />a fake number?</h2>
               <p>
-                Sign any of these claims. Then let an independent verifier check
-                the real records.
+                A report says how much a crypto transaction cost. Choose a wrong
+                fee and see if the checker catches it in the real records.
               </p>
             </div>
             <div class="arena-controls">
               <div class="arena-control">
-                <label for="audit-network">Choose a network</label
+                <label for="audit-network">Which crypto network?</label
                 ><select id="audit-network">
                   <option value="solana">Solana</option>
                   <option value="cardano">Cardano</option>
                 </select>
               </div>
-              <fieldset class="claim-options">
-                <legend>Your claim</legend>
+              <fieldset id="audit-options" class="claim-options">
+                <legend>What should the report say?</legend>
                 <label
                   ><input type="radio" name="audit-change" value="honest" />The
-                  honest answer</label
+                  correct fee</label
                 ><label
                   ><input type="radio" name="audit-change" value="tiny" />A tiny
-                  lie · +1</label
+                  error · smallest unit</label
                 ><label
                   ><input
                     type="radio"
                     name="audit-change"
                     value="huge"
                     checked
-                  />A big lie · ×1,000</label
+                  />A made-up fee · 1,000×</label
                 >
               </fieldset>
               <button id="audit-run" class="button primary" type="button">
-                Sign it. Check it. →
+                Check this answer →
               </button>
               <p class="arena-disclosure">
-                No wallet. No charge. Fresh source reads through official CRE
-                simulation. This audits a challenge claim; it never moves money.
+                No wallet or payment needed. This checks a sample report against
+                real records. It does not move any money.
               </p>
             </div>
             <div id="audit-result" class="arena-result" aria-live="polite">
               <span class="arena-orbit" aria-hidden="true">?</span>
-              <h3>Signatures prove who said it.<br />We check if it’s true.</h3>
-              <p>Even a one-unit lie should be caught.</p>
+              <h3>Does the report<br />match the real record?</h3>
+              <p>Pick an answer on the left. Then check it.</p>
             </div>
           </div>
           <div class="arena-footer">
             <span
-              >Real Solana escrow reference · Real Cardano purchase · Fresh
-              NOWNodes reads · Chainlink CRE</span
+              >A wrong answer would keep the worker’s reward locked in a paid
+              task.</span
             ><button id="audit-refund-story" class="button secondary small">
-              See the real refund →
+              See what happens to the reward →
             </button>
           </div>
           <details id="audit-evidence" class="proof-details" hidden>
-            <summary>Open this challenge’s proof</summary>
+            <summary>How was this answer checked?</summary>
             <div class="panel">
+              <p class="muted">
+                The report has a valid digital signature—like a signed name.
+                That shows who sent it, not whether its numbers are correct.
+                Chainlink CRE runs a fresh workflow simulation and reads both
+                networks through NOWNodes. The checks below show the result.
+              </p>
               <div id="audit-checks" class="checks"></div>
               <pre id="audit-transcript"></pre>
               <button id="audit-download" class="button secondary">
-                Download challenge evidence
+                Download the full check
               </button>
             </div>
           </details>
@@ -120,15 +131,17 @@
           <div class="content-grid">
             <section class="panel create">
               <div class="panel-heading">
-                <h2>New reporting task</h2>
-                <span class="pill neutral">MULTICHAIN</span>
+                <h2>Ask for a wallet report</h2>
+                <span class="pill neutral">TEST COINS</span>
               </div>
               <p class="muted">
-                Latest confirmed transactions for a wallet on each network.
+                The worker finds the latest transactions in two crypto accounts.
+                A separate checker confirms the numbers before paying its
+                reward.
               </p>
               <form id="order-form">
                 <label for="solana"
-                  >Solana wallet <span>Mainnet data</span></label
+                  >Solana account <span>Public address</span></label
                 ><input
                   id="solana"
                   name="solana"
@@ -137,7 +150,7 @@
                   placeholder="Solana public address"
                   required
                 /><label for="cardano"
-                  >Cardano wallet <span>Mainnet data</span></label
+                  >Cardano account <span>Public address</span></label
                 ><input
                   id="cardano"
                   name="cardano"
@@ -146,18 +159,18 @@
                   placeholder="addr1…"
                   required
                 /><button type="button" class="text-button" id="sample">
-                  Use sample wallets ↗
+                  Fill in example accounts ↗
                 </button>
                 <div class="terms">
                   <div>
                     <span>Task reward</span
                     ><strong>0.01 <small>tSOL</small></strong
-                    ><small>Solana Devnet escrow</small>
+                    ><small>Held until the work passes its checks</small>
                   </div>
                   <div>
-                    <span>Service ceiling</span
+                    <span>Report purchase</span
                     ><strong>2 <small>tADA</small></strong
-                    ><small>Cardano preprod · +1 tADA fee reserve</small>
+                    ><small>Paid separately · up to 1 tADA for fees</small>
                   </div>
                 </div>
                 <div class="form-bottom">
@@ -183,19 +196,19 @@
             </section>
             <section class="panel execution">
               <div class="panel-heading">
-                <h2>Order execution</h2>
+                <h2>Follow your task</h2>
                 <span id="status" class="pill neutral">READY</span>
               </div>
               <div id="execution-empty" class="empty">
                 <div class="empty-icon">↗</div>
-                <h3>Your agent is ready.</h3>
+                <h3>Start with an example.</h3>
                 <p>
-                  Create a task to follow the payment,<br />verification, and
-                  settlement.
+                  Fill in example accounts, then start a task.<br />You can
+                  watch the report get bought, checked, and rewarded.
                 </p>
                 <div class="path">
-                  <span>Fund</span><i>→</i><span>Buy</span><i>→</i
-                  ><span>Verify</span><i>→</i><span>Settle</span>
+                  <span>Set reward</span><i>→</i><span>Get report</span><i>→</i
+                  ><span>Check</span><i>→</i><span>Pay</span>
                 </div>
               </div>
               <div id="execution-content" hidden>
@@ -242,11 +255,52 @@
           </section>
         </section>
         <section id="evidence-view">
+          <section class="simple-story" aria-label="What OY Orders does">
+            <p class="example-job">
+              <span>THE EXAMPLE JOB</span> “Check the recent transactions in
+              these two crypto accounts.”
+            </p>
+            <ol class="simple-steps">
+              <li>
+                <span class="step-number">1</span>
+                <div>
+                  <h3>You set the reward.</h3>
+                  <p>
+                    The reward is held safely while the worker does the job.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="step-number">2</span>
+                <div>
+                  <h3>We check the answer.</h3>
+                  <p>
+                    A separate checker compares the report’s numbers with the
+                    original records.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="step-number">3</span>
+                <div>
+                  <h3>Correct work gets paid.</h3>
+                  <p>
+                    Wrong answer? The reward stays locked. You can reclaim it
+                    after the deadline.
+                  </p>
+                </div>
+              </li>
+            </ol>
+            <p class="simple-scope">
+              Today’s prototype uses an automated reporting worker. This is a
+              payment rule for checkable work, including work done by AI.
+            </p>
+          </section>
           <button id="audit-invite" class="arena-invite" type="button">
             <span
-              ><b>Think you can fool the verifier?</b> Change a real claim.
-              Watch it check the truth.</span
-            ><strong>Try it live ↗</strong>
+              ><b>Make up a number. Can the checker catch it?</b> Try a free
+              check using real transaction records.</span
+            ><strong>Try it yourself ↗</strong>
           </button>
           <nav class="story-stages" aria-label="Demo story">
             <button
@@ -256,7 +310,7 @@
               disabled
               aria-pressed="true"
             >
-              <span>01</span> Good work gets paid
+              <span>01</span> Correct answer → paid
             </button>
             <button
               id="signed-lie"
@@ -265,7 +319,7 @@
               disabled
               aria-pressed="false"
             >
-              <span>02</span> A signed lie gets caught
+              <span>02</span> Wrong answer → blocked
             </button>
             <button
               id="refund-story"
@@ -274,7 +328,7 @@
               disabled
               aria-pressed="false"
             >
-              <span>03</span> The buyer gets it back
+              <span>03</span> Deadline → refund
             </button>
           </nav>
           <section class="story-outcome" id="story-outcome" aria-live="polite">
@@ -317,14 +371,15 @@
             </summary>
             <div class="panel">
               <div class="panel-heading">
-                <h2>Verification evidence</h2>
+                <h2>The receipts behind the demo</h2>
                 <span class="pill neutral" id="evidence-mode"
                   >NO ORDER SELECTED</span
                 >
               </div>
               <p class="muted">
-                Seller signatures bind the order, quote, payment and canonical
-                report hash. The verifier checks factual provenance.
+                A signed receipt shows who sent the report and which task it
+                belongs to. Separate checks confirm whether its numbers match
+                the original records.
               </p>
               <div id="proof-flow" class="proof-flow"></div>
               <div id="challenge" class="challenge" hidden>
@@ -390,31 +445,79 @@ Run an order to inspect its receipt.</pre
         <section id="integrations-view" hidden>
           <div class="panel">
             <div class="panel-heading">
-              <h2>Integration readiness</h2>
-              <span class="pill neutral">TEST ASSETS ONLY</span>
+              <h2>One job. Two separate costs.</h2>
+              <span class="pill neutral">TEST COINS ONLY</span>
             </div>
             <p class="muted">
-              A configured integration must pass a real execution before it
-              becomes submission evidence.
+              Think of hiring someone to check a set of receipts. They get their
+              reward only after their answer passes a separate check.
             </p>
-            <div id="integrations" class="integration-grid"></div>
-            <div class="trust">
-              <h3>The trust boundary</h3>
+            <div class="cost-explainer">
+              <article>
+                <span class="eyebrow">THE WORKER’S REWARD</span>
+                <h3>Held until the work checks out.</h3>
+                <p>
+                  The reward is paid after the checks pass. If they fail, it
+                  stays locked. You can reclaim it after the task’s deadline.
+                </p>
+              </article>
+              <article>
+                <span class="eyebrow">THE REPORT’S PRICE</span>
+                <h3>Spent when the report is bought.</h3>
+                <p>
+                  The worker pays a data seller to get the report. That purchase
+                  is separate and stays spent even if the report’s answer is
+                  wrong.
+                </p>
+              </article>
+            </div>
+            <div class="plain-answers">
+              <h3>What does this demo actually check?</h3>
               <p>
-                The baseline uses a local CRE simulation and a trusted
-                settlement relayer. It does not claim decentralized production
-                execution. The server’s Cardano signer enforces purchasing
-                limits; the Solana program enforces task escrow. The operator
-                pays the supplier and bears that cost if verification fails.
+                Numbers in a crypto-wallet report: transaction fees and when
+                transactions were recorded. It also checks the report’s purchase
+                and the task’s payment rules.
+              </p>
+              <h3>Why is that useful?</h3>
+              <p>
+                A confident answer or a signed report can still be wrong.
+                Checking the original records before paying gives the buyer a
+                way to catch mistakes.
+              </p>
+              <h3>Does this use real money?</h3>
+              <p>
+                The transaction records are real. Payments in this demo use test
+                coins with no cash value. The Demo tab replays completed tasks;
+                Try a fake answer runs a fresh check.
+              </p>
+              <h3>Is an AI writing this report?</h3>
+              <p>
+                This prototype uses an automated reporting worker. It
+                demonstrates the payment and checking rules that an AI worker
+                can use.
               </p>
             </div>
+            <details class="technical-details">
+              <summary>Technical details and sponsor connections</summary>
+              <div id="integrations" class="integration-grid"></div>
+              <div class="trust">
+                <h3>The trust boundary</h3>
+                <p>
+                  The baseline uses a local CRE simulation and a trusted
+                  settlement relayer. It does not claim decentralized production
+                  execution. The server’s Cardano signer enforces purchasing
+                  limits; the Solana program enforces task escrow. The operator
+                  pays the supplier and bears that cost if verification fails.
+                </p>
+              </div>
+            </details>
           </div>
         </section>
         <footer>
           <span>OY ORDERS <i>·</i> TOKEN2049 ORIGINS</span
           ><span
-            >Solana escrow <i>·</i> Cardano commerce <i>·</i> Chainlink
-            verification <i>·</i> NOWNodes data</span
+            >Built with Solana <i>·</i> Cardano <i>·</i> Chainlink
+            <i>·</i> NOWNodes</span
           >
         </footer>
       </main>

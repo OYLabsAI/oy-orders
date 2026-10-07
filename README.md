@@ -1,6 +1,10 @@
 # OY Orders
 
-**A signed answer can still be wrong. Proof before payday.**
+**Check the answer. Then pay.**
+
+You ask a worker to check the transactions in two crypto accounts. You put aside a reward. OY compares the worker’s report with the original records before paying it. If the answer is wrong, the reward stays locked and you can reclaim it after the deadline. The report’s separate purchase fee stays spent.
+
+Today’s prototype uses an automated reporting worker. It demonstrates payment and checking rules that an AI worker can use.
 
 Built by Orca Labs for TOKEN2049 Origins 2026. A buyer locks a Solana task reward, an agent buys a Cardano x402 reporting resource, and Chainlink CRE independently checks NOWNodes facts before a trusted prototype relayer releases the reward.
 
@@ -8,9 +12,9 @@ Built by Orca Labs for TOKEN2049 Origins 2026. A buyer locks a Solana task rewar
 
 ## Try the memorable part
 
-Open **Try to fool it**. Pick Solana or Cardano and an honest claim, a tiny lie, or a big lie. Every claim receives a valid, separate challenge signature. A fresh official CRE simulation reads the real records again. A false fee fails even when its signature passes; **Try the corrected answer** runs a new independent check.
+Open **Try a fake answer**. Pick Solana or Cardano and a correct fee, a tiny error, or a made-up fee. Every claim receives a valid, separate challenge signature. A fresh official CRE simulation reads the real records again. A false fee fails even when its signature passes; **Now try the correct fee** runs a new independent check.
 
-The challenge needs no wallet, makes no payment and never enters the settlement queue. Its scope is two transaction facts pinned per challenge and a real settled-order reference, not arbitrary truth verification. The **Demo** tab separately shows genuine paid execution, a controlled signed false report rejected by CRE, and the confirmed refund of that same order's task reward. Recorded proofs remain available when the live API is unavailable.
+The challenge needs no wallet, makes no payment and never enters the settlement queue. Its scope is two transaction facts pinned per challenge and a real settled-order reference, not arbitrary truth verification. The **See the demo** tab separately shows genuine paid execution, a controlled signed false report rejected by CRE, and the confirmed refund of that same order's task reward. Recorded proofs remain available when the live API is unavailable.
 
 Seven genuine paid testnet orders are documented: six settled and one rejected with its reward refunded. The latest fresh order executed entirely through the Vercel backend without operator recovery. A controlled session stop/resume preserved its state and a completed challenge. Exact hashes and limitations are in [evidence/STATUS.md](docs/evidence/STATUS.md).
 

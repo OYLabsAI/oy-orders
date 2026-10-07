@@ -69,7 +69,14 @@ function tab(name: string) {
       .querySelector(`[data-tab="${n}"]`)
       ?.classList.toggle("active", n === name);
   }
-  $("page-name").textContent = name[0].toUpperCase() + name.slice(1);
+  $("page-name").textContent = (
+    {
+      evidence: "See the demo",
+      "live-challenge": "Try a fake answer",
+      orders: "New task",
+      integrations: "How it works",
+    } as Record<string, string>
+  )[name];
   $("wallet").hidden = name !== "orders";
 }
 document
@@ -115,12 +122,12 @@ function renderEvents(events: Event[]) {
         "strong",
         (
           {
-            funded: "Task funded",
-            reserved: "Quote reserved",
-            purchasing: "Agent purchases service",
-            paid: "Seller receipt received",
-            verifying: "Verification running",
-            settled: "Task reward released",
+            funded: "Your reward is held safely",
+            reserved: "Report price agreed",
+            purchasing: "Worker buys the report",
+            paid: "Report purchase confirmed",
+            verifying: "Checker compares the answer with real records",
+            settled: "Correct work: reward paid",
             rejected: "Report rejected",
             expired: "Task expired",
             refunded: "Task reward refunded",
@@ -342,48 +349,48 @@ function showSavedEvidence(stage: "success" | "lie" | "refund" = "success") {
   $("story-outcome").className = `story-outcome ${stage}`;
   $("story-kicker").textContent =
     stage === "success"
-      ? "REAL ORDER · WORK VERIFIED"
+      ? "COMPLETED TASK · CORRECT ANSWER"
       : stage === "lie"
-        ? "CONTROLLED SUPPLIER ATTACK · REAL CRE REJECTION"
-        : "SAME REJECTED ORDER · CONFIRMED REFUND";
+        ? "DELIBERATELY WRONG REPORT · CAUGHT"
+        : "SAME FAILED TASK · REWARD RETURNED";
   $("story-title").textContent =
     stage === "success"
-      ? "Good work. Reward released."
+      ? "The answer checked out.\nThe worker got paid."
       : stage === "lie"
-        ? "Signed lie. No payday."
-        : "Your task reward. Back with you.";
+        ? "Wrong answer.\nReward stayed locked."
+        : "Deadline passed.\nYour reward came back.";
   $("story-detail").textContent =
     stage === "success"
-      ? "The agent bought a wallet report. Independent checks confirmed the payment and its facts before releasing the reward."
+      ? "The worker bought a report about two crypto accounts. A separate checker compared its numbers with the real records. They matched, so the worker received the reward."
       : stage === "lie"
-        ? "The supplier signed a report that exaggerated one fee by over 1,000×. Its signature was real. Its answer was wrong. Independent checks caught it."
-        : "After that signed lie was rejected, the protected reward stayed held. Once the deadline passed, it returned to the buyer.";
+        ? "We tested a report with a made-up transaction fee: over 1,000 times the real cost. The checker caught the wrong number, so the worker could not collect the reward."
+        : "The wrong report never earned the reward. After the task’s deadline, the buyer reclaimed that same reward. This is the confirmed refund from the failed task.";
   $("story-amount-label").textContent =
     stage === "success"
-      ? "Reward released to the agent"
+      ? "Reward paid to the worker"
       : stage === "lie"
-        ? "Reward withheld from the agent"
-        : "Task reward returned to the buyer";
+        ? "Worker’s reward stays locked"
+        : "Your reward was returned";
   $("story-money-note").textContent =
-    "Separate data purchase: 2 tADA, final. Only the task reward is protected.";
+    "Test coins, not cash. The separate 2 tADA report purchase stays spent; only this reward can be refunded.";
   const rows =
     stage === "success"
       ? ([
-          ["Payment confirmed", true],
-          ["Reported facts independently checked", true],
-          ["Task reward released", true],
+          ["Report was bought", true],
+          ["Numbers match the original records", true],
+          ["Worker received the reward", true],
         ] as const)
       : stage === "lie"
         ? ([
             [
-              "Supplier signature valid",
+              "Report really came from the seller",
               !!order.verification?.checks.find(
                 (c) => c.name === "Seller signature",
               )?.passed,
             ],
-            ["Reported facts match chain records", false],
+            ["Report’s number matches the real fee", false],
             [
-              "Task reward held, no settlement submitted",
+              "Worker could not collect the reward",
               attack!.protectedReward.escrowState === 1 &&
                 !attack!.protectedReward.settlementSubmitted,
             ],
@@ -418,10 +425,10 @@ function showSavedEvidence(stage: "success" | "lie" | "refund" = "success") {
       ? "View confirmed refund"
       : stage === "success"
         ? "View confirmed reward"
-        : "View funded escrow";
+        : "See where the reward is held";
   $("archive-notice").hidden = false;
   $("archive-notice").textContent =
-    `Recorded testnet execution. These buttons replay saved proof; no new payment or CRE run. ${stage === "success" ? "Independent CRE used official local simulation and a trusted demo relayer." : "The dishonest supplier is an operator-controlled test. Eight-minute probe deadline; normal tasks use fifteen minutes."}`;
+    `These three buttons show completed tasks with real test-coin payments. Clicking them does not start a new payment or check. ${stage === "success" ? "Want a fresh check? Open Try a fake answer." : "We deliberately created the wrong report to test the protection. The refund test used an eight-minute deadline; new tasks use fifteen minutes."}`;
   const refund = savedEvidence.refund;
   $("refund-proof").hidden = stage !== "success";
   $("refund-proof-detail").textContent =
@@ -573,11 +580,13 @@ function renderIntegrations(
   items: { name: string; ready: boolean; detail: string; recorded?: boolean }[],
 ) {
   const roles: Record<string, string> = {
-    "Solana escrow": "Funding, spending ceiling, settlement and expiry refund.",
-    "Cardano x402": "The agent buys the reporting resource using preprod ADA.",
-    NOWNodes: "Confirmed Solana and Cardano mainnet transaction facts.",
+    "Solana escrow":
+      "Holds the reward, pays after approval, and allows a refund after the deadline.",
+    "Cardano x402": "The report’s checkout: the worker pays to buy the data.",
+    NOWNodes:
+      "Provides the original transaction records to compare with the report.",
     "Chainlink CRE":
-      "Independent verification through a real local workflow simulation.",
+      "Runs the separate checker. This prototype uses official workflow simulation.",
   };
   $("integrations").replaceChildren();
   for (const i of items) {
@@ -670,6 +679,14 @@ $("audit-invite").onclick = () => tab("live-challenge");
 $("audit-refund-story").onclick = () => showSavedEvidence("refund");
 let latestAudit: any;
 let auditBusy = false;
+// Show fees in familiar coin units without rounding away a one-unit error.
+function auditAmount(network: string, field: string, value: string) {
+  if (field !== "fee" || !/^\d+$/.test(value)) return value;
+  const decimals = network.startsWith("solana") ? 9 : 6;
+  const digits = value.padStart(decimals + 1, "0");
+  const fraction = digits.slice(-decimals).replace(/0+$/, "");
+  return `${digits.slice(0, -decimals)}${fraction ? "." + fraction : ""} ${decimals === 9 ? "SOL" : "ADA"}`;
+}
 function checkingLogo(network: string) {
   const orbit = text("span", "", "arena-orbit");
   const image = document.createElement("img");
@@ -685,13 +702,18 @@ function showAuditReady() {
   panel.className = "arena-result ready";
   panel.replaceChildren(
     checkingLogo($<HTMLSelectElement>("audit-network").value),
-    text("h3", "Signatures prove who said it.\nWe check if it’s true."),
-    text("p", "Even a one-unit lie should be caught."),
+    text("h3", "Does the report\nmatch the real record?"),
+    text("p", "Pick an answer on the left. Then check it."),
   );
   $("audit-evidence").hidden = true;
   latestAudit = undefined;
 }
 $("audit-network").onchange = showAuditReady;
+document
+  .querySelectorAll<HTMLInputElement>('input[name="audit-change"]')
+  .forEach((input) => {
+    input.onchange = showAuditReady;
+  });
 showAuditReady();
 $("audit-run").onclick = async () => {
   if (auditBusy) return;
@@ -701,6 +723,7 @@ $("audit-run").onclick = async () => {
   const network = $<HTMLSelectElement>("audit-network");
   const selectedNetwork = network.value;
   network.disabled = true;
+  $<HTMLFieldSetElement>("audit-options").disabled = true;
   $("audit-evidence").hidden = true;
   const panel = $("audit-result");
   panel.className = "arena-result checking";
@@ -709,7 +732,7 @@ $("audit-run").onclick = async () => {
     text("h3", "Checking the real records…"),
     text(
       "p",
-      "Your claim is signed. CRE independently reads both networks. This usually takes 20–90 seconds.",
+      "The checker is getting the original transaction records and comparing the fees. This usually takes 20–90 seconds.",
     ),
   );
   try {
@@ -743,13 +766,13 @@ $("audit-run").onclick = async () => {
       ),
       text(
         "h3",
-        result.accepted ? "Truth checks out." : "Nice signature.\nStill a lie.",
+        result.accepted ? "The numbers match." : "Wrong number.\nCaught.",
       ),
       text(
         "p",
         result.accepted
-          ? "Both claims match independent blockchain records."
-          : "A valid signature cannot turn a false claim into a fact.",
+          ? "Both reported fees match the original records. In a paid task, passing every check lets the worker collect the reward."
+          : "The report’s fee does not match the real transaction. In a paid task, this would keep the reward locked. This free check moves no money.",
       ),
     );
     for (const difference of result.differences) {
@@ -758,27 +781,30 @@ $("audit-run").onclick = async () => {
         const column = text("div", "");
         column.append(
           text("small", label),
-          text("strong", Number(amount).toLocaleString()),
+          text(
+            "strong",
+            auditAmount(difference.network, difference.field, amount),
+          ),
         );
         return column;
       };
       comparison.append(
-        value("CLAIMED", difference.claimed),
+        value("REPORT SAYS", difference.claimed),
         text("span", "≠"),
-        value("ACTUAL", difference.actual),
+        value("REAL RECORD SAYS", difference.actual),
       );
       panel.append(
         comparison,
         text(
           "small",
-          `${difference.network.startsWith("solana") ? "Solana · lamports" : "Cardano · lovelace"} · ${difference.field}`,
+          `${difference.network.startsWith("solana") ? "Solana" : "Cardano"} · transaction fee = the cost of sending crypto`,
         ),
       );
     }
     if (!result.accepted && result.differences.length) {
       const repair = text(
         "button",
-        "Try the corrected answer →",
+        "Now try the correct fee →",
         "button secondary small",
       );
       repair.onclick = () => {
@@ -806,7 +832,7 @@ $("audit-run").onclick = async () => {
     panel.className = "arena-result unavailable";
     panel.replaceChildren(
       text("span", "!", "arena-orbit"),
-      text("h3", "Live check unavailable"),
+      text("h3", "We couldn’t check it yet."),
       text(
         "p",
         (
@@ -822,13 +848,14 @@ $("audit-run").onclick = async () => {
           } as Record<string, string>
         )[(error as Error).message] ?? (error as Error).message,
       ),
-      text("p", "The recorded rejection and refund remain available in Demo."),
+      text("p", "You can still watch completed tasks in See the demo."),
     );
   } finally {
     auditBusy = false;
     button.disabled = false;
     network.disabled = false;
-    button.textContent = "Try another claim →";
+    $<HTMLFieldSetElement>("audit-options").disabled = false;
+    button.textContent = "Check another answer →";
   }
 };
 $("audit-download").onclick = () => {
@@ -929,18 +956,18 @@ async function init() {
     await proof;
     if (health.mode === "live") {
       $("mode-notice").replaceChildren(
-        text("span", "LIVE TESTNET", "pill green"),
+        text("span", "TEST COINS ONLY", "pill green"),
         text(
           "span",
-          "Solana Devnet escrow · Cardano preprod payments · mainnet report data",
+          "Real records. Demo payments use test coins with no cash value.",
         ),
       );
-      $("create-order").textContent = "Fund & run task";
+      $("create-order").textContent = "Set the reward & start";
       $("scenario").hidden = true;
       document
         .querySelector('label[for="scenario"]')
         ?.setAttribute("hidden", "");
-      $("sample").textContent = "Use demo addresses";
+      $("sample").textContent = "Fill in example accounts";
       $("sample").hidden = !savedEvidence;
     }
     renderIntegrations(health.integrations);

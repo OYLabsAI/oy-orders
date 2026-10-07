@@ -1,0 +1,78 @@
+{
+  "id": "c7de7b1a-034b-4eee-9ffc-6e29afaa7faa",
+  "status": "complete",
+  "claim": {
+    "id": "c7de7b1a-034b-4eee-9ffc-6e29afaa7faa",
+    "referenceOrderId": "8456603d-6318-4a72-a403-af2c992cc84a",
+    "issuedAt": 1791363188608,
+    "facts": [
+      {
+        "network": "solana:mainnet",
+        "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+        "tx": "XAyJ5KDR8KhhYEw3W4aLGgR4cUyeMb4CSfvV6XUNx72i1oYwaen7JgWGLcYRrV6io5zM4bTcJWuYFU3CTKXy6R5",
+        "slot": "454100516",
+        "fee": "6000",
+        "confirmed": true
+      },
+      {
+        "network": "cardano:mainnet",
+        "wallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+        "tx": "13d71703a8f8bc1f0f6ac8fed2e6678ba8ec994020bc050ee57aa20a96e92dfa",
+        "slot": "199707191",
+        "fee": "248762",
+        "confirmed": true
+      }
+    ]
+  },
+  "claimHash": "1c90a45d39355513918980420e0cb9f824a99634bbf4cd46da9dd45183e4fc0b",
+  "signature": "nQNNApVrqmpdhGuFT8vne0crpgt9B3ccRyBC6mk3Pxk56Fxi0uJQZqKIiQXtGXJJGM/ZtH5kF+KOmyiDl+FpCw==",
+  "result": {
+    "id": "c7de7b1a-034b-4eee-9ffc-6e29afaa7faa",
+    "mode": "cre-simulation",
+    "accepted": false,
+    "timestamp": 1791363206548,
+    "claimHash": "1c90a45d39355513918980420e0cb9f824a99634bbf4cd46da9dd45183e4fc0b",
+    "checks": [
+      {
+        "name": "Signed claim",
+        "passed": true,
+        "detail": "Dedicated challenge signer; no production receipt changes"
+      },
+      {
+        "name": "Recent challenge",
+        "passed": true,
+        "detail": "Challenge issued within five minutes"
+      },
+      {
+        "name": "Real escrow reference",
+        "passed": true,
+        "detail": "Recorded order matches its actual Solana Devnet account"
+      },
+      {
+        "name": "Cardano purchase",
+        "passed": true,
+        "detail": "Original 2 tADA purchase independently observed; no new charge"
+      },
+      {
+        "name": "Both networks",
+        "passed": true,
+        "detail": "One immutable transaction on Solana and one on Cardano"
+      },
+      {
+        "name": "Source provenance",
+        "passed": false,
+        "detail": "Claim disagrees with fresh NOWNodes reads"
+      }
+    ],
+    "differences": [
+      {
+        "network": "cardano:mainnet",
+        "tx": "13d71703a8f8bc1f0f6ac8fed2e6678ba8ec994020bc050ee57aa20a96e92dfa",
+        "claimed": "248762",
+        "actual": "248761",
+        "field": "fee"
+      }
+    ]
+  },
+  "transcript": "<jemalloc>: Out-of-range conf value: narenas:0\nInitializing...\nLoading settings...\n! Using default private key for chain write simulation. To use your own key, set CRE_ETH_PRIVATE_KEY in your .env file or system environment.\nChecking RPC connectivity...\nCompiling workflow...\n✓ Workflow compiled\n✓ Simulation limits enabled\n  HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb\n  Binary hash: 88b29b7f942a1356c199a2733fe4ff2ce4632f8237652f247474f1954a94d80c\n  Config hash: 3fcd2249a5c15a30e7798e41b7b7c758d37a55f22e0eba039218429457181075\n2026-10-07T08:53:26Z [SIMULATION] Simulator Initialized\n\n2026-10-07T08:53:26Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0\n2026-10-07T08:53:34Z [USER LOG] ORCA_VERIFICATION:{\"id\":\"c7de7b1a-034b-4eee-9ffc-6e29afaa7faa\",\"mode\":\"cre-simulation\",\"accepted\":false,\"timestamp\":1791363206548,\"claimHash\":\"1c90a45d39355513918980420e0cb9f824a99634bbf4cd46da9dd45183e4fc0b\",\"checks\":[{\"name\":\"Signed claim\",\"passed\":true,\"detail\":\"Dedicated challenge signer; no production receipt changes\"},{\"name\":\"Recent challenge\",\"passed\":true,\"detail\":\"Challenge issued within five minutes\"},{\"name\":\"Real escrow reference\",\"passed\":true,\"detail\":\"Recorded order matches its actual Solana Devnet account\"},{\"name\":\"Cardano purchase\",\"passed\":true,\"detail\":\"Original 2 tADA purchase independently observed; no new charge\"},{\"name\":\"Both networks\",\"passed\":true,\"detail\":\"One immutable transaction on Solana and one on Cardano\"},{\"name\":\"Source provenance\",\"passed\":false,\"detail\":\"Claim disagrees with fresh NOWNodes reads\"}],\"differences\":[{\"network\":\"cardano:mainnet\",\"tx\":\"13d71703a8f8bc1f0f6ac8fed2e6678ba8ec994020bc050ee57aa20a96e92dfa\",\"field\":\"fee\",\"claimed\":\"248762\",\"a ...(truncated)\n\n✓ Workflow Simulation Result:\n\"{\\\"id\\\":\\\"c7de7b1a-034b-4eee-9ffc-6e29afaa7faa\\\",\\\"mode\\\":\\\"cre-simulation\\\",\\\"accepted\\\":false,\\\"timestamp\\\":1791363206548,\\\"claimHash\\\":\\\"1c90a45d39355513918980420e0cb9f824a99634bbf4cd46da9dd45183e4fc0b\\\",\\\"checks\\\":[{\\\"name\\\":\\\"Signed claim\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Dedicated challenge signer; no production receipt changes\\\"},{\\\"name\\\":\\\"Recent challenge\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Challenge issued within five minutes\\\"},{\\\"name\\\":\\\"Real escrow reference\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Recorded order matches its actual Solana Devnet account\\\"},{\\\"name\\\":\\\"Cardano purchase\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Original 2 tADA purchase independently observed; no new charge\\\"},{\\\"name\\\":\\\"Both networks\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"One immutable transaction on Solana and one on Cardano\\\"},{\\\"name\\\":\\\"Source provenance\\\",\\\"passed\\\":false,\\\"detail\\\":\\\"Claim disagrees with fresh NOWNodes reads\\\"}],\\\"differences\\\":[{\\\"network\\\":\\\"cardano:mainnet\\\",\\\"tx\\\":\\\"13d71703a8f8bc1f0f6ac8fed2e6678ba8ec994020bc050ee57aa20a96e92dfa\\\",\\\"field\\\":\\\"fee\\\",\\\"claimed\\\":\\\"248762\\\",\\\"actual\\\":\\\"248761\\\"}]}\"\n\n2026-10-07T08:53:34Z [SIMULATION] Execution finished signal received\n2026-10-07T08:53:34Z [SIMULATION] Skipping WorkflowEngineV2\n\n╭──────────────────────────────────────────────────────╮\n│ Simulation complete! Ready to deploy your workflow?  │\n│                                                      │\n│ Run cre account access to request deployment access. │\n╰──────────────────────────────────────────────────────╯\n"
+}
