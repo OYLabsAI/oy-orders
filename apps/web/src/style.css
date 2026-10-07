@@ -1714,6 +1714,14 @@ body[data-view="shop"] .page-heading {
   font-size: 14px;
   font-weight: 650;
 }
+#shop-plan-next {
+  display: inline-flex;
+  margin-top: 14px;
+  text-decoration: none;
+}
+#shop-plan-next[hidden] {
+  display: none;
+}
 .shop-primary {
   width: 100%;
   background: #173b2b;

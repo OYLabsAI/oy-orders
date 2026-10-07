@@ -119,6 +119,8 @@ export function initShop({
         : `${purchased ? "This checkout selected" : "Agent found"} the matching pass for 2 test ADA. ${purchased ? "The signed decision is bound to this order." : "Three bad deals refused. Ready to buy within your budget."}`;
     $("shop-offer-json").textContent = JSON.stringify(plan, null, 2);
     $("shop-offer-proof").hidden = false;
+    $("shop-plan-next").hidden =
+      purchased || plan.selected === null || !!current?.token;
     if (!current?.token && !busy) {
       $("shop-buy").toggleAttribute("disabled", plan.selected === null);
       $("shop-buy").textContent =
@@ -141,6 +143,7 @@ export function initShop({
     buttonActivity(button, true, "Finding your best deal…");
     $("shop-offers").replaceChildren();
     $("shop-offer-proof").hidden = true;
+    $("shop-plan-next").hidden = true;
     const comparing = startActivity($("shop-plan-progress"), {
       title: "Comparing four signed offers",
       detail:
@@ -196,6 +199,7 @@ export function initShop({
     selectedPlan = undefined;
     $("shop-offers").replaceChildren();
     $("shop-offer-proof").hidden = true;
+    $("shop-plan-next").hidden = true;
     $("shop-plan-summary").textContent =
       "New budget. Compare the offers again before buying.";
     if (!current?.token) {
@@ -622,6 +626,7 @@ export function initShop({
     selectedPlan = undefined;
     $("shop-offers").replaceChildren();
     $("shop-offer-proof").hidden = true;
+    $("shop-plan-next").hidden = true;
     $<HTMLSelectElement>("shop-budget").disabled = false;
     $("shop-plan").removeAttribute("disabled");
     $("shop-plan-summary").textContent =
