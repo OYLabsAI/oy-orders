@@ -27,6 +27,7 @@ export default async function handler(req, res) {
   const path = url.searchParams.get("path") ?? "";
   if (
     !["health", "api/orders", "api/challenges", "paid/report"].includes(path) &&
+    !/^api\/shop\/(?:checkout|status|pass|redeem)$/.test(path) &&
     !/^api\/challenges\/[a-f0-9-]{36}$/.test(path) &&
     !/^api\/orders\/[a-f0-9-]{36}(?:\/(?:start|events|evidence|refund|refund-transaction))?$/.test(
       path,

@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#f7f9fc" />
     <meta
       name="description"
-      content="OY Orders checks a worker’s answer before paying its reward. Try changing a number and watch the checker catch it."
+      content="Buy a digital coffee-style demo pass with crypto. Check the payment, accept one scan, and refuse reuse. Test coins only."
     />
-    <title>OY Orders · Proof before payday</title>
+    <title>OY Orders · Your coffee, paid with crypto</title>
     <link
       rel="icon"
       type="image/svg+xml"
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/style.css" />
     <script type="module" src="/app.js"></script>
   </head>
-  <body id="top">
+  <body id="top" data-view="shop">
     <a class="skip" href="#main">Skip to orders</a>
     <div class="shell">
       <header class="topbar">
@@ -25,7 +25,8 @@
           ><span class="brand-mark">OY</span><span>OY <b>Orders</b></span></a
         >
         <nav aria-label="Workspace">
-          <button class="nav active" data-tab="evidence">See the demo</button>
+          <button class="nav active" data-tab="shop">OY Shop</button>
+          <button class="nav" data-tab="evidence">See the demo</button>
           <button class="nav" data-tab="live-challenge">
             Try a fake answer
           </button>
@@ -40,6 +41,211 @@
         <strong id="page-name" class="sr-only">Demo</strong>
       </header>
       <main id="main">
+        <section id="shop-view" aria-label="OY Shop digital pass">
+          <div class="shop-heading">
+            <span class="eyebrow">OY SHOP · A LITTLE TASTE OF WHAT’S NEXT</span>
+            <h1>
+              A coffee.<br />A click.<br /><span>A little crypto magic.</span>
+            </h1>
+            <p>
+              Buy a digital pass. Show its QR code.<br />Use it once. Try it
+              twice—we’ll catch it.
+            </p>
+            <span class="shop-demo-label">TEST COINS · DEMO VOUCHER</span>
+          </div>
+          <div class="shop-layout">
+            <article class="coffee-ticket" id="coffee-ticket">
+              <div class="ticket-top">
+                <span class="ticket-brand">OY<span>COFFEE CLUB</span></span
+                ><span class="ticket-edition">ORIGINS<br />EDITION / 01</span>
+              </div>
+              <div class="coffee-art" aria-hidden="true">
+                <svg viewBox="0 0 400 260">
+                  <defs>
+                    <linearGradient id="cup" x2="1" y2="1">
+                      <stop stop-color="#eefff1" />
+                      <stop offset="1" stop-color="#8cccb2" />
+                    </linearGradient>
+                  </defs>
+                  <ellipse
+                    cx="200"
+                    cy="220"
+                    rx="108"
+                    ry="13"
+                    fill="#151d17"
+                    opacity=".13"
+                  />
+                  <path
+                    d="M260 95h29c43 0 43 65 1 68h-23"
+                    fill="none"
+                    stroke="#c0e5cf"
+                    stroke-width="20"
+                  />
+                  <path
+                    d="M103 88h170l-13 111c-3 36-139 36-143 0Z"
+                    fill="url(#cup)"
+                  />
+                  <ellipse cx="188" cy="88" rx="85" ry="22" fill="#dff7e7" />
+                  <ellipse cx="188" cy="88" rx="70" ry="15" fill="#493223" />
+                  <path
+                    d="M171 78c15-17 39-8 33 4-5 7-13 9-16 13-5-7-14-10-17-17"
+                    fill="#ebd8b6"
+                  />
+                  <text
+                    x="186"
+                    y="166"
+                    font-family="Arial"
+                    font-size="34"
+                    font-weight="700"
+                    text-anchor="middle"
+                    fill="#173c29"
+                  >
+                    OY
+                  </text>
+                  <path
+                    d="M171 49c-24-18 21-22 5-40m36 41c-19-16 16-19 9-32"
+                    fill="none"
+                    stroke="#203a2c"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    opacity=".5"
+                  />
+                </svg>
+              </div>
+              <div class="ticket-copy">
+                <span class="ticket-kicker"
+                  >ONE GOOD COFFEE. ONE DIGITAL PASS.</span
+                >
+                <h2>Your next<br />coffee moment.</h2>
+                <p>A beautiful little pass.<br />A payment you can check.</p>
+              </div>
+              <div class="ticket-perforation" aria-hidden="true"></div>
+              <div class="ticket-bottom">
+                <div>
+                  <span id="ticket-state" class="ticket-state"
+                    >PREVIEW · NOT YET ISSUED</span
+                  ><strong id="ticket-serial">OY / ORIGINS / 2026</strong
+                  ><small id="ticket-use">One use · demo only</small>
+                </div>
+                <div id="pass-qr" class="pass-qr">
+                  <span>YOUR<br />QR GOES<br />HERE ↗</span>
+                </div>
+              </div>
+            </article>
+            <div class="shop-checkout">
+              <span class="eyebrow">THE SIMPLE PART</span>
+              <h2>Your pass.<br />Ready when you are.</h2>
+              <p class="shop-intro">
+                No card number. No checkout form.<br />Try a real crypto
+                checkout with our funded test wallet.
+              </p>
+              <div class="shop-price">
+                <span>OY Coffee Club demo pass</span
+                ><strong>0.01 <small>tSOL</small></strong>
+              </div>
+              <button id="shop-buy" class="shop-primary">
+                Get my digital pass <span>↗</span>
+              </button>
+              <p class="shop-fineprint">
+                Test coins have no cash value. This demo pass cannot buy real
+                coffee or entry.
+              </p>
+              <div
+                id="shop-status"
+                class="shop-status"
+                role="status"
+                aria-live="polite"
+              >
+                Your pass is issued after the payment and delivery checks
+                succeed.
+              </div>
+              <div id="shop-node-proof" class="shop-node-proof" hidden></div>
+              <div id="shop-pass-actions" class="shop-actions" hidden>
+                <button id="shop-cashier" class="shop-primary">
+                  Open cashier view →</button
+                ><button id="shop-download" class="shop-secondary">
+                  Save my pass ↓</button
+                ><button id="shop-copy" class="shop-secondary">
+                  Copy pass link ↗
+                </button>
+                <button id="shop-new" class="shop-secondary" hidden>
+                  New demo checkout
+                </button>
+              </div>
+              <ol class="shop-journey">
+                <li id="shop-step-pay">
+                  <b>01</b
+                  ><span
+                    ><strong>Pay with crypto</strong
+                    ><small
+                      >A Solana program holds the test payment.</small
+                    ></span
+                  >
+                </li>
+                <li id="shop-step-check">
+                  <b>02</b
+                  ><span
+                    ><strong>The agent gets your pass</strong
+                    ><small
+                      >It buys from a supplier on Cardano. The checker verifies
+                      delivery.</small
+                    ></span
+                  >
+                </li>
+                <li id="shop-step-use">
+                  <b>03</b
+                  ><span
+                    ><strong>Show it. Use it. That’s it.</strong
+                    ><small>A second scan is refused.</small></span
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+          <section
+            id="shop-cashier-panel"
+            class="cashier-panel"
+            hidden
+            aria-label="Cashier pass verification"
+          >
+            <div>
+              <span class="eyebrow">THE CAFÉ COUNTER · DEMO</span>
+              <h2 id="cashier-title">One pass. One coffee.</h2>
+              <p id="cashier-detail">
+                Show this pass at the counter. Check its payment and use it
+                once.
+              </p>
+              <span
+                id="cashier-result"
+                class="cashier-result"
+                role="status"
+                aria-live="polite"
+                >Ready to check</span
+              >
+            </div>
+            <button id="shop-redeem" class="shop-primary">
+              Use this pass →
+            </button>
+          </section>
+          <details id="shop-proof" class="shop-proof">
+            <summary>What makes this more than a QR code?</summary>
+            <p>
+              A supplier-signed pass is bound to the original order. Payment
+              releases only after the independent checker confirms the purchase
+              and delivery. The QR is then redeemable once in OY’s persistent
+              server ledger.
+            </p>
+            <div id="shop-proof-roles" class="shop-proof-roles"></div>
+            <div id="shop-proof-links" class="shop-proof-links"></div>
+            <p class="shop-fineprint">
+              The demo uses a funded operator wallet and separate supplier
+              funds: 0.01 tSOL on Solana Devnet and 2 tADA on Cardano preprod.
+              There is no currency swap or bridge. Verification uses an official
+              Chainlink CRE simulation and a trusted settlement relayer. Pass
+              redemption is recorded on the server, not on chain.
+            </p>
+          </details>
+        </section>
         <section class="page-heading">
           <div>
             <div class="eyebrow">A PAYMENT CHECKPOINT FOR AUTOMATED WORK</div>
@@ -254,7 +460,7 @@
             </div>
           </section>
         </section>
-        <section id="evidence-view">
+        <section id="evidence-view" hidden>
           <section class="simple-story" aria-label="What OY Orders does">
             <p class="example-job">
               <span>THE EXAMPLE JOB</span> “Check the recent transactions in

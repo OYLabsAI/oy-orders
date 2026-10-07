@@ -187,46 +187,48 @@ export function verifyRemote(
             ),
           );
   const facts: SourceFact[] = [];
-  const signatures = rpc(
-    "getSignaturesForAddress",
-    [order.input.solanaWallet, { limit: 5, commitment: "finalized" }],
-    true,
-  );
-  for (const t of signatures.filter((t: any) => !t.err)) {
-    const tx = rpc(
-      "getTransaction",
-      [
-        t.signature,
-        { commitment: "finalized", maxSupportedTransactionVersion: 0 },
-      ],
+  if (!order.input.retail) {
+    const signatures = rpc(
+      "getSignaturesForAddress",
+      [order.input.solanaWallet, { limit: 5, commitment: "finalized" }],
       true,
     );
-    if (!tx || tx.meta.err) throw new Error("SOURCE_TX_UNCONFIRMED");
-    facts.push({
-      network: "solana:mainnet",
-      wallet: order.input.solanaWallet,
-      tx: t.signature,
-      slot: String(tx.slot),
-      fee: String(tx.meta.fee),
-      confirmed: true,
-    });
-  }
-  const ada = "https://ada-blockfrost.nownodes.io",
-    headers = { "api-key": c.nownodesKey };
-  const adaTransactions = get(
-    `${ada}/addresses/${order.input.cardanoWallet}/transactions?count=5&order=desc`,
-    headers,
-  );
-  for (const t of adaTransactions) {
-    const tx = get(`${ada}/txs/${t.tx_hash}`, headers);
-    facts.push({
-      network: "cardano:mainnet",
-      wallet: order.input.cardanoWallet,
-      tx: t.tx_hash,
-      slot: String(tx.slot),
-      fee: String(tx.fees),
-      confirmed: !!tx.block,
-    });
+    for (const t of signatures.filter((t: any) => !t.err)) {
+      const tx = rpc(
+        "getTransaction",
+        [
+          t.signature,
+          { commitment: "finalized", maxSupportedTransactionVersion: 0 },
+        ],
+        true,
+      );
+      if (!tx || tx.meta.err) throw new Error("SOURCE_TX_UNCONFIRMED");
+      facts.push({
+        network: "solana:mainnet",
+        wallet: order.input.solanaWallet,
+        tx: t.signature,
+        slot: String(tx.slot),
+        fee: String(tx.meta.fee),
+        confirmed: true,
+      });
+    }
+    const ada = "https://ada-blockfrost.nownodes.io",
+      headers = { "api-key": c.nownodesKey };
+    const adaTransactions = get(
+      `${ada}/addresses/${order.input.cardanoWallet}/transactions?count=5&order=desc`,
+      headers,
+    );
+    for (const t of adaTransactions) {
+      const tx = get(`${ada}/txs/${t.tx_hash}`, headers);
+      facts.push({
+        network: "cardano:mainnet",
+        wallet: order.input.cardanoWallet,
+        tx: t.tx_hash,
+        slot: String(tx.slot),
+        fee: String(tx.fees),
+        confirmed: !!tx.block,
+      });
+    }
   }
   const result = verifyWithSignature(
     order,

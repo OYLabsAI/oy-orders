@@ -2,72 +2,71 @@
 
 ## Deadline and status
 
-Official deadline: **7 October 2026, 23:59 Singapore / 17:59 Berlin**. Internal target: **22:00 Singapore / 16:00 Berlin**. Team remains **Orca Labs**; product is **OY Orders**. Main event plus Solana, Cardano, Chainlink CRE and NOWNodes tracks are the intended entries. No hackathon submission has been sent.
+**7 October 2026, 23:59 Singapore / 17:59 Berlin.** Internal target: 22:00 Singapore / 16:00 Berlin. The main dashboard team is OY Labs; the inspected NOWNodes team is Orca Labs with the same four members. The product is OY Orders. Main event, Solana, Cardano, Chainlink CRE and NOWNodes are the intended entries. No final submission has been sent.
 
-Seven paid testnet orders are documented: six settled; one validly signed false report was rejected and the same order's reward refunded. A fresh cloud order completed without intervention. The public Vercel app, live signed-claim challenge and controlled cloud stop/resume are verified. [Evidence](evidence/STATUS.md) has exact hashes; [track readiness](TRACK-READINESS.md) distinguishes eligibility from competitive gaps.
-
-GitHub authentication/publication, Drive judge access, prior partner check-in 1/2 discrepancy, and stage-format/movie playback remain gates. Main check-in previously showed 2/2. Re-read actual dashboard status before submitting; no organizer messages have been sent.
+The public retail prototype is functional. Eight genuine paid testnet orders are documented: seven settled; one signed false reporting delivery was rejected and its same-order reward refunded. The retail order passed 10/10 official CRE checks. Its first cashier scan was accepted and reuse refused; persistent cloud stop/resume preserved payment and redemption records. 57 tests passed. Exact transactions are in [evidence/STATUS.md](evidence/STATUS.md), [evidence/retail-pass.json](evidence/retail-pass.json) and [evidence/retail-persistence.json](evidence/retail-persistence.json).
 
 ## Copy-ready description
 
 **Title:** OY Orders
 
-**Tagline:** A signed answer can still be wrong. Proof before payday.
+**Tagline:** A coffee. A click. A little crypto magic.
 
-**Description:** OY Orders gives blockchain operations teams a bounded, auditable way to buy a wallet-reporting task. A buyer locks a Solana task reward; an agent reserves a Cardano service quote and handles an exact x402 payment. NOWNodes supplies transaction facts from both chains. A Chainlink CRE workflow independently verifies the escrow terms, actual supplier payment, registered seller signature, report digest and source facts before a trusted prototype relayer releases the task reward. A false report keeps the reward locked; expiry returns that reward to the buyer. The Cardano supplier payment is final. This MVP uses separate Solana Devnet and Cardano preprod test assets, without a bridge or conversion.
+**Problem:** Agent payments need an understandable customer experience and inspectable proof that the purchased deliverable matches the promised one.
 
-**Memorable feature:** Judges can try to fool a real verifier. Choose a network and a tiny or large false fee claim. The claim receives a valid dedicated challenge signature, but fresh independent CRE reads catch the disagreement. The corrected-answer button runs a new independent check. This isolated audit needs no wallet or charge and never changes a paid order. Separate actual paid rejection/refund evidence proves money protection.
+**Description:** OY Orders makes that idea concrete with a digital coffee-style pass. A funded test wallet locks 0.01 tSOL in our deployed Solana program. An agent uses separate Cardano preprod funds to purchase a supplier-signed pass through exact x402. Chainlink CRE independently checks the escrow, actual supplier payment, signature and committed pass before a trusted relayer releases the task reward. The QR appears after confirmed settlement. The shop accepts its first use and refuses a second use through an atomic persistent server record. All assets are test coins; this voucher cannot buy real coffee or entry. There is no currency conversion, bridge, NFT or on-chain pass redemption.
 
-**Current status:** Six paid orders settled through the custom Solana program, genuine Cardano x402, NOWNodes and official CRE simulations. One controlled supplier's signed false report failed provenance and its same-order reward was refunded. The latest success ran through Vercel without operator recovery; persistent session stop/resume preserved the completed order and audit. 49 tests pass. No production DON, TEE deployment, general truth oracle or customer traction is claimed.
+**Memorable demo:** Buy the pass, show its QR, accept the first use, try the same pass again. Then open the actual payment proof. The separate signed-lie challenge lets judges change a transaction fee and see a valid signature pass while fresh source checks catch the wrong number. A different real paid reporting order proves that a rejected delivery keeps the task reward locked until its expiry refund. Challenge clicks do not move assets.
 
-**Why now:** Agents can pay for services, but operators still need spending limits and evidence that the deliverable is correct. OY Orders makes that contract concrete for one inspectable task.
+**Current status:** Real retail payment and one-use pass, public cloud app, official CRE simulations, actual signed rejection/refund evidence, guarded spending and persistent recovery. No production DON, confidential TEE, merchant acceptance, customer traction or independent supplier operation is claimed.
 
-**Business hypothesis:** A per-task verification fee or team subscription for recurring blockchain operations reports. Validate reporting errors, approval budgets and audit costs with actual operators. No interviews, revenue or partnerships are claimed.
+**Business hypothesis:** Start with digital vouchers that merchants can verify. Test a verification fee per checkout with one real merchant pilot. Validate wallet onboarding, supplier cost and customer demand before real assets. No interviews, revenue or partnerships are invented.
 
-## Track-specific text
+## Submission links and fields
 
-**Solana:** A native deployed Rust program implements immutable order PDA terms, reserved seller quote within a ceiling, fixed payout and buyer expiry refund. Ownership/PDA/signer/destination/state/deadline checks enforce mutually exclusive settlement/refund. Actual funding, reservation, settlement and refund evidence and compiled-ELF LiteSVM tests are included. Devnet program: `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj`.
+- Live app: https://oy-orders.vercel.app/
+- Demo and downloads: https://oy-orders.vercel.app/deliverables/
+- Cardano demo video: https://oy-orders.vercel.app/downloads/OY-Orders-demo.mp4 — **87.28 seconds**, 1080p H.264/AAC.
+- Actual retail execution: https://oy-orders.vercel.app/api/orders/29ab7330-93fa-4aef-b74e-02bca9495b3a/evidence
+- GitHub: https://github.com/nknwn-eth/oy-orders — public repository created; source upload awaits local CLI authorization. The public MIT source ZIP is a fallback, not a substitute for the required GitHub repository.
+- Drive PPTX: updated six-slide editable deck with its MP4 embedded on slide 3. Published rules list `.ppt` or Keynote; PPTX acceptance remains unconfirmed.
+- Drive PPT: updated visual backup only. Legacy conversion drops the movie, so it does not satisfy the embedded-demo stage requirement.
 
-**Cardano Agentic Commerce:** A deterministic agent buys a useful reporting resource through exact Cardano x402 on preprod. Network, ADA asset, supplier, amount, expiry and transaction fee are checked before signing. Private durable storage preserves the signed payment before broadcast; uncertain responses reuse that same transaction. The signed receipt binds purchase to order. Official rules permit x402 alone; Masumi escrow/Sokosumi listing are not claimed. Direct supplier payment is final; the separate task reward is refundable. See [Cardano readiness](CARDANO-READINESS.md).
+Draft fields saved and verified on 7 October: main live URL (1/3); Solana live URL (1/3); NOWNodes live URL and architecture (2/4); CRE live URL and successful official simulation evidence (2/4); Cardano live URL and problem/tools/deployment write-up (2/5 before adding the updated video). GitHub and stage-deck fields are intentionally blank until their actual requirements are met. Draft completion does not mean final submission.
 
-**Chainlink CRE:** The workflow independently derives and reads the expected Solana escrow, observes the preprod purchase, verifies the configured Ed25519 signature and re-fetches multichain facts. A valid signature cannot override failed provenance. Successful official CLI simulations and real accepted/rejected transcripts are included. The live isolated audit gives judges a fresh false/corrected comparison. Simulation plus a trusted relayer is explicit; production DON/TEE deployment is not claimed.
+## Track-specific write-up
 
-**NOWNodes:** Real Solana JSON-RPC and Cardano Blockfrost-compatible facts produce the paid report; CRE independently repeats both reads. NOWNodes preprod outputs prove the supplier payment after network_magic=1 verification. The sponsor infrastructure is necessary to both producing and checking the work. Endpoint roles and redacted execution evidence are included; no keys are attached.
+**Solana:** Our custom native Rust program fixes immutable order PDA terms, the seller quote ceiling, recipient, task payment and deadline. Actual Devnet funding, reservation, settlement and rejection/refund evidence accompany compiled-program LiteSVM tests. Program ID: `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj`. Example retail settlement: [Solana Explorer](https://explorer.solana.com/tx/2Xp7pF7NEptyCrEW12txmC1u9Rx8gBB6mpSyNSAF4vzELnsmuvZfbxE6DuXLRDKc8rcF6X4VyV73Nde4xsA9D66o?cluster=devnet). README discloses adapted public dependencies and deployment boundaries.
 
-## Three-minute pitch
+**Cardano Agentic Commerce:** The deterministic worker purchases the signed pass/report with exact x402 on preprod using Cardano Foundation's x402 SDK 2.26 and Lucid Evolution. It validates network, ADA asset, recipient, amount, expiry and fee before signing. Durable storage saves the signed transaction before broadcast and reuses it after uncertain responses. NOWNodes independently observes the actual supplier payment after verifying network magic 1. The supplier purchase is final; the separate Solana reward is refundable. Official x402-only eligibility does not require a Masumi node or Sokosumi listing. No Cardano smart contract or native-token commerce is claimed. [CARDANO-READINESS.md](CARDANO-READINESS.md) covers tools and scaling.
+
+**Chainlink CRE:** Official CRE orchestration independently checks the expected Solana escrow, external NOWNodes Cardano purchase records, registered Ed25519 signature, receipt digest, immutable input and exact pass commitment. The real retail execution passed ten checks before settlement. Reporting and live signed-claim checks also re-fetch multichain source facts. Accepted and rejected official CLI transcripts are included. Qualification uses successful official simulation; production DON and confidential TEE are optional and not claimed. A trusted relayer submits settlement.
+
+**NOWNodes:** `ada-testnet.nownodes.io` supplies independent preprod purchase records using its Blockfrost-compatible API. `sol.nownodes.io` and `ada-blockfrost.nownodes.io` supply both mainnets' reporting and challenge facts, independently re-read by CRE. The Solana escrow itself is Devnet and uses official Devnet RPC; `sol-testnet.nownodes.io` is not relabeled Devnet. [ARCHITECTURE.md](ARCHITECTURE.md) and [RETAIL.md](RETAIL.md) map each endpoint and actual technology role. No keys are in public evidence.
+
+## Three-minute stage pitch
 
 | Time | Show | Say |
 |---|---|---|
-| 0:00–0:20 | Cover and claim/actual slide | “A signed answer can still be wrong. Who checks it before your agent pays?” |
-| 0:20–1:53 | Embedded 93-second edited proof tour | Show the real success, fresh signed lie, corrected check, and separate paid rejection/refund. Let narration explain. |
-| 1:53–2:20 | Four sponsor roles | “Solana protects the reward. Cardano buys the report. NOWNodes supplies the facts. CRE checks them independently.” |
-| 2:20–2:40 | Evidence slide | “49 tests, real testnet payments, inspectable proof and a cloud demo. CRE is a simulation with a trusted prototype relayer.” |
-| 2:40–3:00 | Use case and public URL | “We start with repeatable wallet reports for blockchain operations teams. Next, validate real reporting errors and recurring budgets.” |
+| 0:00–0:15 | Beautiful pass cover | “Buy a digital pass with crypto. Show it once. Try it twice. The shop catches reuse.” |
+| 0:15–0:30 | Simple checkout | “An agent buys the pass. Independent checks compare the payment and exact promised pass before payout.” |
+| 0:30–1:57 | Embedded 87-second demo | Let the recorded retail, duplicate scan, signed-lie and separate refund evidence tell the story. |
+| 1:57–2:22 | Four technology roles | “Solana protects the reward. Cardano buys the pass. NOWNodes provides the payment records. CRE checks them independently.” |
+| 2:22–2:40 | Evidence | “57 tests, 10/10 retail checks, eight real paid testnet orders. This prototype uses simulation and a trusted relayer.” |
+| 2:40–3:00 | First market and URL | “Next: one merchant pilot for digital vouchers, wallet onboarding and a fee-per-checkout hypothesis.” |
 
-The video is an **edited authentic screenshot tour with synthetic narration**, not continuous execution footage. Live challenge clicks perform fresh reads; the recorded money-protection story shows an actual earlier payment/refund. Do not claim challenge clicks move money. Stage rules require the technical demo recording in the deck; use the recording for the stage pitch and the live challenge for judge interaction if permitted.
+The MP4 is an **edited authentic-screen tour with synthetic narration**. It includes an actual duplicate-check screen recording and historical genuine accepted-use/payment/refund captures. It does not claim a continuous recording of the full purchase. The stage rules prohibit live demos and external video links: play the embedded recording. Native Keynote/PowerPoint playback is still unverified.
 
-## Rubrics and remaining plan
+## Remaining gates and fastest human help
 
-Main weights: functionality 30%, integration 25%, innovation 20%, usefulness 15%, demo 10%. Solana: technical 30%, innovation 20%, UX 20%, viability 15%, demo 15%. Cardano: technical 30%, innovation 20%, UX 20%, impact 20%, pitch 10%. CRE: blockchain 40%, CRE 40%, WOW 20%. NOWNodes: completeness 25%, infrastructure 25%, usefulness 20%, creativity 15%, scalability 15%.
+1. Complete the local GitHub CLI device approval. The user has signed into `nknwn-eth`; its public `oy-orders` repository is created, and audited source/history are ready to push.
+2. Ask the on-site organizer to repair all four partner RSVP/check-in records. Main shows 2/2; every partner shows attendance confirmed but RSVP closed and unchecked (1/2). The UI offers no self-service repair.
+3. Click Continue in Keynote personally if you accept its Software License Agreement. Then convert and verify the embedded movie in native Keynote, or obtain explicit organizer acceptance of the existing PPTX. Do not submit the movie-free legacy PPT as compliant.
+4. Read-only link access is now verified for the updated Drive PPTX, MP4 and source ZIP. The final native Keynote deck will need the same judge access. Public Vercel downloads do not replace the required Drive stage-deck link.
+5. Review and submit the main entry and all four partner entries with the user before the deadline. Slides lock at submission. Save each confirmation.
 
-The strongest case is now a judge-controlled fresh audit connected to actual protected-money evidence. Do not add a decorative fifth integration. Use remaining time for repository/access, stage playback, three actual operator conversations, a timed pitch rehearsal and final submission. [TRACK-READINESS.md](TRACK-READINESS.md) contains the full schedule and competitive gaps.
-
-## Final gates
-
-- Public app/video/downloads load from a logged-out device. Recorded fallback is always available.
-- MIT source in a judge-accessible GitHub repository; the ZIP is only a fallback.
-- Drive deck/video permissions let judges open them. Existing files currently remain owner-only.
-- Confirm acceptance and native playback of the MP4 embedded in PPTX. The requested legacy `.ppt` visual backup loses the movie; no native PowerPoint/Keynote playback is claimed.
-- Re-check partner check-ins and all intended track selections.
-- Verify exact final links, source, network labels and trust disclosures. No credentials in submission assets.
-- Submit together before the internal target and save the confirmation. The deck locks at submission.
+Published technical requirements are covered with testnet funds. Extra mainnet funds, Masumi/Sokosumi registration, NFTs and production CRE are not mandatory for this selected implementation. Deeper Cardano-specific capabilities and genuine merchant validation remain competitive weaknesses. Ask a real merchant one concrete question about vouchers or duplicate redemption if time permits, and record only their actual response.
 
 ## Official sources
 
-[Main event](https://builderbase.com/event/token2049-origins-hackathon), [Solana](https://builderbase.com/track/solana-best-use-of-solana), [Cardano](https://builderbase.com/track/cardano-agentic-commerce), [Chainlink CRE](https://builderbase.com/track/chainlink-best-workflow-with-cre), [NOWNodes](https://builderbase.com/track/nownodes-multichain-infrastructure-challenge). Rules were read during this session; re-check the dashboard for changes before submission. Winning remains a judging decision.
-
-## Plain-language explanation
-
-“Imagine paying a worker to check a set of transactions. What if their report makes up a number? OY holds their reward until a separate checker compares the answer with the original records. Correct work gets paid. Wrong work keeps the reward locked, and the buyer can reclaim it after the deadline. The report’s purchase fee is separate and stays spent. Today’s demo uses an automated reporting worker and test coins.”
-
-Demo route: **See the demo** shows completed correct-work, rejected-work and refund examples. **Try a fake answer** checks a newly signed fee claim against fresh records for free. **How it works** explains the two costs; sponsor connections and verification details are expandable. Fees are displayed in SOL or ADA with enough precision to show a smallest-unit error.
+The five official pages were reread on 7 October 2026: [main event](https://builderbase.com/event/token2049-origins-hackathon), [Solana](https://builderbase.com/track/solana-best-use-of-solana), [Cardano](https://builderbase.com/track/cardano-agentic-commerce), [Chainlink CRE](https://builderbase.com/track/chainlink-best-workflow-with-cre), [NOWNodes](https://builderbase.com/track/nownodes-multichain-infrastructure-challenge). [TRACK-READINESS.md](TRACK-READINESS.md) contains the exact eligibility matrix, rubric weights and remaining gates. Prize outcomes remain the judges' decision.

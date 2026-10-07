@@ -1,0 +1,213 @@
+{
+  "capturedAt": "2026-10-07T09:26:54.628Z",
+  "order": {
+    "id": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+    "mode": "live",
+    "status": "settled",
+    "createdAt": 1791364963939,
+    "deadline": 1791365863939,
+    "input": {
+      "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "scenario": "success",
+      "retail": {
+        "sku": "coffee-pass",
+        "commitment": "c7806ff9e09eb0246412c6a865371ea0a0f37770195dfb16f715dbf6c569ddf9"
+      }
+    },
+    "inputHash": "42e03a798693684a1f60cb49ee6f4b595a47b8f64040fb50e66b1918ae98a474",
+    "reward": "10000000",
+    "ceiling": "2000000",
+    "feeCeiling": "1000000",
+    "buyer": "2sTMaoCTxMDUWnBJnamno6wQDFJK812rreLvWRuBu8iF",
+    "worker": "4J96kKF7xjeB2WEC5xmZ1SwMVpKfTqxFRau2YK8L4eC2",
+    "seller": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+    "sellerKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA+SG7IyWIKUUUHxAhNSamdSGhGsZCjSzxpEB0rv/Ft00=\n-----END PUBLIC KEY-----\n",
+    "solana": {
+      "pda": "A2ePj7JqGpTPgnKwKgnT968Sow8ocHuSW2wau53Pkzfa",
+      "fundingTx": "4pUSKJ31uhbbrvewZ1DAanm8mQiVC5eE6SUiEmttALSaYygUoNCzMRPqcdx7ozmageGSiyzL4V4rCimyh3csZBmi",
+      "reserveTx": "3iwTiQrodgSyqgHbDFvfrVFYFxqVRrxZfTqJkDLCuVqTwP5UBF1LiqSgmKeWGVpUsSA51UVmeCrRcsnqnbh7tL1B",
+      "settleTx": "2Xp7pF7NEptyCrEW12txmC1u9Rx8gBB6mpSyNSAF4vzELnsmuvZfbxE6DuXLRDKc8rcF6X4VyV73Nde4xsA9D66o"
+    },
+    "quote": {
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "expiresAt": 1791365863939,
+      "resource": "https://oy-orders.vercel.app/paid/report?orderId=29ab7330-93fa-4aef-b74e-02bca9495b3a"
+    },
+    "quoteHash": "bcd8f7b627363b7dadc573e668f3c0262e1cd8193d64832ba2951585468559ef",
+    "report": {
+      "inputHash": "42e03a798693684a1f60cb49ee6f4b595a47b8f64040fb50e66b1918ae98a474",
+      "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "facts": [],
+      "retail": {
+        "sku": "coffee-pass",
+        "commitment": "c7806ff9e09eb0246412c6a865371ea0a0f37770195dfb16f715dbf6c569ddf9"
+      }
+    },
+    "payment": {
+      "tx": "d5f8f92b233a63831ad64adfa72d5b681dd65ebabeff12ab7f763f5216139800",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "amount": "2000000",
+      "fee": "170517",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "confirmed": true
+    },
+    "receipt": {
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "quoteHash": "bcd8f7b627363b7dadc573e668f3c0262e1cd8193d64832ba2951585468559ef",
+      "paymentHash": "d5f8f92b233a63831ad64adfa72d5b681dd65ebabeff12ab7f763f5216139800",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "resultHash": "dc0bd0a9b7ac4df313966e42e3f299738a97293c2ad5bfd0de26132fb934e0ae",
+      "signature": "8+7MUjDlYXq9wIqRTy8qBP0FhS5MWwcklamuweQXurxL9qh0JcsM+l7vwDIee8gMnxPjh+ENR5Kae2pW8k5wAw=="
+    },
+    "verification": {
+      "accepted": true,
+      "reason": "ALL_CHECKS_PASSED",
+      "checks": [
+        {
+          "name": "Solana escrow",
+          "passed": true,
+          "detail": "Actual reserved PDA and immutable chain terms match"
+        },
+        {
+          "name": "Escrow deadline",
+          "passed": true,
+          "detail": "Order must be unexpired"
+        },
+        {
+          "name": "Reserved quote",
+          "passed": true,
+          "detail": "Immutable quote matches its reservation"
+        },
+        {
+          "name": "Input binding",
+          "passed": true,
+          "detail": "Report answers the funded task"
+        },
+        {
+          "name": "Seller signature",
+          "passed": true,
+          "detail": "Ed25519 signature by the registered seller"
+        },
+        {
+          "name": "Receipt binding",
+          "passed": true,
+          "detail": "Order, quote, seller, asset and network agree"
+        },
+        {
+          "name": "Payment confirmation",
+          "passed": true,
+          "detail": "Observed preprod transaction is confirmed"
+        },
+        {
+          "name": "Payment value",
+          "passed": true,
+          "detail": "Correct recipient and quote, within fee reserve"
+        },
+        {
+          "name": "Result integrity",
+          "passed": true,
+          "detail": "Canonical facts match signed SHA-256 digest"
+        },
+        {
+          "name": "Digital pass commitment",
+          "passed": true,
+          "detail": "One-use pass commitment matches the funded task and signed delivery"
+        }
+      ],
+      "mode": "cre-simulation",
+      "resultHash": "dc0bd0a9b7ac4df313966e42e3f299738a97293c2ad5bfd0de26132fb934e0ae",
+      "timestamp": 1791365057378,
+      "transcript": "/api/orders/29ab7330-93fa-4aef-b74e-02bca9495b3a/evidence"
+    }
+  },
+  "events": [
+    {
+      "sequence": 114,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "timestamp": 1791364963943,
+      "step": "created",
+      "detail": "Coffee demo pass ordered. One-use pass commitment bound before payment.",
+      "link": null
+    },
+    {
+      "sequence": 115,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "timestamp": 1791364965419,
+      "step": "funded",
+      "detail": "Demo buyer’s 0.01 tSOL locked for the committed coffee pass. Cardano supplier purchase is funded separately by the operator worker.",
+      "link": null
+    },
+    {
+      "sequence": 116,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "timestamp": 1791364966316,
+      "step": "reserved",
+      "detail": "Seller and 2 tADA quote reserved within the spending ceiling.",
+      "link": null
+    },
+    {
+      "sequence": 117,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "timestamp": 1791364966969,
+      "step": "purchasing",
+      "detail": "Agent handles the Cardano x402 payment challenge.",
+      "link": null
+    },
+    {
+      "sequence": 118,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "timestamp": 1791365037229,
+      "step": "paid",
+      "detail": "Confirmed preprod payment; seller receipt signed.",
+      "link": null
+    },
+    {
+      "sequence": 119,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "timestamp": 1791365037881,
+      "step": "verifying",
+      "detail": "CRE simulation rechecks escrow, payment, receipt and chain facts.",
+      "link": null
+    },
+    {
+      "sequence": 120,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "timestamp": 1791365065466,
+      "step": "settled",
+      "detail": "Verified task reward released on Solana Devnet.",
+      "link": null
+    },
+    {
+      "sequence": 121,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "timestamp": 1791365154801,
+      "step": "pass-used",
+      "detail": "Demo coffee pass redeemed once. Conditional persistent ledger write accepted.",
+      "link": null
+    }
+  ],
+  "creTranscript": "<jemalloc>: Out-of-range conf value: narenas:0\nInitializing...\nLoading settings...\n! Using default private key for chain write simulation. To use your own key, set CRE_ETH_PRIVATE_KEY in your .env file or system environment.\nChecking RPC connectivity...\nCompiling workflow...\n✓ Workflow compiled\n✓ Simulation limits enabled\n  HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb\n  Binary hash: f1ab1145904510245463523f788387f68949c46e3926b7988a696ee8b9316e40\n  Config hash: a4ee5385e7c3afccc14a6606c3cde67b73e70c6d86047ec7bcda08877c7321b4\n2026-10-07T09:24:17Z [SIMULATION] Simulator Initialized\n\n2026-10-07T09:24:17Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0\n\n✓ Workflow Simulation Result:\n\"{\\\"accepted\\\":true,\\\"reason\\\":\\\"ALL_CHECKS_PASSED\\\",\\\"checks\\\":[{\\\"name\\\":\\\"Solana escrow\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Actual reserved PDA and immutable chain terms match\\\"},{\\\"name\\\":\\\"Escrow deadline\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Order must be unexpired\\\"},{\\\"name\\\":\\\"Reserved quote\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Immutable quote matches its reservation\\\"},{\\\"name\\\":\\\"Input binding\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Report answers the funded task\\\"},{\\\"name\\\":\\\"Seller signature\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Ed25519 signature by the registered seller\\\"},{\\\"name\\\":\\\"Receipt binding\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Order, quote, seller, asset and network agree\\\"},{\\\"name\\\":\\\"Payment confirmation\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Observed preprod transaction is confirmed\\\"},{\\\"name\\\":\\\"Payment value\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Correct recipient and quote, within fee reserve\\\"},{\\\"name\\\":\\\"Result integrity\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Canonical facts match signed SHA-256 digest\\\"},{\\\"name\\\":\\\"Digital pass commitment\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"One-use pass commitment matches the funded task and signed delivery\\\"}],\\\"mode\\\":\\\"cre-simulation\\\",\\\"resultHash\\\":\\\"dc0bd0a9b7ac4df313966e42e3f299738a97293c2ad5bfd0de26132fb934e0ae\\\",\\\"timestamp\\\":1791365057378}\"\n\ntime=2026-10-07T09:24:24.399Z level=INFO msg=\"context canceled\"\ntime=2026-10-07T09:24:24.399Z level=INFO msg=\"context canceled\"\n2026-10-07T09:24:24Z [SIMULATION] Execution finished signal received\n2026-10-07T09:24:24Z [SIMULATION] Skipping WorkflowEngineV2\n\n╭──────────────────────────────────────────────────────╮\n│ Simulation complete! Ready to deploy your workflow?  │\n│                                                      │\n│ Run cre account access to request deployment access. │\n╰──────────────────────────────────────────────────────╯\n",
+  "disclosure": "CRE local simulation with trusted demo relayer; no DON deployment.",
+  "pass": {
+    "created_at": 1791364963939,
+    "used_at": 1791365154800,
+    "replay": {
+      "accepted": false,
+      "usedAt": 1791365154800,
+      "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+      "reason": "ALREADY_USED"
+    },
+    "useRecordedOn": "persistent server SQLite ledger"
+  },
+  "scope": "Operator-funded test coins; demo voucher only. No real coffee, currency swap, NFT, on-chain redemption, production CRE DON, or physical delivery proof."
+}

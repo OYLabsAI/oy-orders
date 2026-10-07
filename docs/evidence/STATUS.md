@@ -1,10 +1,10 @@
 # Executed evidence — 7 October 2026
 
-**Seven genuine paid testnet orders: six settled, one signed false report rejected and its task reward refunded.** The newest success executed through Vercel without operator recovery. The judge-controlled challenge performs fresh independent reads rather than replaying a local copy.
+**Eight genuine paid testnet orders: seven settled, one signed false report rejected and its task reward refunded.** The newest retail pass passed ten official CRE checks, accepted one use and refused replay. The judge-controlled challenge performs fresh independent reads rather than replaying a local copy.
 
 | Evidence | Executed result | Practical limit |
 |---|---|---|
-| Types and tests | Type check and 49 tests pass | VM, fixtures, parsing and recovery tests are distinct from chain execution |
+| Types and tests | Type check and 57 tests pass | VM, fixtures, parsing, pass ledger and recovery tests are distinct from chain execution |
 | Solana program | Devnet `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj`; deployed bytes match tested ELF | Upgrade authority retained; trusted settlement relayer |
 | Paid success | Six actual 2 tADA purchases and Solana settlements, ten CRE checks each | Separate test assets; no bridge or conversion |
 | Paid adversarial order | Controlled seller's valid signature and digest pass; false source fact fails; reward never settled | Deliberate team-controlled supplier test |
@@ -46,4 +46,10 @@ Full Cardano hashes and preprod explorer links are in each evidence file.
 
 ## Submission gates
 
-GitHub publication requires an authenticated account or owner-completed signup. A ZIP does not replace the required repository. Drive files preserve owner-only access. Verify judge access, the prior partner check-in 1/2 discrepancy, and acceptance/native playback of PPTX with its embedded movie. Legacy PPT loses the recording. No hackathon submission has been made.
+GitHub publication requires an authenticated account or owner-completed signup. A ZIP does not replace the required repository. Verify final Drive judge access, the confirmed partner check-in 1/2 discrepancy, and acceptance/native playback of PPTX with its embedded movie. Legacy PPT loses the recording. No hackathon submission has been made.
+
+## Retail pass, 7 October
+
+[retail-pass.json](retail-pass.json): order `29ab7330-93fa-4aef-b74e-02bca9495b3a` bought and settled a supplier-signed coffee-style demo pass through the real cloud service. Solana funding `4pUSKJ31uhbbrvewZ1DAanm8mQiVC5eE6SUiEmttALSaYygUoNCzMRPqcdx7ozmageGSiyzL4V4rCimyh3csZBmi`; Cardano supplier payment `d5f8f92b233a63831ad64adfa72d5b681dd65ebabeff12ab7f763f5216139800`; settlement `2Xp7pF7NEptyCrEW12txmC1u9Rx8gBB6mpSyNSAF4vzELnsmuvZfbxE6DuXLRDKc8rcF6X4VyV73Nde4xsA9D66o`. All ten official CRE checks passed. First redemption was accepted; replay returned `ALREADY_USED`. Redemption is an atomic persistent server write, not an on-chain NFT/physical-delivery proof.
+
+[retail-persistence.json](retail-persistence.json): controlled idle cloud stop and public-request resume took 8.525 seconds. The settled order, used timestamp and private-key-derived pass commitment were preserved. No new payment was made by this recovery test. Free-quota and cold-start limits remain.

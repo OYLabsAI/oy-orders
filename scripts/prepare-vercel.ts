@@ -39,6 +39,8 @@ const downloads = [
   "OY-Orders-pitch.pptx",
   "OY-Orders-pitch.ppt",
   "OY-Orders-proof-and-refund.jpg",
+  "OY-Orders-pass-closeup.png",
+  "OY-Orders-pass-ready.png",
   "OY-Orders-source.zip",
 ];
 const oldDownloads = downloads.map((file) =>
@@ -156,16 +158,17 @@ if (!appOnly)
 <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OY Orders · Demo and pitch</title><link rel="stylesheet" href="/style.css">
 <main style="max-width:960px;margin:40px auto;padding:24px"><a href="/">← Open OY Orders</a>
-<p class="eyebrow" style="margin-top:32px">ORCA LABS · TOKEN2049 ORIGINS</p><h1>A task. A budget.<br>A verifiable result.</h1>
-<p>Genuine paid testnet orders, a signed false report rejected, and its task reward refunded. Try the live claim challenge inside the app.</p>
-<video controls preload="metadata" playsinline style="width:100%;border-radius:16px;margin:24px 0" poster="/downloads/OY-Orders-proof-and-refund.jpg" src="/downloads/OY-Orders-demo.mp4"></video>
-<p>The narrated edited proof tour uses authentic screenshots and synthetic speech. It replays real testnet evidence; it is not a continuous recording of execution.</p>
+<p class="eyebrow" style="margin-top:32px">OY ORDERS · TOKEN2049 ORIGINS</p><h1>A coffee. A click.<br>A little crypto magic.</h1>
+<p>Buy a digital pass. Accept its first scan. Refuse its second scan. Open the payment proof. This is a demo voucher using test coins; it cannot buy real coffee or entry.</p>
+<video controls preload="metadata" playsinline style="width:100%;border-radius:16px;margin:24px 0" poster="/downloads/OY-Orders-pass-closeup.png" src="/downloads/OY-Orders-demo.mp4"></video>
+<p>The 87-second edited tour combines authentic app captures, a recorded live duplicate check and synthetic narration. It includes separate actual signed-lie and paid-refund evidence. It does not present the whole purchase as a continuous recording.</p>
+<p><a href="/api/orders/29ab7330-93fa-4aef-b74e-02bca9495b3a/evidence">Inspect the actual retail execution and ten passed CRE checks</a></p>
 <p><a href="/downloads/OY-Orders-pitch.pptx" download>Download pitch with embedded video (.pptx)</a></p>
 <p><a href="/downloads/OY-Orders-demo.mp4" download>Download demo video (.mp4)</a></p>
 <p><a href="/downloads/OY-Orders-source.zip" download>Download MIT source and evidence (.zip)</a></p>
 <p><a href="/downloads/OY-Orders-pitch.ppt" download>Download visual backup (.ppt)</a> · Legacy export drops the movie; stage acceptance of PPTX remains unverified.</p>
 <p>${sandboxBackend ? "The backend runs in a persistent Vercel Sandbox, with private state on Vercel Drive. Hobby sessions resume on request; cold starts and free-quota limits apply." : apiOrigin ? "Fresh purchases use an external API proxy dependent on the operator’s machine." : "Fresh purchases require a live backend."}</p>
-<p>Chainlink evidence uses official local CRE simulation and a trusted demo relayer. No DON deployment or atomic bridge is claimed.</p>
+<p>Solana Devnet protects the task payment. The agent uses separately funded Cardano preprod coins to buy the supplier-signed pass. NOWNodes supplies the original payment records. Chainlink evidence uses official CRE simulation and a trusted relayer. Pass use is recorded atomically on the server. No currency swap, production DON or on-chain pass redemption is claimed.</p>
 </main></html>`,
   );
 writeFileSync(`${release}/.vercelignore`, ".vercel\n.git\n.env*\n*.pem\n");

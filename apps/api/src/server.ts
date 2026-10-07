@@ -28,6 +28,8 @@ import {
 } from "./solana.ts";
 import { mountPaidResource } from "./cardano.ts";
 import { Challenges } from "./challenges.ts";
+import { taskInput } from "../../../packages/core/src/retail.ts";
+import { mountShop } from "./shop.ts";
 
 export const store = new Store(resolve(config.dataDir, "orders.sqlite"));
 const challenges = new Challenges(store);
@@ -79,6 +81,7 @@ app.get("/health", (_req, res) =>
   }),
 );
 app.get("/api/orders", (_req, res) => res.json(store.list()));
+const shop = mountShop(app, store);
 app.post("/api/challenges", async (req, res, next) => {
   try {
     res.status(202).json(await challenges.create(req.body));
@@ -127,10 +130,7 @@ app.post("/api/orders", async (req, res, next) => {
       createdAt: Date.now(),
       deadline: Date.now() + 15 * 60000,
       input: body.input,
-      inputHash: hash({
-        solanaWallet: body.input.solanaWallet,
-        cardanoWallet: body.input.cardanoWallet,
-      }),
+      inputHash: hash(taskInput(body.input)),
       reward: "10000000",
       ceiling: "2000000",
       feeCeiling: "1000000",
@@ -292,12 +292,14 @@ app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {
 if (process.env.NODE_ENV !== "test") {
   const stop = startWorker(store);
   const stopChallenges = challenges.start();
+  const stopShop = shop.start();
   const server = app.listen(config.port, process.env.HOST ?? "127.0.0.1", () =>
     console.log(`OY Orders ${config.mode}: ${config.apiUrl}`),
   );
   process.on("SIGTERM", () => {
     stop();
     stopChallenges();
+    stopShop();
     server.close(() => {
       store.close();
       process.exit(0);

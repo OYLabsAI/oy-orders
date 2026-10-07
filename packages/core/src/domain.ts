@@ -24,6 +24,10 @@ export const inputSchema = z
     solanaWallet: solAddress,
     cardanoWallet: cardanoAddress,
     scenario: z.enum(["success", "tampered", "expiry"]).default("success"),
+    retail: z
+      .object({ sku: z.literal("coffee-pass"), commitment: digest })
+      .strict()
+      .optional(),
   })
   .strict();
 export function receiptBody(receipt: Receipt): ReceiptBody {

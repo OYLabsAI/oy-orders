@@ -1,0 +1,11 @@
+{
+  "recordedAt": "2026-10-07T09:34:30.078Z",
+  "test": "idle cloud session stop and public-request resume",
+  "orderId": "29ab7330-93fa-4aef-b74e-02bca9495b3a",
+  "orderUnchanged": true,
+  "mode": "live",
+  "resumeMs": 8525,
+  "usedAt": 1791365154800,
+  "passCommitmentUnchanged": true,
+  "limits": "Hobby cold starts and free quotas apply; not an availability guarantee"
+}

@@ -262,3 +262,46 @@ test("CRE rejects Solana Testnet even when escrow data otherwise matches", async
   f.setSolanaGenesis("4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY");
   assert.throws(() => verifyRemote(f.send, f.c), /SOLANA_NETWORK_MISMATCH/);
 });
+test("CRE checks a digital pass against funded terms and actual NOWNodes payment without unrelated wallet reads", async () => {
+  const f = await harness();
+  f.c.paymentProvider = "nownodes";
+  f.c.blockfrostKey = "";
+  f.o.input.retail = { sku: "coffee-pass", commitment: "a".repeat(64) };
+  f.o.inputHash = hash({
+    solanaWallet: f.o.input.solanaWallet,
+    cardanoWallet: f.o.input.cardanoWallet,
+    retail: f.o.input.retail,
+  });
+  Buffer.from(f.o.inputHash, "hex").copy(f.d, 136);
+  f.o.report = {
+    inputHash: f.o.inputHash,
+    solanaWallet: f.o.input.solanaWallet,
+    cardanoWallet: f.o.input.cardanoWallet,
+    facts: [],
+    retail: { ...f.o.input.retail },
+  };
+  const resign = () => {
+    const { signature: old, ...unsigned } = f.o.receipt;
+    f.o.receipt = signReceipt(
+      { ...unsigned, resultHash: hash(f.o.report) },
+      f.pair.privateKey,
+    );
+  };
+  resign();
+  const checked = {
+    sendRequest(r) {
+      assert.equal(r.url.includes("sol.nownodes.io"), false);
+      assert.equal(r.url.includes("ada-blockfrost.nownodes.io"), false);
+      return f.send.sendRequest(r);
+    },
+  };
+  assert.equal(JSON.parse(verifyRemote(checked, f.c)).accepted, true);
+  f.setRecipient("wrong-supplier");
+  assert.equal(JSON.parse(verifyRemote(checked, f.c)).accepted, false);
+  f.setRecipient(f.o.seller);
+  f.o.report.retail.commitment = "b".repeat(64);
+  resign();
+  const bad = JSON.parse(verifyRemote(checked, f.c));
+  assert.equal(bad.accepted, false);
+  assert.equal(bad.reason, "Digital pass commitment");
+});

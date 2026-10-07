@@ -1,6 +1,8 @@
 declare const __API_URL__: string;
 import solanaLogo from "./assets/solana.svg";
 import cardanoLogo from "./assets/cardano.svg";
+import { initShop } from "./shop.ts";
+import { partnerLogos, technologyLogo } from "./brands.ts";
 import { hash } from "../../../packages/core/src/canonical.ts";
 import { verifyWithSignature } from "../../../packages/core/src/verification.ts";
 import { verifyReceiptSignature } from "../../../packages/core/src/receipt-signature.ts";
@@ -63,7 +65,13 @@ async function request(path: string, body?: unknown, timeout = 25000) {
 }
 function tab(name: string) {
   document.body.dataset.view = name;
-  for (const n of ["orders", "evidence", "integrations", "live-challenge"]) {
+  for (const n of [
+    "shop",
+    "orders",
+    "evidence",
+    "integrations",
+    "live-challenge",
+  ]) {
     $(`${n}-view`).hidden = n !== name;
     document
       .querySelector(`[data-tab="${n}"]`)
@@ -71,6 +79,7 @@ function tab(name: string) {
   }
   $("page-name").textContent = (
     {
+      shop: "OY Shop",
       evidence: "See the demo",
       "live-challenge": "Try a fake answer",
       orders: "New task",
@@ -187,7 +196,11 @@ function renderProofFlow(order: Order) {
         card.setAttribute("rel", "noopener noreferrer");
       }
     }
-    card.append(text("small", name), text("strong", detail));
+    card.append(
+      technologyLogo(name, 24),
+      text("small", name),
+      text("strong", detail),
+    );
     flow.append(card);
   }
 }
@@ -319,7 +332,10 @@ function renderEvidence(order: Order) {
     facts.append(wrap);
   }
 }
-function showSavedEvidence(stage: "success" | "lie" | "refund" = "success") {
+function showSavedEvidence(
+  stage: "success" | "lie" | "refund" = "success",
+  preserveView = false,
+) {
   if (!savedEvidence) return;
   const attack = savedEvidence.adversarial;
   if (stage !== "success" && !attack) return;
@@ -437,7 +453,7 @@ function showSavedEvidence(stage: "success" | "lie" | "refund" = "success") {
     "href",
     `https://explorer.solana.com/tx/${refund.refundTx}?cluster=devnet`,
   );
-  tab("evidence");
+  if (!preserveView) tab("evidence");
 }
 $("verified-demo").onclick = () => showSavedEvidence();
 $("signed-lie").onclick = () => showSavedEvidence("lie");
@@ -591,6 +607,14 @@ function renderIntegrations(
   $("integrations").replaceChildren();
   for (const i of items) {
     const card = text("article", "", "integration");
+    const logoName = i.name.startsWith("Solana")
+      ? "Solana"
+      : i.name.startsWith("Cardano")
+        ? "Cardano"
+        : i.name;
+    if (partnerLogos[logoName]) {
+      card.append(technologyLogo(logoName, 32));
+    }
     card.append(
       text("h3", i.name),
       text(
@@ -943,7 +967,7 @@ async function init() {
         savedEvidence.adversarial.finalOrder?.status === "refunded"
       )
         $("refund-story").removeAttribute("disabled");
-      showSavedEvidence();
+      showSavedEvidence("success", true);
     })
     .catch(() => {
       savedEvidence = undefined;
@@ -972,7 +996,7 @@ async function init() {
     }
     renderIntegrations(health.integrations);
     await loadRecent();
-    if (savedEvidence) showSavedEvidence();
+    if (savedEvidence) showSavedEvidence("success", true);
   } catch {
     await proof;
     serviceAvailable = false;
@@ -998,7 +1022,7 @@ async function init() {
     $("wallet").setAttribute("disabled", "");
     $("create-order").textContent = "Live service offline";
     if (savedEvidence) {
-      showSavedEvidence();
+      showSavedEvidence("success", true);
       renderRecent([savedEvidence.order]);
       renderIntegrations(
         ["Solana escrow", "Cardano x402", "NOWNodes", "Chainlink CRE"].map(
@@ -1016,6 +1040,7 @@ async function init() {
         "Order service unavailable. Reconnect the hosted service.";
   }
 }
+initShop({ request, showPage: () => tab("shop") });
 void init();
 // Tools share the visible actions; unsupported browsers leave the UI unaffected.
 const context = (document as any).modelContext;

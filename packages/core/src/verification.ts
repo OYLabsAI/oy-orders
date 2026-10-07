@@ -1,4 +1,5 @@
 import { hash } from "./canonical.ts";
+import { taskInput, passMatchesTask } from "./retail.ts";
 import type {
   Order,
   Payment,
@@ -29,10 +30,7 @@ export function verifyWithSignature(
   check(
     "Input binding",
     !!report &&
-      hash({
-        solanaWallet: order.input.solanaWallet,
-        cardanoWallet: order.input.cardanoWallet,
-      }) === order.inputHash &&
+      hash(taskInput(order.input)) === order.inputHash &&
       report.inputHash === order.inputHash &&
       report.solanaWallet === order.input.solanaWallet &&
       report.cardanoWallet === order.input.cardanoWallet,
@@ -89,12 +87,16 @@ export function verifyWithSignature(
           f.wallet === order.input.cardanoWallet),
   );
   check(
-    "Source provenance",
-    !!report &&
-      unique.size === facts.length &&
-      inScope &&
-      hash(facts) === hash(sourceFacts),
-    "All cited facts and latest-five completeness independently re-fetched",
+    order.input.retail ? "Digital pass commitment" : "Source provenance",
+    order.input.retail
+      ? !!report && passMatchesTask(order.input, report)
+      : !!report &&
+          unique.size === facts.length &&
+          inScope &&
+          hash(facts) === hash(sourceFacts),
+    order.input.retail
+      ? "One-use pass commitment matches the funded task and signed delivery"
+      : "All cited facts and latest-five completeness independently re-fetched",
   );
   const failure = checks.find((c) => !c.passed);
   return {

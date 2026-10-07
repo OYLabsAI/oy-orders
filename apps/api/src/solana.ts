@@ -14,13 +14,14 @@ import type { Order } from "../../../packages/core/src/domain.ts";
 import { base58 } from "@scure/base";
 import { assertSolanaDevnet } from "../../../packages/core/src/networks.ts";
 export const connection = new Connection(config.solanaRpc, "confirmed");
-export function loadWallet(name: "worker" | "authority") {
+export function loadWallet(name: "worker" | "authority" | "demo-buyer") {
   return Keypair.fromSecretKey(
     Uint8Array.from(
       JSON.parse(
         readFileSync(
-          process.env[`SOLANA_${name.toUpperCase()}_KEYFILE`] ??
-            resolve(config.dataDir, `${name}.json`),
+          process.env[
+            `SOLANA_${name.replaceAll("-", "_").toUpperCase()}_KEYFILE`
+          ] ?? resolve(config.dataDir, `${name}.json`),
           "utf8",
         ),
       ),

@@ -58,3 +58,9 @@ This signer is separate from the supplier receipt key. Audits never enter an ord
 The public Vercel proxy accesses one named persistent Sandbox, with private SQLite/payment/key state on Vercel Drive. A lock-protected startup closes the inherited lock descriptor before launching the API. Session stop/resume preserved actual terminal order/audit state in a controlled test. Hobby limits and cold starts remain; this is not production durable-queue infrastructure or an availability guarantee.
 
 A payment HTTP timeout/5xx can occur after broadcast. Recovery resolves the exact already-persisted signed transaction on chain before continuing; it never replaces that transaction. The cloud recovered example and clean later execution are documented separately.
+
+## Retail digital-pass journey
+
+The shop reuses the same quote, x402 purchase, signed receipt, CRE verifier and Solana settlement. Its funded input additionally commits the pass SKU and the SHA-256 digest of a private HMAC bearer token. The supplier-signed response commits that exact pass instead of unrelated wallet facts. CRE independently checks the real escrow and Cardano payment, then compares the signed pass commitment with funded terms. Only a settled, verified order can expose its QR token through an authorized checkout/pass request.
+
+Checkout IDs and random private access keys provide idempotent recovery. SQLite stores credential digests only. A cashier verifies fresh settled escrow state and result binding before an atomic conditional redemption write. This write survives restart and lets only one scanner accept a pass. Redemption is deliberately a server ledger, not an on-chain token transfer. A single active checkout and five-per-rolling-day cap bound sponsored test spending. Signed Solana funding is saved before broadcast, like the durable Cardano purchase. See [RETAIL.md](RETAIL.md) for executed evidence and limits.

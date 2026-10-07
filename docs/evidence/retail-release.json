@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-07",
+  "videoDurationSeconds": 87.28,
+  "videoSha256": "96f2ec2cddb6e5200dae5c03c9c1dddb80587c115a69cc664049a4d31e3b3c48",
+  "pitchSha256": "1ecdcc7a3576b1a816edf65945dd86f6f513258b9f019e69d00d00f94caf3a40",
+  "slides": 6,
+  "embeddedMp4ByteMatch": true,
+  "movieExternalRelationship": false,
+  "nativePlaybackVerified": false,
+  "legacyPpt": "visual-only; embedded video lost on conversion",
+  "knownSecretScan": "pass",
+  "sourceFileCount": 177
+}

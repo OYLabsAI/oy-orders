@@ -110,10 +110,12 @@ export async function runOrder(store: Store, id: string, fast = false) {
         inputHash: order.inputHash,
         solanaWallet: order.input.solanaWallet,
         cardanoWallet: order.input.cardanoWallet,
-        facts:
-          order.mode === "live"
+        facts: order.input.retail
+          ? []
+          : order.mode === "live"
             ? await readFacts(order)
             : rehearsalFacts(order),
+        ...(order.input.retail ? { retail: { ...order.input.retail } } : {}),
       };
       store.save(order);
       order.payment ??=

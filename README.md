@@ -1,22 +1,30 @@
 # OY Orders
 
-**Check the answer. Then pay.**
+**Crypto checkout with proof before payout.**
 
-You ask a worker to check the transactions in two crypto accounts. You put aside a reward. OY compares the worker’s report with the original records before paying it. If the answer is wrong, the reward stays locked and you can reclaim it after the deadline. The report’s separate purchase fee stays spent.
+Open **OY Shop**, buy a beautiful coffee-style digital demo pass with our funded test wallet, then show its QR at the cashier. The first scan works. The same pass is refused on the next scan. This is a demo voucher using test coins, with no real coffee or admission.
 
-Today’s prototype uses an automated reporting worker. It demonstrates payment and checking rules that an AI worker can use.
+The agent buys the supplier-signed pass on Cardano. An independent Chainlink CRE workflow checks the payment and the promised pass before releasing the Solana task payment. NOWNodes provides the original payment records. The prototype uses separate test-asset funds, official CRE simulation and a trusted settlement relayer. Pass redemption uses a persistent server ledger.
 
-Built by Orca Labs for TOKEN2049 Origins 2026. A buyer locks a Solana task reward, an agent buys a Cardano x402 reporting resource, and Chainlink CRE independently checks NOWNodes facts before a trusted prototype relayer releases the reward.
+The wallet-report journey and signed-false-answer challenge remain available: a wrong answer keeps its task reward locked, and expiry lets the buyer reclaim that reward. The supplier purchase stays spent.
+
+Built during TOKEN2049 Origins 2026. Main dashboard team: OY Labs. Partner dashboard team: Orca Labs, with the same four members.
 
 [Open the public app](https://oy-orders.vercel.app/) · [Video, pitch and source downloads](https://oy-orders.vercel.app/deliverables/) · [Executed evidence](docs/evidence/STATUS.md)
 
-## Try the memorable part
+## Try the retail pass
+
+Choose **OY Shop**. The fixed 0.01 tSOL checkout pays with an operator-funded Solana Devnet wallet. The worker buys the digital pass resource for 2 tADA on Cardano preprod. Only after ten independent delivery checks and settlement does the QR appear. Open the cashier, use it once, then try the exact same pass again. No wallet installation is needed for this funded demo. A persistent global limit allows five checkouts per rolling day.
+
+The real executed order, receipt, transactions and replay refusal are in [RETAIL.md](docs/RETAIL.md). Its order and used-pass commitment survived a controlled cloud-session stop/resume. The pass is neither an NFT nor a physical-delivery guarantee.
+
+## Try the checker
 
 Open **Try a fake answer**. Pick Solana or Cardano and a correct fee, a tiny error, or a made-up fee. Every claim receives a valid, separate challenge signature. A fresh official CRE simulation reads the real records again. A false fee fails even when its signature passes; **Now try the correct fee** runs a new independent check.
 
 The challenge needs no wallet, makes no payment and never enters the settlement queue. Its scope is two transaction facts pinned per challenge and a real settled-order reference, not arbitrary truth verification. The **See the demo** tab separately shows genuine paid execution, a controlled signed false report rejected by CRE, and the confirmed refund of that same order's task reward. Recorded proofs remain available when the live API is unavailable.
 
-Seven genuine paid testnet orders are documented: six settled and one rejected with its reward refunded. The latest fresh order executed entirely through the Vercel backend without operator recovery. A controlled session stop/resume preserved its state and a completed challenge. Exact hashes and limitations are in [evidence/STATUS.md](docs/evidence/STATUS.md).
+Eight genuine paid testnet orders are documented: seven settled and one rejected with its reward refunded. The latest fresh order executed entirely through the Vercel backend without operator recovery. A controlled session stop/resume preserved its state and a completed challenge. Exact hashes and limitations are in [evidence/STATUS.md](docs/evidence/STATUS.md).
 
 ## Run locally
 
@@ -29,14 +37,14 @@ pnpm build
 pnpm start
 ```
 
-Open `http://localhost:8787`. The default mode is **rehearsal**: use sample wallets and run the simulated success, rejection and expiry scenarios. `pnpm demo` exports those explicitly labeled fixtures. Live payments require funded test wallets and sponsor configuration from [LIVE_SETUP.md](docs/LIVE_SETUP.md). The live challenge requires the recorded reference order to be present in the live database.
+Open `http://localhost:8787`. The shop requires the live funded setup. For the default **rehearsal**, choose **New task**: use sample wallets and run the simulated success, rejection and expiry scenarios. `pnpm demo` exports those explicitly labeled fixtures. Live payments require funded test wallets and sponsor configuration from [LIVE_SETUP.md](docs/LIVE_SETUP.md). The live challenge requires the recorded reference order to be present in the live database.
 
 ```sh
 pnpm typecheck
 pnpm test
 ```
 
-49 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, strict CRE/audit result parsing, and recovery from pruned source transactions. Fixture and VM tests are distinct from public-network execution.
+57 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, strict CRE/audit result parsing, and recovery from pruned source transactions. Fixture and VM tests are distinct from public-network execution.
 
 ## One task, four necessary integrations
 

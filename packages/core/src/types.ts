@@ -1,7 +1,9 @@
+export type RetailTerms = { sku: "coffee-pass"; commitment: string };
 export type OrderInput = {
   solanaWallet: string;
   cardanoWallet: string;
   scenario: "success" | "tampered" | "expiry";
+  retail?: RetailTerms;
 };
 export type Mode = "rehearsal" | "live";
 export type Status =
@@ -29,6 +31,7 @@ export type Report = {
   solanaWallet: string;
   cardanoWallet: string;
   facts: SourceFact[];
+  retail?: RetailTerms;
 };
 export type Quote = {
   orderId: string;

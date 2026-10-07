@@ -52,7 +52,8 @@ export function mountPaidResource(app: Express, store: Store) {
               payTo: config.seller,
             },
           ],
-          description: "Latest confirmed transactions for two wallets",
+          description:
+            "Verified wallet report or one-use digital demo coffee pass",
           mimeType: "application/json",
         },
       },

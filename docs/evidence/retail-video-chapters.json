@@ -1,0 +1,69 @@
+{
+  "duration": 87.17,
+  "chapters": [
+    {
+      "source": "output/OY-Orders-pass-closeup.png",
+      "startsAt": 0,
+      "duration": 11.36,
+      "title": "A little crypto magic",
+      "narration": "Meet OY Orders. Buy a digital coffee-style pass with crypto. The prototype uses a funded test wallet. These test coins have no cash value and this voucher cannot buy real coffee.",
+      "screenRecording": false
+    },
+    {
+      "source": ".local/retail-demo/ready.png",
+      "startsAt": 11.36,
+      "duration": 11.25,
+      "title": "A real testnet checkout",
+      "narration": "A Solana program holds the test payment. Our agent purchases the supplier-signed pass on Cardano. Chainlink checks the exact payment and pass. Only then does the QR appear.",
+      "screenRecording": false
+    },
+    {
+      "source": ".local/retail-demo/first-scan.png",
+      "startsAt": 22.61,
+      "duration": 6.46,
+      "title": "First scan accepted",
+      "narration": "At the counter, one scan checks the confirmed payment and records the pass first use. Accepted.",
+      "screenRecording": false
+    },
+    {
+      "source": "live",
+      "startsAt": 29.07,
+      "duration": 8.65,
+      "title": "Same pass. Second scan refused.",
+      "narration": "Try that same pass again. Refused. Two cashiers cannot both consume it. The one-use record stays saved when the cloud restarts.",
+      "screenRecording": true
+    },
+    {
+      "source": ".local/retail-demo/proof.png",
+      "startsAt": 37.72,
+      "duration": 15.84,
+      "title": "Open the real execution proof",
+      "narration": "Open the proof. NOW Nodes provides the Cardano payment records. An official Chainlink CRE simulation passed ten checks. Solana released the payment. The supplier purchase used separately funded Cardano test coins. There is no currency swap.",
+      "screenRecording": false
+    },
+    {
+      "source": "output/OY-Orders-simple-check.jpg",
+      "startsAt": 53.56,
+      "duration": 9.18,
+      "title": "A valid signature can still hide a lie",
+      "narration": "The checker can do more. This signed report has a tiny wrong transaction fee. Its signature passes. Fresh independent records catch the lie.",
+      "screenRecording": false
+    },
+    {
+      "source": ".local/oy-demo/03-refund.jpg",
+      "startsAt": 62.74,
+      "duration": 10.06,
+      "title": "Separate paid rejection and refund",
+      "narration": "A separate real paid test kept the worker reward locked after a wrong report. After expiry, that same reward was refunded. The supplier purchase stayed spent.",
+      "screenRecording": false
+    },
+    {
+      "source": "output/OY-Orders-pass-closeup.png",
+      "startsAt": 72.8,
+      "duration": 14.37,
+      "title": "OY Orders. Inspect payment and delivery.",
+      "narration": "This is an edited tour of authentic app screens with synthetic narration. The prototype uses a trusted relayer, and pass redemption is a server record. OY Orders. A familiar checkout, with inspectable payment and delivery checks.",
+      "screenRecording": false
+    }
+  ]
+}

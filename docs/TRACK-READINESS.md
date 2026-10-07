@@ -1,31 +1,35 @@
-# OY Orders — track readiness, 7 October 2026
+# OY Orders: requirements review, 7 October 2026
 
-The project targets the main event and all four partner tracks. Eligibility is not a prediction of prizes. The strongest new demo is a judge-controlled signed claim audit: a valid signature passes, fresh independent facts reject the lie, and a corrected claim can be checked again. A separate paid adversarial order proves that a rejected answer protects its task reward and that the same reward was actually refunded.
+All five official pages were reread in the browser on 7 October. The live retail pass and the reporting/fake-answer journey meaningfully use all four sponsors. Technical eligibility is distinct from an award: judges still evaluate execution, originality, usefulness and presentation.
 
-| Track | Eligible implementation and evidence | Competitive gap / next action |
-|---|---|---|
-| Solana | Native deployed Devnet escrow, immutable task/quote terms, actual reservation, settlement and expiry refunds, compiled-program VM tests | Show why escrow and mutually exclusive payouts need chain enforcement. A new paid task requires a funded Devnet buyer wallet; the claim challenge needs none. |
-| Cardano Agentic Commerce | Working preprod exact x402 purchase, real payment outputs/fees, spending guard, signed report, source/docs and short video | Cardano is currently a direct supplier payment. Masumi escrow, native-token logic and EUTXO-specific commerce are not implemented. Explain the real deployment path instead of claiming those features. |
-| Chainlink CRE | Successful official CLI simulation orchestrates external API reads and actual chain state; independently checks paid work before a trusted relayer settles | Lead with live signed-lie rejection and the actual protected reward. Production DON deployment and confidential TEE are not implemented. |
-| NOWNodes | Real Solana and Cardano mainnet facts plus preprod payment observation; independent re-fetch is essential to both report and verification | Explain which endpoints produce facts and which check payments. Show both-network live challenge and evidence; quantify usefulness after real user interviews. |
-| Main event | Complete paid task + safe failure, public Vercel demo, clear sponsor roles and six-slide pitch | Real user validation and final judging access/check-ins remain. A source ZIP is not the required accessible GitHub repository. |
+## Exact mandatory requirements
 
-## Remaining human/account gates
+| Entry | Required material / behavior | Current evidence | Remaining gap |
+|---|---|---|---|
+| Main event | Code built within the hackathon; meaningful partner use; judge-accessible GitHub repository; live URL; Drive `.ppt` or Keynote deck | Built from scratch during the event; first source commit 6 October 14:55 Singapore. Public Vercel app and real testnet flows. | GitHub publication; compliant stage deck with native movie playback; judge Drive access; final submission. |
+| Solana | Functional Devnet or Mainnet app using deployed/existing programs, not reads alone; Program ID and cluster; example explorer transaction; README disclosure of reused work; GitHub; runnable demo | Custom Devnet escrow `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj`; actual retail funding, reservation and settlement; actual refund from a rejected reporting order; compiled-program tests; funded no-wallet retail checkout. | Common repository/deck/access gates and closed partner RSVP. Program/transaction details must accompany the final source submission even though the dashboard has only three common fields. |
+| Cardano | Working Cardano prototype; open-source repository/docs; demo video at most 3 minutes; short problem/technical/deployment write-up | Genuine exact x402 preprod purchase of the supplier-signed pass and reporting service. Payment is independently observed. Retail/security/deployment write-up saved; 87-second authentic-screen demo supplied. | Common repository/deck/access gates and closed partner RSVP. Public repository is the safest reading of the open-source requirement. |
+| Chainlink CRE | CRE as an orchestration layer; blockchain plus an external API/system/data source/agent; successful official CLI simulation or live CRE deployment; execution evidence | Actual retail simulation passed 10/10 checks before settlement. Fresh false/corrected fee checks and paid rejection/refund evidence. | Common repository/deck/access gates and closed partner RSVP. DON deployment and confidential TEE workflow are optional and are not claimed. |
+| NOWNodes | Account; at least one actual NOWNodes endpoint; working useful product; architecture explanation | Configured account/key; independent preprod payment observation. Reporting and fake-answer flows use both mainnets. Exact endpoint roles are documented and saved in the draft. | Common repository/deck/access gates and closed partner RSVP. |
 
-1. **GitHub:** the two available Google sign-ins led to new account creation. No account was created or terms accepted. Sign into an existing GitHub account or complete account creation yourself; then publish the clean source to `oy-orders-token2049`. There is no authenticated GitHub CLI or loaded SSH identity on this machine.
-2. **Event dashboard:** prior status was main check-in 2/2 but partner check-in 1/2. Resolve and re-check that discrepancy with the on-site organizer before submission. No messages have been sent.
-3. **Stage deck:** rules request a Drive `.ppt` or `.keynote` with an embedded recording. The `.pptx` includes the MP4; the legacy `.ppt` visual backup loses it. Confirm PPTX acceptance or import into Keynote/PowerPoint and verify movie playback. Current Drive files are owner-only; the public Vercel downloads are accessible independently.
-4. **Validation:** ask three relevant operators about a reporting error they actually encountered, how much verification costs, and whether they would pay for bounded recurring reports. Do not claim interviews or revenue before doing them.
-5. **Submission:** select all intended tracks, submit with the user, and save the final receipt. Deadline: **7 October, 23:59 Singapore / 17:59 Berlin**. Target 22:00 Singapore / 16:00 Berlin.
+Public retail execution: [order evidence](https://oy-orders.vercel.app/api/orders/29ab7330-93fa-4aef-b74e-02bca9495b3a/evidence). [RETAIL.md](RETAIL.md) explains the pass, separate costs and trust boundaries. Test coins suffice for the demonstrated prototype; extra mainnet funds are not a missing published requirement. Masumi/Sokosumi, NFTs, a currency bridge and production CRE deployment are not qualification requirements for our selected implementation.
 
-## Priorities for the remaining ten hours
+## Administrative gates and the user's fastest help
 
-| Time from now | Action | Success gate |
-|---|---|---|
-| First 2 hours | Finish fresh cloud task, live honest/false challenge, cold-start/state checks, source audit and updated video/deck | Real evidence, public working demo, no laptop dependency |
-| Next 2 hours | GitHub publication; organizer check-ins and stage-format playback | Judge-accessible repository, accepted deck format and player |
-| Next 2 hours | Three operator conversations; refine problem and business slide using actual findings | One concrete, credible use case; no invented traction |
-| Next 2 hours | Rehearse three-minute pitch and recorded fallback; test links from a logged-out device | Clean explanation and all proof/download links accessible |
-| Final 2 hours | Freeze changes, upload exact final deck, submit together and retain confirmation | All track selections and submission receipt verified |
+1. **GitHub:** the user signed into the existing `nknwn-eth` account. The public `nknwn-eth/oy-orders` repository is created; uploading the audited local history awaits the local GitHub CLI device authorization. A public source ZIP or empty repository does not replace the required source repository.
+2. **Partner RSVP:** main dashboard check-ins are **2/2**. Partner dashboards show attendance confirmed but **RSVP unchecked and closed**, producing **1/2**. On-site, ask the organizer to repair the partner RSVP/eligibility for all four selected tracks. Do not claim that a physical presence automatically updates it.
+3. **Stage deck:** stage rules require a `.ppt` or Keynote file with the screen recording embedded; live stage demos and external video links are prohibited. The PPTX embeds the MP4. The legacy PPT visual backup drops it. Keynote is installed, but its first-run Continue accepts its Software License Agreement; the user must complete that step. Then convert to native Keynote and verify playback, or obtain explicit organizer acceptance of PPTX. No native playback is claimed before it is checked.
+4. **Drive access:** the updated PPTX, MP4 and source ZIP now have read-only access for anyone with the link, verified in Drive. The legacy PPT is a visual backup only. The eventual native Keynote deck also needs judge-readable access. The independent Vercel downloads work publicly.
+5. **Final submission:** draft fields can be updated before the deadline. Submit the main entry and all four partner entries together with the user, inspect the final links and retain receipts. No final submission has been sent.
 
-Official pages reviewed during this session: [Solana](https://builderbase.com/track/solana-best-use-of-solana), [Cardano](https://builderbase.com/track/cardano-agentic-commerce), [Chainlink CRE](https://builderbase.com/track/chainlink-best-workflow-with-cre), [NOWNodes](https://builderbase.com/track/nownodes-multichain-infrastructure-challenge), [main event](https://builderbase.com/event/token2049-origins-hackathon). The rules allow successful CRE simulation and an x402-only Cardano entry. Re-check the dashboard immediately before submitting.
+The main team is **OY Labs**; the inspected NOWNodes team is **Orca Labs**, with the same four members. Team membership is present. Different labels are not themselves a published disqualification, but use the product name **OY Orders** consistently in submissions.
+
+## Judging priorities
+
+Main: functionality 30%, integration 25%, innovation 20%, usefulness 15%, demo 10%. Solana: execution 30%, originality 20%, UX 20%, viability 15%, demo 15%. Cardano: execution 30%, innovation 20%, UX 20%, impact 20%, pitch 10%. CRE: blockchain 40%, effective CRE 40%, WOW 20%. NOWNodes: completeness 25%, infrastructure 25%, usefulness 20%, creativity 15%, scalability 15%.
+
+The retail pass makes the benefit visible. The signed-lie challenge explains why independent verification matters, and the separate paid rejection/refund proves reward protection. Cardano-specific depth and real merchant validation remain competitive weaknesses, rather than mandatory missing features. If time permits, obtain one genuine merchant reaction or problem example; no customer interviews, revenue, partnerships or adoption are claimed.
+
+Deadline: **7 October 23:59 Singapore / 17:59 Berlin**. Internal target: **22:00 Singapore / 16:00 Berlin**. Prioritize repository, RSVP repair, stage playback/access and submission over adding features. Freeze the deck before submission.
+
+Official sources: [main event](https://builderbase.com/event/token2049-origins-hackathon), [Solana](https://builderbase.com/track/solana-best-use-of-solana), [Cardano](https://builderbase.com/track/cardano-agentic-commerce), [Chainlink CRE](https://builderbase.com/track/chainlink-best-workflow-with-cre), [NOWNodes](https://builderbase.com/track/nownodes-multichain-infrastructure-challenge).
