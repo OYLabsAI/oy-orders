@@ -1,36 +1,29 @@
-# Orca Orders deliverables
+# OY Orders deliverables
 
-Four genuine paid testnet orders and one genuine expiry-refund probe now pass. The demo includes an interactive one-unit fee challenge using a local replay of actual signed evidence. No hackathon submission has been sent.
+**Public app:** https://oy-orders.vercel.app/ . **Video and downloads:** https://oy-orders.vercel.app/deliverables/ . No hackathon submission has been made.
 
-- `Orca-Orders-demo.mp4`: 48-second edited proof tour, H.264 1280×960 at 24 fps, with readable captions and no narration. Authentic app screenshots show actual testnet proof and a clearly labeled local tamper replay; paced still holds are used. This is not a continuous recording of fresh chain execution. Evidence and capture history are in `docs/evidence/demo-recording.json`.
-- `Orca-Orders-pitch.pptx`: six editable slides with the exact final MP4 embedded on slide 3. Package, layout, fonts and Artifact Tool re-import pass; all final slides were rendered and reviewed. Native PowerPoint/stage-player playback remains unverified.
-- `Orca-Orders-pitch.ppt`: genuine legacy visual export. Roundtrip inspection confirms that the movie is dropped. It is a visual backup, not a stage-compliant recording deck.
-- `Orca-Orders-tamper-proof.jpg`: actual browser screenshot: seller signature valid, one changed fee rejected by integrity/provenance.
-- `Orca-Orders-rehearsal.mp4`: earlier 52.67-second rehearsal, kept separately with its simulated-payment notice.
-- `Orca-Orders-source.zip`: MIT source, lockfile, setup, tests, native compiled artifacts, public evidence and deliverables from the committed source. Excludes `.env`, `.local`, mnemonic/key files, signed private payment payloads, node_modules and Git metadata. An archive does not replace the required accessible Git repository.
+- `OY-Orders-demo.mp4`: 92.98-second edited authentic screenshot tour, H.264 1280×720 at 24 fps with synchronized synthetic narration. Real paid success, fresh signed-lie check, corrected check, actual paid rejection and same-order refund. This is not continuous execution footage; see `docs/evidence/demo-recording.json`.
+- `OY-Orders-pitch.pptx`: six editable slides with source/trust notes and the exact final MP4 embedded on slide 3. Package integrity, layout, fonts and first-party import pass; all final slide renders were reviewed. Native PowerPoint/Keynote playback remains unverified.
+- `OY-Orders-pitch.ppt`: genuine legacy visual export. It loses the embedded MP4 and is only a visual backup; stage compatibility remains a gate.
+- `OY-Orders-live-challenge.jpg`: authentic public-app screenshot of a fresh signed false fee, 30,000,001 versus 30,000, rejected by independent reads.
+- `OY-Orders-proof-and-refund.jpg`: authentic recorded paid-order proof/refund story.
+- `OY-Orders-source.zip`: MIT committed source, lockfile, setup, tests, program artifacts, public evidence and deliverables. Excludes private environment, wallets, payment payloads, credentials, database, node_modules and Git metadata. It is not a replacement for the required GitHub repository.
 
-## Saved links
+Older `Orca-Orders-*` assets remain historical; use the new OY files for judging. Public download sizes and SHA-256 are in https://oy-orders.vercel.app/downloads/manifest.json .
 
-Vercel deployment is prepared but not published: account login is required and anonymous deployment was rejected. `docs/VERCEL.md` lists the deploy commands and the managed-state/worker requirements for moving the entire live backend. The prepared package includes the app, saved proof, video, decks and source downloads; its optional live API proxy still depends on the existing backend.
+## Existing Drive files
 
-Site, owner-private: https://orca-orders-origins-2026.orcabay.chatgpt.site
+Files are updated in place to retain their IDs and sharing settings:
 
-Temporary live testnet API: https://dialogue-fancy-rich-assistance.trycloudflare.com — depends on this machine and running services.
+- [PPTX](https://docs.google.com/presentation/d/1-wdsNbGfNz-kNTzhHB4bqDEAMkfeFmr_/edit)
+- [Legacy PPT](https://docs.google.com/presentation/d/1i2zr-p-ysBpr8Jm1TWOV1SxmtcsuvjQQ/edit)
+- [Video](https://drive.google.com/file/d/1In8yVW1ptihBtmVZSYE6-H3VmyhKWnhJ/view)
+- [Source ZIP](https://drive.google.com/file/d/1BIkiN84NPLSlaqLNLoyEMu5OcInpoTnG/view)
 
-PPTX on Drive: https://docs.google.com/presentation/d/1-wdsNbGfNz-kNTzhHB4bqDEAMkfeFmr_/edit
+Drive files currently have owner-only access. Public Vercel downloads are available independently. The existing owner-private Site also uses the cloud API: https://orca-orders-origins-2026.orcabay.chatgpt.site .
 
-Legacy PPT on Drive: https://docs.google.com/presentation/d/1i2zr-p-ysBpr8Jm1TWOV1SxmtcsuvjQQ/edit
+## Remaining gates
 
-MP4 on Drive: https://drive.google.com/file/d/1In8yVW1ptihBtmVZSYE6-H3VmyhKWnhJ/view
+GitHub sign-in/publication; Drive judge access; prior partner check-in 1/2 discrepancy; accepted stage format and actual embedded-movie playback. The available Google logins led to GitHub signup, and no new account or terms acceptance was completed. Rules request Drive `.ppt` or `.keynote`; confirm PPTX acceptance or use a native stage editor to preserve playback.
 
-Source ZIP on Drive: https://drive.google.com/file/d/1BIkiN84NPLSlaqLNLoyEMu5OcInpoTnG/view
-
-Native file MIME types and sizes are verified. Drive files remain owner-only. Repository publication and judge sharing remain pending. Native browser access is available again as of the latest audit; no authenticated GitHub write credentials are configured locally.
-
-Site audience is preserved under [Sites hosting](</Users/oylabs/.codex/plugins/cache/openai-curated-remote/sites/0.1.75/skills/sites-hosting/SKILL.md>): “Preserve the current audience unless the user requests a change.” Judge access therefore remains a gate.
-
-The partner check-in dashboard last showed 1/2; main showed 2/2. Organizers must verify or resolve that discrepancy. Rules specify `.ppt` or `.keynote`; confirm PPTX acceptance and native stage playback before submission. `docs/SUBMISSION.md` contains the deadline, rubrics, copy-ready descriptions and narration. Funds are sufficient: approximately 96.32 preprod tADA remains.
-
-## Later reliability update
-
-The Site now includes one-click saved proof that remains interactive without the live API, a confirmed-refund card, explicit Live testnet/Rehearsal labels, and valid sample addresses. A fourth genuine order settled through NOWNodes preprod payment reads and 40 tests pass. The existing pitch/video show the earlier authentic proof tour; their content remains historical. `Orca-Orders-proof-and-refund.jpg` shows the new tamper/refund surface. Source ZIP includes this update.
+[Submission text and timed pitch](../docs/SUBMISSION.md) and [all-track plan](../docs/TRACK-READINESS.md) are ready. Deadline: 7 October 2026, 23:59 Singapore / 17:59 Berlin; internal target 22:00 Singapore / 16:00 Berlin. Do not add unverified traction or claim prize certainty.

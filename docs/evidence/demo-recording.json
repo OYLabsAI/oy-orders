@@ -1,53 +1,57 @@
 {
-  "format": "Edited proof tour using authentic app screenshots and paced still holds; not a continuous screen recording.",
-  "seconds": 48,
-  "orderId": "67ae1a56-7160-4903-96ef-d67ec16b0b42",
-  "mode": "actual testnet evidence + local tamper replay",
-  "captions": [
-    [
-      "Actual testnet order - 2 tADA paid / 10 CRE checks passed",
-      0,
-      8
-    ],
-    [
-      "Local replay - original signed report passes",
-      8,
-      16
-    ],
-    [
-      "Change one fee +1 - valid signature, rejected result",
-      16,
-      34
-    ],
-    [
-      "Restore original report - replay checks pass",
-      34,
-      40
-    ],
-    [
-      "Real NOWNodes facts with public explorer links",
-      40,
-      48
-    ]
-  ],
-  "sourceCaptures": [
+  "recordedAt": "2026-10-07T06:32:14.283927+00:00",
+  "project": "OY Orders",
+  "format": "Edited authentic app screenshots with synchronized paced holds and synthetic Samantha narration; not continuous execution footage.",
+  "seconds": 92.98,
+  "encoding": "H.264 1280x720 24fps, AAC audio, faststart MP4",
+  "mode": "actual paid testnet evidence + fresh signed-claim audits",
+  "referenceOrderId": "8456603d-6318-4a72-a403-af2c992cc84a",
+  "paidRejectedOrderId": "caa423cd-c20f-448f-9186-e98034fa1df1",
+  "chapters": [
     {
-      "path": "02-verified.png",
-      "capturedAt": 1791275034283
+      "screenshot": "01-good.jpg",
+      "startsAt": 0,
+      "duration": 22.150000000000002,
+      "narration": "A signature can be perfectly valid, and the answer still be wrong. Meet OY Orders: proof before payday. Our prototype buys wallet reports. A buyer locks a Solana testnet reward. An agent pays for the report on Cardano. Independent Chainlink checks read the source records again through NOW Nodes. Correct work earns the reward."
     },
     {
-      "path": "03-tampered.png",
-      "capturedAt": 1791275044305
+      "screenshot": "04-challenge-intro.jpg",
+      "startsAt": 22.150000000000002,
+      "duration": 16.16,
+      "narration": "Now, try to fool it. Choose Solana or Cardano, then an honest claim, a tiny lie, or a big lie. Every claim gets a real signature. Every check reads the real records again. No wallet or payment is needed for this challenge."
     },
     {
-      "path": "04-restored.png",
-      "capturedAt": 1791275162217
+      "screenshot": "05-live-lie.jpg",
+      "startsAt": 38.31,
+      "duration": 13.6,
+      "narration": "Here, the signed claim says thirty million and one. The actual fee is thirty thousand. The signature passes. The facts fail. A signature proves who signed an answer. It cannot make the answer true."
     },
     {
-      "path": "05-facts.png",
-      "capturedAt": 1791275255598
+      "screenshot": "06-live-corrected.jpg",
+      "startsAt": 51.910000000000004,
+      "duration": 7.6,
+      "narration": "Try the corrected answer. A new, independent check finds both claims match. All six checks pass."
+    },
+    {
+      "screenshot": "02-lie.jpg",
+      "startsAt": 59.510000000000005,
+      "duration": 8.83,
+      "narration": "Money protection is a separate, real payment test. Our controlled supplier signed a false report. The reward stayed locked."
+    },
+    {
+      "screenshot": "03-refund.jpg",
+      "startsAt": 68.34,
+      "duration": 24.64,
+      "narration": "After expiry, the same order returned its Solana task reward. The Cardano supplier purchase stays final. These are authentic testnet results and fresh claim audits, presented as an edited screenshot tour with synthetic narration. Verification uses official CRE simulation and a trusted prototype relayer. OY Orders. Make agents earn trust before money."
     }
   ],
-  "proofFile": "live-order-second-settled.json",
-  "note": "Saved original/restored screenshots are reused as visual holds; this is an edited proof tour."
+  "videoSha256": "5bec4aef4406dafebe324da0560b83ce0248fefea39b4411786bda2ed9718e39",
+  "proofFiles": [
+    "live-order.json",
+    "live-adversarial.json",
+    "live-challenge-solana.json",
+    "live-challenge-cardano.json",
+    "live-challenge-honest.json"
+  ],
+  "limits": "Official CRE CLI simulation and trusted prototype relayer. Fixed-source claim audit does not move funds. Cardano supplier purchase remains final."
 }

@@ -1,0 +1,233 @@
+{
+  "order": {
+    "id": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+    "mode": "live",
+    "status": "settled",
+    "createdAt": 1791353388785,
+    "deadline": 1791354288785,
+    "input": {
+      "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "scenario": "success"
+    },
+    "inputHash": "538adfee92dea6a4ab9e53a5dfc5abe51356149e5bb49f044912c64c05c0222e",
+    "reward": "10000000",
+    "ceiling": "2000000",
+    "feeCeiling": "1000000",
+    "buyer": "2sTMaoCTxMDUWnBJnamno6wQDFJK812rreLvWRuBu8iF",
+    "worker": "4J96kKF7xjeB2WEC5xmZ1SwMVpKfTqxFRau2YK8L4eC2",
+    "seller": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+    "sellerKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA+SG7IyWIKUUUHxAhNSamdSGhGsZCjSzxpEB0rv/Ft00=\n-----END PUBLIC KEY-----\n",
+    "solana": {
+      "pda": "7nREhLkHfFzyWsb5cBkf6nXM2r2CYrcqKu2iU3YmDB1w",
+      "fundingTx": "4Dw46ytHgHeCXTb6XtJRYHqg5bqz5WUjjZAq2TZrdEi9Hkg4NadVgvhbeKhD5DRo9tbcTkx5neyXB7RWFAX9qCLh",
+      "reserveTx": "2VHtn76TuxABKYji5WsuqhSWidKwqyJrzf9Q2KosqP6Sc2ECqATQbC2BZYPgdGVCYM6tc7xzvUQGiVjewsnZkyy",
+      "settleTx": "2qjS36DjpGmDZ79PvrR6Tx6f7ih373g6KKa3WTm1g7tqKJjJYHCfbKFRQqhPpouU6iKAvmrv1JqYqtRffd3ji8bL"
+    },
+    "quote": {
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "expiresAt": 1791354288785,
+      "resource": "https://oy-orders.vercel.app/paid/report?orderId=a1672a05-a755-4d35-8e44-475e8c0a2353"
+    },
+    "quoteHash": "7f06a9acf0d21bcf005fd29a44d18acd8fb569dcf929fee5c60b6421deef25f4",
+    "report": {
+      "inputHash": "538adfee92dea6a4ab9e53a5dfc5abe51356149e5bb49f044912c64c05c0222e",
+      "solanaWallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+      "cardanoWallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+      "facts": [
+        {
+          "network": "solana:mainnet",
+          "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+          "tx": "XAyJ5KDR8KhhYEw3W4aLGgR4cUyeMb4CSfvV6XUNx72i1oYwaen7JgWGLcYRrV6io5zM4bTcJWuYFU3CTKXy6R5",
+          "slot": "454100516",
+          "fee": "6000",
+          "confirmed": true
+        },
+        {
+          "network": "solana:mainnet",
+          "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+          "tx": "Z8LkmLYswFtb7WQB51TcScWzHy2d4aeAFD3MaFrytD6N1HdNjXsERL8wK6vufKhgnPpLh6Q7CvvsmxZArs129tm",
+          "slot": "454078278",
+          "fee": "285000",
+          "confirmed": true
+        },
+        {
+          "network": "solana:mainnet",
+          "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+          "tx": "2FTibSRFaRnFe1GtZfrt6CYWUM1398EMNuoxZC7KHmioGQkUWn8xQ45i7LpT1sMofhu1SgRLQ2kjZNH63UcYbx2z",
+          "slot": "454076927",
+          "fee": "285000",
+          "confirmed": true
+        },
+        {
+          "network": "solana:mainnet",
+          "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+          "tx": "5SfqwAmt85ZachNKXChnt9t361j91QVVRftHNbfyp19eCuCKsa41qwp6epL7bFC8gcyxexdvJX5Mdie7NSgqnGHZ",
+          "slot": "454071761",
+          "fee": "30000",
+          "confirmed": true
+        },
+        {
+          "network": "solana:mainnet",
+          "wallet": "9HgX6hTfHSW2KcmopricBPVsS1pTGTEoFZji65D2yDUX",
+          "tx": "5Z2EC78oU7fdxEvs8HAoyG28iiTWjjWS74QFXAuF62iiQuu49dFuYrti93hF4VuF4zS6YzXNkXxJdxLTFcQYjfEc",
+          "slot": "454070308",
+          "fee": "65000",
+          "confirmed": true
+        },
+        {
+          "network": "cardano:mainnet",
+          "wallet": "addr1q88ekftq299ke7qql85qydtxk9g28xz7t7h4n0ml88lnt79mj4e40mutnm4rlanl4j4alzlykutnhprpvkj9prf38w9s96pq7f",
+          "tx": "13d71703a8f8bc1f0f6ac8fed2e6678ba8ec994020bc050ee57aa20a96e92dfa",
+          "slot": "199707191",
+          "fee": "248761",
+          "confirmed": true
+        }
+      ]
+    },
+    "payment": {
+      "tx": "04a8a5f7c90794114689baee36236a9a33fd8a64b38b5fbe1cb322cb9556f7a1",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "amount": "2000000",
+      "fee": "170517",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "confirmed": true
+    },
+    "receipt": {
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "quoteHash": "7f06a9acf0d21bcf005fd29a44d18acd8fb569dcf929fee5c60b6421deef25f4",
+      "paymentHash": "04a8a5f7c90794114689baee36236a9a33fd8a64b38b5fbe1cb322cb9556f7a1",
+      "recipient": "addr_test1qzluzz8e6a89gfvvdjtdygass0jjc7kgw95kc5c9qd6tasxrc25q95xlk2e3qgfdz3avyrdkgzmk8qr9druajw6mvk6qaexa8d",
+      "network": "cardano:preprod",
+      "asset": "lovelace",
+      "amount": "2000000",
+      "resultHash": "d7e7bc209e88af8e8b051531df3f65deadcb52a9f365d1565c140d5411caad80",
+      "signature": "y1XrpDKReYeNJMqlEC1rtQOil4AxGuVqD10yXDfd0Z3N2OP9qiKFGHHY5gGrO92lpJ5heDhPeoJitxFVO0eXDw=="
+    },
+    "verification": {
+      "accepted": true,
+      "reason": "ALL_CHECKS_PASSED",
+      "checks": [
+        {
+          "name": "Solana escrow",
+          "passed": true,
+          "detail": "Actual reserved PDA and immutable chain terms match"
+        },
+        {
+          "name": "Escrow deadline",
+          "passed": true,
+          "detail": "Order must be unexpired"
+        },
+        {
+          "name": "Reserved quote",
+          "passed": true,
+          "detail": "Immutable quote matches its reservation"
+        },
+        {
+          "name": "Input binding",
+          "passed": true,
+          "detail": "Report answers the funded task"
+        },
+        {
+          "name": "Seller signature",
+          "passed": true,
+          "detail": "Ed25519 signature by the registered seller"
+        },
+        {
+          "name": "Receipt binding",
+          "passed": true,
+          "detail": "Order, quote, seller, asset and network agree"
+        },
+        {
+          "name": "Payment confirmation",
+          "passed": true,
+          "detail": "Observed preprod transaction is confirmed"
+        },
+        {
+          "name": "Payment value",
+          "passed": true,
+          "detail": "Correct recipient and quote, within fee reserve"
+        },
+        {
+          "name": "Result integrity",
+          "passed": true,
+          "detail": "Canonical facts match signed SHA-256 digest"
+        },
+        {
+          "name": "Source provenance",
+          "passed": true,
+          "detail": "All cited facts and latest-five completeness independently re-fetched"
+        }
+      ],
+      "mode": "cre-simulation",
+      "resultHash": "d7e7bc209e88af8e8b051531df3f65deadcb52a9f365d1565c140d5411caad80",
+      "timestamp": 1791353454012,
+      "transcript": "/api/orders/a1672a05-a755-4d35-8e44-475e8c0a2353/evidence"
+    }
+  },
+  "events": [
+    {
+      "sequence": 107,
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "timestamp": 1791353388789,
+      "step": "created",
+      "detail": "Immutable task terms created.",
+      "link": null
+    },
+    {
+      "sequence": 108,
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "timestamp": 1791353390806,
+      "step": "funded",
+      "detail": "Funded Solana Devnet escrow observed.",
+      "link": null
+    },
+    {
+      "sequence": 109,
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "timestamp": 1791353392005,
+      "step": "reserved",
+      "detail": "Seller and 2 tADA quote reserved within the spending ceiling.",
+      "link": null
+    },
+    {
+      "sequence": 110,
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "timestamp": 1791353392658,
+      "step": "purchasing",
+      "detail": "Agent handles the Cardano x402 payment challenge.",
+      "link": null
+    },
+    {
+      "sequence": 111,
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "timestamp": 1791353428179,
+      "step": "paid",
+      "detail": "Confirmed preprod payment; seller receipt signed.",
+      "link": null
+    },
+    {
+      "sequence": 112,
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "timestamp": 1791353428832,
+      "step": "verifying",
+      "detail": "CRE simulation rechecks escrow, payment, receipt and chain facts.",
+      "link": null
+    },
+    {
+      "sequence": 113,
+      "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+      "timestamp": 1791353466224,
+      "step": "settled",
+      "detail": "Verified task reward released on Solana Devnet.",
+      "link": null
+    }
+  ],
+  "creTranscript": "<jemalloc>: Out-of-range conf value: narenas:0\nInitializing...\nLoading settings...\n! Using default private key for chain write simulation. To use your own key, set CRE_ETH_PRIVATE_KEY in your .env file or system environment.\nChecking RPC connectivity...\nCompiling workflow...\n✓ Workflow compiled\n✓ Simulation limits enabled\n  HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb\n  Binary hash: 5f73beac09efa0f73e7e69309e4d9e4b31dff0f344a418b731ac1f8500bfdea2\n  Config hash: e8a98e0c2bf4f68eb663a7fa481d18e600ec06b91e2f475407388a17405c3496\n2026-10-07T06:10:53Z [SIMULATION] Simulator Initialized\n\n2026-10-07T06:10:53Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0\n2026-10-07T06:11:05Z [USER LOG] ORCA_VERIFICATION:{\"accepted\":true,\"reason\":\"ALL_CHECKS_PASSED\",\"checks\":[{\"name\":\"Solana escrow\",\"passed\":true,\"detail\":\"Actual reserved PDA and immutable chain terms match\"},{\"name\":\"Escrow deadline\",\"passed\":true,\"detail\":\"Order must be unexpired\"},{\"name\":\"Reserved quote\",\"passed\":true,\"detail\":\"Immutable quote matches its reservation\"},{\"name\":\"Input binding\",\"passed\":true,\"detail\":\"Report answers the funded task\"},{\"name\":\"Seller signature\",\"passed\":true,\"detail\":\"Ed25519 signature by the registered seller\"},{\"name\":\"Receipt binding\",\"passed\":true,\"detail\":\"Order, quote, seller, asset and network agree\"},{\"name\":\"Payment confirmation\",\"passed\":true,\"detail\":\"Observed preprod transaction is confirmed\"},{\"name\":\"Payment value\",\"passed\":true,\"detail\":\"Correct recipient and quote, within fee reserve\"},{\"name\":\"Result integrity\",\"passed\":true,\"detail\":\"Canonical facts match signed SHA-256 digest\"},{\"name\":\"Source provenance\",\"passed\":true,\"detail\":\"All cited facts and latest-five comp ...(truncated)\n\n✓ Workflow Simulation Result:\n\"{\\\"accepted\\\":true,\\\"reason\\\":\\\"ALL_CHECKS_PASSED\\\",\\\"checks\\\":[{\\\"name\\\":\\\"Solana escrow\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Actual reserved PDA and immutable chain terms match\\\"},{\\\"name\\\":\\\"Escrow deadline\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Order must be unexpired\\\"},{\\\"name\\\":\\\"Reserved quote\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Immutable quote matches its reservation\\\"},{\\\"name\\\":\\\"Input binding\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Report answers the funded task\\\"},{\\\"name\\\":\\\"Seller signature\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Ed25519 signature by the registered seller\\\"},{\\\"name\\\":\\\"Receipt binding\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Order, quote, seller, asset and network agree\\\"},{\\\"name\\\":\\\"Payment confirmation\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Observed preprod transaction is confirmed\\\"},{\\\"name\\\":\\\"Payment value\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Correct recipient and quote, within fee reserve\\\"},{\\\"name\\\":\\\"Result integrity\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"Canonical facts match signed SHA-256 digest\\\"},{\\\"name\\\":\\\"Source provenance\\\",\\\"passed\\\":true,\\\"detail\\\":\\\"All cited facts and latest-five completeness independently re-fetched\\\"}],\\\"mode\\\":\\\"cre-simulation\\\",\\\"resultHash\\\":\\\"d7e7bc209e88af8e8b051531df3f65deadcb52a9f365d1565c140d5411caad80\\\",\\\"timestamp\\\":1791353454012}\"\n\n2026-10-07T06:11:05Z [SIMULATION] Execution finished signal received\n2026-10-07T06:11:05Z [SIMULATION] Skipping WorkflowEngineV2\n\n╭──────────────────────────────────────────────────────╮\n│ Simulation complete! Ready to deploy your workflow?  │\n│                                                      │\n│ Run cre account access to request deployment access. │\n╰──────────────────────────────────────────────────────╯\n",
+  "disclosure": "CRE local simulation with trusted demo relayer; no DON deployment."
+}

@@ -46,3 +46,15 @@ Each purchase validates seller, asset, network, order, expiry, quote reservation
 This is one report type, one seller, one worker and one queue. No production SLA, authentication for public read-only order records, multi-tenant wallet custody, identity verification, economic audit, or production security review is claimed. Public deployment should keep wallet inputs non-sensitive and use operator-owned funded test wallets only. The serial worker is intentionally sufficient for a hackathon and could be split without changing core verification.
 
 Rehearsal modifies only its simulated clock in the expiry scenario. Rehearsal hashes and payment IDs are sample values and never receive explorer links. The locally signed receipt proves integrity of the fixture, not an actual purchase.
+
+## Isolated live claim audit
+
+The no-wallet challenge accepts only network and change presets. It copies two fixed transaction facts from a validated settled reference order, signs the bounded claim with a separate challenge key, and invokes a fresh official CRE simulation. The workflow independently reads the reference escrow, actual Cardano purchase and both original source transactions. Six checks establish input, signature, freshness, reference escrow, payment and provenance. Strict output parsing binds the returned ID/hash and requires all six checks for acceptance.
+
+This signer is separate from the supplier receipt key. Audits never enter an order or settlement queue and never move money. A persistent global daily limit and one-active-audit limit bound use. The common CRE runner serializes audit and settlement compilations to avoid concurrent temporary-directory races. On restart, interrupted audits return to the queue; stale claims fail freshness rather than gaining a new signature silently.
+
+## Cloud state and resume
+
+The public Vercel proxy accesses one named persistent Sandbox, with private SQLite/payment/key state on Vercel Drive. A lock-protected startup closes the inherited lock descriptor before launching the API. Session stop/resume preserved actual terminal order/audit state in a controlled test. Hobby limits and cold starts remain; this is not production durable-queue infrastructure or an availability guarantee.
+
+A payment HTTP timeout/5xx can occur after broadcast. Recovery resolves the exact already-persisted signed transaction on chain before continuing; it never replaces that transaction. The cloud recovered example and clean later execution are documented separately.

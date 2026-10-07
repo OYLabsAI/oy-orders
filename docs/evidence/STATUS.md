@@ -1,36 +1,44 @@
-# Executed evidence — 6 October 2026
+# Executed evidence — 7 October 2026
 
-**Four genuine paid testnet orders settled across all four sponsors.** The interactive challenge replays genuine signed evidence locally; it makes no new purchase and preserves the original order.
+**Seven genuine paid testnet orders: six settled, one signed false report rejected and its task reward refunded.** The newest success executed through Vercel without operator recovery. The judge-controlled challenge performs fresh independent reads rather than replaying a local copy.
 
 | Evidence | Executed result | Practical limit |
 |---|---|---|
-| TypeScript and tests | Root type check passes; 40 tests pass | Local VM, fixtures, CLI parsing and genuine receipt replay |
-| Solana program | Devnet `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj` deployed; on-chain bytes match tested ELF | Operator retains upgrade authority |
-| Paid orders | Real funding, reservation, 2 tADA purchase and reward settlement | Separate test assets; no bridge or conversion |
-| Cardano x402 | Confirmed supplier outputs and actual fees | Koios signer; NOWNodes preprod payment proof with network guard; Blockfrost optional |
-| NOWNodes | Actual Solana and Cardano mainnet facts, independently re-fetched by CRE | Public sample addresses include a Solana vote account |
-| Chainlink CRE | Official authenticated CLI simulations passed ten checks | Local simulation and trusted relayer; no production DON |
-| Recovery | Truncated CLI output and upstream failures recovered without duplicate purchases | Operator retries reused saved transactions/receipts; histories preserved |
-| Actual expiry refund | Direct program probe returned 0.01 tSOL after a 90-second deadline | Product UI retains 15 minutes; no Cardano purchase in this probe |
-| Interactive challenge | +1 fee preserves signature but fails integrity and provenance; restore passes | Local replay at saved verification time |
-| Frontend | One-click saved evidence, backend-offline tamper/restore, real refund links; Site published | Owner-private Site; temporary local tunnel |
+| Types and tests | Type check and 47 tests pass | VM, fixtures, parsing and recovery tests are distinct from chain execution |
+| Solana program | Devnet `2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj`; deployed bytes match tested ELF | Upgrade authority retained; trusted settlement relayer |
+| Paid success | Six actual 2 tADA purchases and Solana settlements, ten CRE checks each | Separate test assets; no bridge or conversion |
+| Paid adversarial order | Controlled seller's valid signature and digest pass; false source fact fails; reward never settled | Deliberate team-controlled supplier test |
+| Same-order refund | Rejected order's 0.01 tSOL reward returned on chain after expiry | Cardano purchase remains final; refund pays its network fee |
+| Fresh live challenge | Thousand-fold Solana lie and one-lovelace Cardano lie caught; honest corrected claim passes six checks | Fixed source transactions, separate signer; no money moves |
+| NOWNodes | Actual facts from both chains; independent re-fetch; preprod payment network_magic=1 guard | Provider trusted; busy latest-five addresses may change between reads |
+| Chainlink | Authenticated official CLI simulations on real records | Simulation, not production DON/TEE deployment |
+| Cloud | Fresh paid order settled; persistent stop/resume kept order and audit unchanged | Hobby cold starts, 45-minute sessions/free quotas; no production SLA |
+| Recovery | Saved signed payment reused after uncertain proxy response | Recovered run documented separately; latest fresh cloud run needed no recovery |
 
-## Public proof
+## Public evidence files
 
-`live-order.json`, `live-order-third-settled.json`, `live-order-second-settled.json` and `live-order-recovered.json` contain four actual settled orders: signed receipts, four to six genuine chain facts, ten accepted checks and redacted CRE transcripts. The latest order proves NOWNodes preprod payment reads with a network_magic=1 guard. `live-order-first-attempt.json` and `live-order-second-attempt.json` preserve failed attempts and are not successful settlement proof. `live-refund.json` includes actual creation/refund transactions, chain state, transaction fee and buyer balance proof.
+- `live-vercel-order.json`: clean cloud order `a1672a05-a755-4d35-8e44-475e8c0a2353`, actual payment, ten checks and settlement.
+- `live-vercel-recovered.json`: cloud order `bda7a31e-1917-4a55-ba95-c1890051a337`; HTTP 503 recovery reused the original Cardano transaction. This is not presented as an unaided run.
+- `live-adversarial.json`: paid order `caa423cd-c20f-448f-9186-e98034fa1df1`, accepted signature/digest, rejected provenance, protected escrow and same-order confirmed refund.
+- `live-challenge-solana.json`, `live-challenge-cardano.json`, `live-challenge-honest.json`: signed claims and official CRE transcripts. Solana 30,000,001 versus 30,000; Cardano 248,762 versus 248,761; corrected honest claim accepted.
+- `vercel-persistence.json`: controlled idle-session stop/public-request resume with unchanged settled order and challenge.
+- `live-order.json`, `live-order-third-settled.json`, `live-order-second-settled.json`, `live-order-recovered.json`: four earlier settled paid orders. First/second-attempt files preserve failures and are not settlement proof.
+- `live-refund.json`: earlier separate 90-second direct-program expiry probe, without a Cardano purchase. Product UI keeps 15 minutes; the paid adversarial probe used eight minutes.
+- `solana-deployment.json`, `solana-buffer-upload.json`: deployment and exact byte comparison. ELF: 93,728 bytes; SHA-256 `5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1aeeda71709c0c94bfa9f`.
+- Funding/setup/node probes and preflight document connectivity separately. `rehearsal-*.json` retain simulated-payment labels. All public transcripts redact credentials.
 
-`solana-deployment.json` and `solana-buffer-upload.json` prove loader-v3 deployment and exact binary comparison. `wallet-funding.json`, `setup-audit.json`, `nownodes-probe.json` and `cre-preflight.txt` record actual setup/connectivity separately. Earlier `rehearsal-*.json` files explicitly retain their simulated-payment labels.
+## Exact latest proof links
 
-Solana ELF: 93,728 bytes, SHA-256 `5c4acfafb2fc8a84d68966b1a31170074674b2fa0ec1aeeda71709c0c94bfa9f`, compiled from included Rust source through official Solana Playground build `aafab733-1cf4-45f9-833f-358e6c2db69f`. Artifact hashes are in `build-manifest.json`; actual CRE execution hashes appear in each transcript.
+[Program on Devnet](https://explorer.solana.com/address/2rdpj8fQHaZ7BbyaRFvZfHagJfT4QAWPrCUsC8LKobkj?cluster=devnet).
 
-## Remaining submission gates
+[Latest cloud funding](https://explorer.solana.com/tx/4Dw46ytHgHeCXTb6XtJRYHqg5bqz5WUjjZAq2TZrdEi9Hkg4NadVgvhbeKhD5DRo9tbcTkx5neyXB7RWFAX9qCLh?cluster=devnet).
 
-- Accessible MIT source repository; judge access to Site, Drive deck and video.
-- Durable backend: quick tunnel depends on this machine and running processes.
-- Partner check-ins: dashboard showed 1/2 while main showed 2/2. Organizer resolution is still needed; no message was sent on the team's behalf.
-- Stage format/playback: PPTX embeds the movie; genuine legacy PPT drops it. Rules specify `.ppt` or `.keynote`; acceptance and playback need verification.
-- Final track selection, dashboard checks and submission receipt. No hackathon submission has been sent.
+[Latest cloud settlement](https://explorer.solana.com/tx/2qjS36DjpGmDZ79PvrR6Tx6f7ih373g6KKa3WTm1g7tqKJjJYHCfbKFRQqhPpouU6iKAvmrv1JqYqtRffd3ji8bL?cluster=devnet).
 
-The latest-five fact check can reject a busy address if new transactions arrive between purchase and verification. Demo addresses are quieter public addresses. Cardano supplier payments remain final; expiry returns only the Solana reward.
+[Paid rejected-order refund](https://explorer.solana.com/tx/w9qZmkBDYr6hRxJN1WhUoJH2h7N6Qc4iZxrP8uXJNQK9DgcM1uJFwcrRjKHqX9k6YeUmcZqzcLjmN5hCuTPKCaP?cluster=devnet).
 
-The third and fourth orders completed without operator recovery. Native browser access is available again at the latest audit. Repository publication and judge sharing remain pending; no authenticated GitHub write credentials are configured locally.
+Full Cardano hashes and preprod explorer links are in each evidence file.
+
+## Submission gates
+
+GitHub publication requires an authenticated account or owner-completed signup. A ZIP does not replace the required repository. Drive files preserve owner-only access. Verify judge access, the prior partner check-in 1/2 discrepancy, and acceptance/native playback of PPTX with its embedded movie. Legacy PPT loses the recording. No hackathon submission has been made.

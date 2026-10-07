@@ -1,0 +1,53 @@
+{
+  "format": "Edited proof tour using authentic app screenshots and paced still holds; not a continuous screen recording.",
+  "seconds": 48,
+  "orderId": "67ae1a56-7160-4903-96ef-d67ec16b0b42",
+  "mode": "actual testnet evidence + local tamper replay",
+  "captions": [
+    [
+      "Actual testnet order - 2 tADA paid / 10 CRE checks passed",
+      0,
+      8
+    ],
+    [
+      "Local replay - original signed report passes",
+      8,
+      16
+    ],
+    [
+      "Change one fee +1 - valid signature, rejected result",
+      16,
+      34
+    ],
+    [
+      "Restore original report - replay checks pass",
+      34,
+      40
+    ],
+    [
+      "Real NOWNodes facts with public explorer links",
+      40,
+      48
+    ]
+  ],
+  "sourceCaptures": [
+    {
+      "path": "02-verified.png",
+      "capturedAt": 1791275034283
+    },
+    {
+      "path": "03-tampered.png",
+      "capturedAt": 1791275044305
+    },
+    {
+      "path": "04-restored.png",
+      "capturedAt": 1791275162217
+    },
+    {
+      "path": "05-facts.png",
+      "capturedAt": 1791275255598
+    }
+  ],
+  "proofFile": "live-order-second-settled.json",
+  "note": "Saved original/restored screenshots are reused as visual holds; this is an edited proof tour."
+}

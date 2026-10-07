@@ -19,7 +19,25 @@ const buyer = Keypair.fromSecretKey(
     ),
   ),
 );
-const base = `http://localhost:${config.port}`;
+const apiArgument = process.argv.find((arg) => arg.startsWith("--api-origin="));
+const base =
+  apiArgument?.slice("--api-origin=".length) ??
+  `http://localhost:${config.port}`;
+const origin = new URL(base);
+if (
+  origin.origin !== base ||
+  origin.username ||
+  origin.password ||
+  (origin.protocol !== "https:" &&
+    !["localhost", "127.0.0.1"].includes(origin.hostname))
+)
+  throw Error("INVALID_DEMO_ORIGIN");
+const evidenceName =
+  process.argv
+    .find((arg) => arg.startsWith("--evidence="))
+    ?.slice("--evidence=".length) ?? "live-order.json";
+if (!/^[a-z0-9-]+\.json$/.test(evidenceName))
+  throw Error("INVALID_EVIDENCE_NAME");
 async function call(path: string, body?: unknown) {
   const response = await fetch(base + path, {
     ...(body === undefined
@@ -78,7 +96,7 @@ if (order.status === "created") {
     fundingTx: saved.fundingTx,
     signature: Buffer.from(
       nacl.sign.detached(
-        Buffer.from(`Start Orca order ${order.id}`),
+        Buffer.from(`Start OY order ${order.id}`),
         buyer.secretKey,
       ),
     ).toString("base64"),
@@ -102,11 +120,11 @@ do {
   await new Promise((resolveDelay) => setTimeout(resolveDelay, 2000));
 } while (Date.now() < end);
 writeFileSync(
-  "docs/evidence/live-order.json",
+  `docs/evidence/${evidenceName}`,
   JSON.stringify(await call(`/api/orders/${order.id}/evidence`), null, 2),
 );
 if (order.status !== "settled")
   throw new Error(`LIVE_ORDER_${order.status.toUpperCase()}`);
 console.log(
-  "Confirmed paid order and settlement; public evidence saved to docs/evidence/live-order.json",
+  `Confirmed paid order and settlement; public evidence saved to docs/evidence/${evidenceName}`,
 );

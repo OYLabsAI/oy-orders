@@ -173,6 +173,16 @@ export async function purchase(order: Order) {
       order.seller,
     );
   }
+  if (response.status >= 500 || response.status === 408) {
+    // A gateway can time out after the facilitator has broadcast. Resolve the
+    // exact saved transaction on chain; never build a replacement purchase.
+    return waitForPayment(
+      decodeCardanoTransaction(
+        (payload.payload as { transaction: string }).transaction,
+      ).txHash,
+      order.seller,
+    );
+  }
   if (!response.ok) throw new Error(`X402_PAYMENT_HTTP_${response.status}`);
   const settlement = http.getPaymentSettleResponse((name) =>
     response.headers.get(name),

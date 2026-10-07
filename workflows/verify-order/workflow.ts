@@ -23,6 +23,7 @@ import type {
   Receipt,
   SourceFact,
 } from "../../packages/core/src/types.ts";
+import { verifyAudit } from "./audit.ts";
 export type Config = {
   orderId: string;
   apiUrl: string;
@@ -34,6 +35,8 @@ export type Config = {
   blockfrostKey: string;
   nownodesKey: string;
   paymentProvider?: "nownodes" | "legacy";
+  auditId?: string;
+  auditKey?: string;
 };
 const encoder = new TextEncoder();
 function sellerSignature(receipt: Receipt, key: string) {
@@ -251,7 +254,7 @@ function onTrigger(runtime: Runtime<Config>) {
   const output = new cre.capabilities.HTTPClient()
     .sendRequest(
       runtime,
-      verifyRemote,
+      c.auditId ? verifyAudit : verifyRemote,
       consensusIdenticalAggregation<string>(),
     )({ ...c, now: runtime.now().getTime() })
     .result();

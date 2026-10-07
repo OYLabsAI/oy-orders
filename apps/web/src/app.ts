@@ -18,11 +18,22 @@ type SavedEvidence = {
   events: Event[];
   creTranscript: string;
   refund: { rewardLamports: string; refundTx: string; scope: string };
+  adversarial?: {
+    order: Order;
+    finalOrder?: Order;
+    events: Event[];
+    sourceFacts: import("../../../packages/core/src/types.ts").SourceFact[];
+    creTranscript: string;
+    protectedReward: { escrowState: number; settlementSubmitted: boolean };
+    refund?: { refundTx: string; confirmed: boolean; rewardLamports: string };
+  };
 };
 let savedEvidence: SavedEvidence | undefined,
   archived = false,
   serviceAvailable = false,
   selection = 0;
+let archivedEvidence: unknown;
+let storyStage: "success" | "lie" | "refund" = "success";
 const sampleSol = "Vote111111111111111111111111111111111111111";
 const sampleAda = "addr1q" + "a".repeat(97);
 const short = (s: string) =>
@@ -49,17 +60,25 @@ async function request(path: string, body?: unknown, timeout = 25000) {
   return data;
 }
 function tab(name: string) {
-  for (const n of ["orders", "evidence", "integrations"]) {
+  document.body.dataset.view = name;
+  for (const n of ["orders", "evidence", "integrations", "live-challenge"]) {
     $(`${n}-view`).hidden = n !== name;
     document
       .querySelector(`[data-tab="${n}"]`)
       ?.classList.toggle("active", n === name);
   }
   $("page-name").textContent = name[0].toUpperCase() + name.slice(1);
+  $("wallet").hidden = name !== "orders";
 }
 document
   .querySelectorAll<HTMLButtonElement>("[data-tab]")
-  .forEach((b) => (b.onclick = () => tab(b.dataset.tab!)));
+  .forEach(
+    (b) =>
+      (b.onclick = () =>
+        b.dataset.tab === "evidence" && savedEvidence
+          ? showSavedEvidence()
+          : tab(b.dataset.tab!)),
+  );
 $("sample").onclick = () => {
   ($("solana") as HTMLInputElement).value =
     health?.mode === "live" && savedEvidence
@@ -119,9 +138,13 @@ function renderProofFlow(order: Order) {
   const rows = [
     [
       "Solana",
-      order.solana?.settleTx ? "Reward released" : "Task escrow",
+      order.solana?.refundTx
+        ? "Reward returned"
+        : order.solana?.settleTx
+          ? "Reward released"
+          : "Task reward held",
       order.solana?.fundingTx
-        ? `https://explorer.solana.com/tx/${order.solana.settleTx ?? order.solana.fundingTx}?cluster=devnet`
+        ? `https://explorer.solana.com/tx/${order.solana.refundTx ?? order.solana.settleTx ?? order.solana.fundingTx}?cluster=devnet`
         : "",
     ],
     [
@@ -180,7 +203,9 @@ function renderChallenge(order: Order) {
   const replay = verifyWithSignature(
     copy,
     order.payment!,
-    order.report!.facts,
+    archived && storyStage !== "success" && savedEvidence?.adversarial
+      ? savedEvidence.adversarial.sourceFacts
+      : order.report!.facts,
     verifyReceiptSignature,
     order.verification!.timestamp,
   );
@@ -205,15 +230,17 @@ function renderChallenge(order: Order) {
       text("strong", c.name),
       text(
         "small",
-        c.passed ? "Matches saved evidence" : "Altered fee detected",
+        c.passed
+          ? "Matches signed evidence"
+          : c.name === "Source provenance"
+            ? "Claim disagrees with independent records"
+            : "Changed report no longer matches receipt",
       ),
     );
     checks.append(row);
   }
   const toggle = $("challenge-toggle");
-  toggle.textContent = altered
-    ? "Restore original report ↺"
-    : "Alter one fee +1 →";
+  toggle.textContent = altered ? "Restore supplier report" : "Alter one fee +1";
   toggle.onclick = () => {
     altered = !altered;
     renderChallenge(order);
@@ -283,18 +310,118 @@ function renderEvidence(order: Order) {
     facts.append(wrap);
   }
 }
-function showSavedEvidence() {
+function showSavedEvidence(stage: "success" | "lie" | "refund" = "success") {
   if (!savedEvidence) return;
+  const attack = savedEvidence.adversarial;
+  if (stage !== "success" && !attack) return;
+  if (stage === "refund" && !attack?.refund?.confirmed) return;
+  storyStage = stage;
   selection++;
   if (poll) clearInterval(poll);
   archived = true;
-  renderOrder(savedEvidence.order);
-  renderEvents(savedEvidence.events);
+  const order =
+    stage === "success"
+      ? savedEvidence.order
+      : stage === "refund"
+        ? attack!.finalOrder!
+        : attack!.order;
+  archivedEvidence = stage === "success" ? savedEvidence : attack;
+  renderOrder(order);
+  renderEvents(stage === "success" ? savedEvidence.events : attack!.events);
+  $("story-outcome").hidden = false;
+  for (const [id, value] of [
+    ["verified-demo", "success"],
+    ["signed-lie", "lie"],
+    ["refund-story", "refund"],
+  ]) {
+    $(id).classList.toggle("active", stage === value);
+    $(id).setAttribute("aria-pressed", String(stage === value));
+  }
+  $("story-outcome").className = `story-outcome ${stage}`;
+  $("story-kicker").textContent =
+    stage === "success"
+      ? "REAL ORDER · WORK VERIFIED"
+      : stage === "lie"
+        ? "CONTROLLED SUPPLIER ATTACK · REAL CRE REJECTION"
+        : "SAME REJECTED ORDER · CONFIRMED REFUND";
+  $("story-title").textContent =
+    stage === "success"
+      ? "Good work. Reward released."
+      : stage === "lie"
+        ? "Signed lie. No payday."
+        : "Your task reward. Back with you.";
+  $("story-detail").textContent =
+    stage === "success"
+      ? "The agent bought a wallet report. Independent checks confirmed the payment and its facts before releasing the reward."
+      : stage === "lie"
+        ? "The supplier signed a report that exaggerated one fee by over 1,000×. Its signature was real. Its answer was wrong. Independent checks caught it."
+        : "After that signed lie was rejected, the protected reward stayed held. Once the deadline passed, it returned to the buyer.";
+  $("story-amount-label").textContent =
+    stage === "success"
+      ? "Reward released to the agent"
+      : stage === "lie"
+        ? "Reward withheld from the agent"
+        : "Task reward returned to the buyer";
+  $("story-money-note").textContent =
+    "Separate data purchase: 2 tADA, final. Only the task reward is protected.";
+  const rows =
+    stage === "success"
+      ? ([
+          ["Payment confirmed", true],
+          ["Reported facts independently checked", true],
+          ["Task reward released", true],
+        ] as const)
+      : stage === "lie"
+        ? ([
+            [
+              "Supplier signature valid",
+              !!order.verification?.checks.find(
+                (c) => c.name === "Seller signature",
+              )?.passed,
+            ],
+            ["Reported facts match chain records", false],
+            [
+              "Task reward held, no settlement submitted",
+              attack!.protectedReward.escrowState === 1 &&
+                !attack!.protectedReward.settlementSubmitted,
+            ],
+          ] as const)
+        : ([
+            ["Wrong answer rejected", !order.verification?.accepted],
+            ["Original deadline passed", true],
+            ["Reward refund confirmed", !!attack!.refund?.confirmed],
+          ] as const);
+  $("story-checks").replaceChildren();
+  for (const [label, passed] of rows) {
+    const row = text("div", "", `story-check ${passed ? "pass" : "fail"}`);
+    row.append(
+      text("span", passed ? "✓" : "×", "check-icon"),
+      text("span", label),
+    );
+    $("story-checks").append(row);
+  }
+  const signature =
+    stage === "refund"
+      ? attack!.refund?.refundTx
+      : stage === "success"
+        ? order.solana?.settleTx
+        : order.solana?.fundingTx;
+  $("story-proof-link").hidden = !signature;
+  $("story-proof-link").setAttribute(
+    "href",
+    `https://explorer.solana.com/tx/${signature}?cluster=devnet`,
+  );
+  $("story-proof-link").textContent =
+    stage === "refund"
+      ? "View confirmed refund"
+      : stage === "success"
+        ? "View confirmed reward"
+        : "View funded escrow";
   $("archive-notice").hidden = false;
   $("archive-notice").textContent =
-    `Saved testnet proof from ${new Date(savedEvidence.order.verification!.timestamp).toLocaleString()}. No new purchase or CRE run occurs in this view. Explorer links show the original transactions.`;
+    `Recorded testnet execution. These buttons replay saved proof; no new payment or CRE run. ${stage === "success" ? "Independent CRE used official local simulation and a trusted demo relayer." : "The dishonest supplier is an operator-controlled test. Eight-minute probe deadline; normal tasks use fifteen minutes."}`;
   const refund = savedEvidence.refund;
-  $("refund-proof").hidden = false;
+  $("refund-proof").hidden = stage !== "success";
   $("refund-proof-detail").textContent =
     `${Number(refund.rewardLamports) / 1e9} tSOL returned after expiry in a separate 90-second program probe. No Cardano purchase in that probe.`;
   $("refund-proof-link").setAttribute(
@@ -303,9 +430,15 @@ function showSavedEvidence() {
   );
   tab("evidence");
 }
-$("verified-demo").onclick = showSavedEvidence;
+$("verified-demo").onclick = () => showSavedEvidence();
+$("signed-lie").onclick = () => showSavedEvidence("lie");
+$("refund-story").onclick = () => showSavedEvidence("refund");
 function renderOrder(order: Order) {
   current = order;
+  if (!archived) {
+    $("story-outcome").hidden = true;
+    $("archive-notice").hidden = true;
+  }
   localStorage.setItem("orca-current-order", order.id);
   $("execution-empty").hidden = true;
   $("execution-content").hidden = false;
@@ -334,7 +467,7 @@ function renderOrder(order: Order) {
           : order.status === "refunded"
             ? "Task reward returned"
             : order.status === "rejected"
-              ? "Integrity check failed. Escrow stays protected."
+              ? "Independent checks failed. The task reward stays protected."
               : order.status === "expired"
                 ? "Deadline reached. Your task reward is refundable."
                 : `Execution paused: ${order.error}`,
@@ -507,7 +640,7 @@ async function run() {
       if (confirmation.value.err)
         throw new Error("Funding transaction failed.");
       const signature = await wallet.signMessage(
-        new TextEncoder().encode(`Start Orca order ${data.order.id}`),
+        new TextEncoder().encode(`Start OY order ${data.order.id}`),
         "utf8",
       );
       start = {
@@ -530,6 +663,155 @@ async function run() {
 $("order-form").onsubmit = (e) => {
   e.preventDefault();
   void run().catch(() => {});
+};
+$("audit-invite").onclick = () => tab("live-challenge");
+$("audit-refund-story").onclick = () => showSavedEvidence("refund");
+let latestAudit: any;
+let auditBusy = false;
+$("audit-run").onclick = async () => {
+  if (auditBusy) return;
+  auditBusy = true;
+  const button = $<HTMLButtonElement>("audit-run");
+  button.disabled = true;
+  $("audit-evidence").hidden = true;
+  const panel = $("audit-result");
+  panel.className = "arena-result checking";
+  panel.replaceChildren(
+    text("span", "↻", "arena-orbit"),
+    text("h3", "Checking the real records…"),
+    text(
+      "p",
+      "Your claim is signed. CRE independently reads both networks. This usually takes 20–90 seconds.",
+    ),
+  );
+  try {
+    latestAudit = await request("/api/challenges", {
+      network: $<HTMLSelectElement>("audit-network").value,
+      change: document.querySelector<HTMLInputElement>(
+        'input[name="audit-change"]:checked',
+      )!.value,
+    });
+    // Poll asynchronously; animation communicates activity, never simulated progress.
+    const until = Date.now() + 210000;
+    while (
+      ["queued", "running"].includes(latestAudit.status) &&
+      Date.now() < until
+    ) {
+      await new Promise((done) => setTimeout(done, 1800));
+      latestAudit = await request(`/api/challenges/${latestAudit.id}`);
+    }
+    if (latestAudit.status !== "complete")
+      throw Error(
+        latestAudit.error ??
+          "The audit is taking longer than expected. Try again or open the recorded proof.",
+      );
+    const result = latestAudit.result;
+    panel.className = `arena-result ${result.accepted ? "honest" : "caught"}`;
+    panel.replaceChildren(
+      text("span", result.accepted ? "✓" : "!", "arena-orbit"),
+      text(
+        "small",
+        "JUST VERIFIED · " + new Date(result.timestamp).toLocaleTimeString(),
+      ),
+      text(
+        "h3",
+        result.accepted ? "Truth checks out." : "Nice signature.\nStill a lie.",
+      ),
+      text(
+        "p",
+        result.accepted
+          ? "Both claims match independent blockchain records."
+          : "A valid signature cannot turn a false claim into a fact.",
+      ),
+    );
+    for (const difference of result.differences) {
+      const comparison = text("div", "", "truth-comparison");
+      const value = (label: string, amount: string) => {
+        const column = text("div", "");
+        column.append(
+          text("small", label),
+          text("strong", Number(amount).toLocaleString()),
+        );
+        return column;
+      };
+      comparison.append(
+        value("CLAIMED", difference.claimed),
+        text("span", "≠"),
+        value("ACTUAL", difference.actual),
+      );
+      panel.append(
+        comparison,
+        text(
+          "small",
+          `${difference.network.startsWith("solana") ? "Solana · lamports" : "Cardano · lovelace"} · ${difference.field}`,
+        ),
+      );
+    }
+    if (!result.accepted && result.differences.length) {
+      const repair = text(
+        "button",
+        "Try the corrected answer →",
+        "button secondary small",
+      );
+      repair.onclick = () => {
+        const honest = document.querySelector<HTMLInputElement>(
+          'input[name="audit-change"][value="honest"]',
+        )!;
+        honest.checked = true;
+        $("audit-run").click();
+      };
+      panel.append(repair);
+    }
+    const checks = $("audit-checks");
+    checks.replaceChildren();
+    for (const check of result.checks) {
+      const item = text("div", "", "check " + (check.passed ? "pass" : "fail"));
+      item.append(
+        text("strong", (check.passed ? "✓ " : "× ") + check.name),
+        text("p", check.detail),
+      );
+      checks.append(item);
+    }
+    $("audit-transcript").textContent = latestAudit.transcript;
+    $("audit-evidence").hidden = false;
+  } catch (error) {
+    panel.className = "arena-result unavailable";
+    panel.replaceChildren(
+      text("span", "!", "arena-orbit"),
+      text("h3", "Live check unavailable"),
+      text(
+        "p",
+        (
+          {
+            CHALLENGE_BUSY:
+              "The verifier is checking another claim. Try again in a moment.",
+            CHALLENGE_DAILY_LIMIT:
+              "Today’s demonstration limit is reached. Open the recorded proof.",
+            LIVE_BACKEND_UNAVAILABLE:
+              "The cloud service is waking up. Try again in a moment.",
+          } as Record<string, string>
+        )[(error as Error).message] ?? (error as Error).message,
+      ),
+      text("p", "The recorded rejection and refund remain available in Demo."),
+    );
+  } finally {
+    auditBusy = false;
+    button.disabled = false;
+    button.textContent = "Try another claim →";
+  }
+};
+$("audit-download").onclick = () => {
+  if (!latestAudit) return;
+  const href = URL.createObjectURL(
+    new Blob([JSON.stringify(latestAudit, null, 2)], {
+      type: "application/json",
+    }),
+  );
+  const link = document.createElement("a");
+  link.href = href;
+  link.download = `oy-challenge-${latestAudit.id}.json`;
+  link.click();
+  URL.revokeObjectURL(href);
 };
 $("refund").onclick = async () => {
   if (!current) return;
@@ -569,14 +851,14 @@ $("refund").onclick = async () => {
 $("export").onclick = async () => {
   if (!current) return;
   const evidence = archived
-    ? savedEvidence
+    ? archivedEvidence
     : await request(`/api/orders/${current.id}/evidence`);
   const url = URL.createObjectURL(
     new Blob([JSON.stringify(evidence, null, 2)], { type: "application/json" }),
   );
   const a = document.createElement("a");
   a.href = url;
-  a.download = `orca-order-${current.id}.json`;
+  a.download = `oy-order-${current.id}.json`;
   a.click();
   URL.revokeObjectURL(url);
 };
@@ -593,13 +875,26 @@ async function init() {
       )
         throw new Error("INVALID_SAVED_PROOF");
       $("verified-demo").removeAttribute("disabled");
+      if (
+        savedEvidence.adversarial?.order.verification?.reason ===
+        "Source provenance"
+      )
+        $("signed-lie").removeAttribute("disabled");
+      if (
+        savedEvidence.adversarial?.refund?.confirmed &&
+        savedEvidence.adversarial.finalOrder?.status === "refunded"
+      )
+        $("refund-story").removeAttribute("disabled");
+      showSavedEvidence();
     })
     .catch(() => {
       savedEvidence = undefined;
     });
   try {
-    health = await request("/health", undefined, 6500);
+    health = await request("/health", undefined, 20000);
     serviceAvailable = true;
+    $("create-order").removeAttribute("disabled");
+    $("wallet").removeAttribute("disabled");
     await proof;
     if (health.mode === "live") {
       $("mode-notice").replaceChildren(
@@ -609,7 +904,7 @@ async function init() {
           "Solana Devnet escrow · Cardano preprod payments · mainnet report data",
         ),
       );
-      $("create-order").textContent = "Fund & run task →";
+      $("create-order").textContent = "Fund & run task";
       $("scenario").hidden = true;
       document
         .querySelector('label[for="scenario"]')
@@ -619,9 +914,7 @@ async function init() {
     }
     renderIntegrations(health.integrations);
     await loadRecent();
-    const id = localStorage.getItem("orca-current-order");
-    if (id) await selectOrder(id);
-    else if (savedEvidence) showSavedEvidence();
+    if (savedEvidence) showSavedEvidence();
   } catch {
     await proof;
     serviceAvailable = false;
@@ -632,6 +925,17 @@ async function init() {
         "Live service offline. Explore the recorded order; new purchases are unavailable.",
       ),
     );
+    const reconnect = text(
+      "button",
+      "Reconnect live service",
+      "btn small ghost",
+    );
+    reconnect.onclick = () => {
+      reconnect.setAttribute("disabled", "");
+      reconnect.textContent = "Connecting…";
+      void init();
+    };
+    $("mode-notice").append(reconnect);
     $("create-order").setAttribute("disabled", "");
     $("wallet").setAttribute("disabled", "");
     $("create-order").textContent = "Live service offline";

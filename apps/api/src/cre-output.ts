@@ -1,10 +1,7 @@
 import type { Verification } from "../../../packages/core/src/domain.ts";
 
 // CRE truncates user logs; the simulation result contains the complete return value.
-export function parseCreOutput(
-  output: string,
-  expectedHash: string,
-): Verification {
+export function readCreResult(output: string): unknown {
   const marker = "Workflow Simulation Result:";
   const start = output.lastIndexOf(marker);
   if (start < 0) throw new Error("CRE_RESULT_MISSING");
@@ -12,13 +9,18 @@ export function parseCreOutput(
     .slice(start + marker.length)
     .trimStart()
     .split(/\r?\n/, 1)[0];
-  let result: Verification;
   try {
     const value = JSON.parse(line);
-    result = typeof value === "string" ? JSON.parse(value) : value;
+    return typeof value === "string" ? JSON.parse(value) : value;
   } catch {
     throw new Error("CRE_RESULT_MALFORMED");
   }
+}
+export function parseCreOutput(
+  output: string,
+  expectedHash: string,
+): Verification {
+  const result = readCreResult(output) as Verification;
   if (
     !result ||
     result.mode !== "cre-simulation" ||

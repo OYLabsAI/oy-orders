@@ -96,6 +96,31 @@ test("valid signed receipt and independently fetched facts pass", () => {
   const o = fixture();
   assert.equal(verifyEvidence(o, o.payment!, o.report!.facts).accepted, true);
 });
+test("a dishonest supplier can sign a false answer that only independent provenance rejects", () => {
+  const o = fixture();
+  const independentlyObserved = structuredClone(o.report!.facts);
+  o.report!.facts[0].fee = "5000001";
+  const { signature: _, ...body } = o.receipt!;
+  o.receipt = signReceipt(
+    { ...body, resultHash: hash(o.report) },
+    keys.privateKey,
+  );
+  const result = verifyEvidence(o, o.payment!, independentlyObserved);
+  assert.equal(result.accepted, false);
+  assert.equal(result.reason, "Source provenance");
+  assert.deepEqual(
+    result.checks.filter((c) => !c.passed).map((c) => c.name),
+    ["Source provenance"],
+  );
+  assert.equal(
+    result.checks.find((c) => c.name === "Seller signature")!.passed,
+    true,
+  );
+  assert.equal(
+    result.checks.find((c) => c.name === "Result integrity")!.passed,
+    true,
+  );
+});
 for (const [name, change] of Object.entries<(o: Order) => void>({
   "forged seller signature": (o) => {
     o.receipt!.signature = "AAAA";

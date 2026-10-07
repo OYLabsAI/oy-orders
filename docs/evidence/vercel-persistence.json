@@ -1,0 +1,15 @@
+{
+  "recordedAt": "2026-10-07T06:21:27.665Z",
+  "provider": "vercel",
+  "mode": "live",
+  "test": "controlled idle-session stop and public-request resume",
+  "orderId": "a1672a05-a755-4d35-8e44-475e8c0a2353",
+  "orderStatus": "settled",
+  "auditId": "3f854462-7a49-45f1-88e2-2d2a59a74db7",
+  "auditAccepted": true,
+  "orderUnchanged": true,
+  "auditUnchanged": true,
+  "resumeMs": 7289,
+  "storage": "persistent Sandbox snapshot and Vercel Drive",
+  "limits": "Hobby session cold starts and free quotas apply; not a production availability guarantee"
+}

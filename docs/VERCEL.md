@@ -1,53 +1,36 @@
 # Vercel deployment
 
-Deployment is prepared locally, but **not published**. Vercel CLI 62.4.0 is logged out. The active ChatGPT identity has no linked Vercel user, and Vercel rejected temporary anonymous deployment with: “Temporary deployments aren't available for this attempt. Log in to continue.”
+**Public app and live backend:** https://oy-orders.vercel.app/ . [Video, pitch and source](https://oy-orders.vercel.app/deliverables/). Production is deployed in project `oy-orders` on Hobby.
 
-## Publish the prepared package
+## Implemented hosting
 
-Authenticate to the intended Vercel account using `pnpm dlx vercel login`. If an account must be created, its owner must complete the signup and accept Vercel's terms. No paid plan, subscription, or database has been provisioned.
+The static frontend and restricted Function proxy run on Vercel. The proxy accesses named persistent Sandbox `oy-orders-backend` using automatic project OIDC. It resumes stopped sessions and starts the API through an idempotent lock-protected script.
 
-From the repository root:
+Node 24, SQLite WAL, the order worker and official CRE/Bun run in the Sandbox. Vercel Drive `oy-orders-data` mounts at `/data` for the database, persisted signed transactions, signer files and CRE authentication. Initial seed data is copied once; later deploys do not overwrite orders or refreshed credentials. Persistent snapshots retain source/runtime; Drive retains private state.
+
+The proxy permits explicit order, challenge, health and paid-report routes; GET/POST/OPTIONS; bounded bodies; and the expected Sandbox HTTPS domain. Only needed content/payment headers pass. Exact CORS origins allow Vercel and the Sites fallback. Public evidence deliberately includes public addresses/hashes, never wallet secrets or API keys.
+
+Hobby sessions last up to 45 minutes and resume on demand. Function duration is 300 seconds; paid reports get a bounded 185-second upstream wait for Cardano confirmation. Other requests stay short. An uncertain payment response resolves the already-saved transaction on chain rather than constructing a replacement.
+
+## Verified
+
+Fresh order `a1672a05-a755-4d35-8e44-475e8c0a2353` purchased, passed ten real CRE checks and settled without operator recovery. False and corrected claims ran through the public API. A deliberate idle-session stop resumed from a public request in about seven seconds, preserving the order and audit. See `docs/evidence/live-vercel-order.json` and `vercel-persistence.json`.
+
+This removes the main demo's local tunnel dependency. Cold starts, providers and free quotas remain limits. This is a hackathon deployment, not permanent server hosting or a production SLA. Production should separate custody/operators, use a production database/queue and bind authorized CRE results on chain.
+
+## Reproduce safely
 
 ```sh
-# Saved proof and downloadable demo assets work without the live backend.
-pnpm vercel:prepare
-pnpm dlx vercel deploy .local/vercel-release --prod
-
-# Or preserve fresh testnet orders using the existing external API:
-pnpm vercel:prepare --api-origin=https://dialogue-fancy-rich-assistance.trycloudflare.com
+# Requires Vercel login and private funded-testnet/CRE configuration.
+pnpm exec tsx scripts/deploy-vercel-backend.ts
+pnpm vercel:prepare --sandbox
 pnpm dlx vercel deploy .local/vercel-release --prod
 ```
 
-Select the intended team/project during initial linking. Deploy only `.local/vercel-release`, never the repository root or `.local`. The preparation script copies an explicit allowlist: the five frontend files, public evidence, demo video, embedded-video PPTX, legacy visual PPT, screenshot, and sanitized source ZIP. Wallets, `.env`, payment payloads, CRE login credentials and the SQLite database are excluded.
+Deploy only `.local/vercel-release`, never the repository root. Its allowlist contains the app, public evidence, final downloads and proxy/runtime dependency manifest. Private keys, database, payment payloads and CRE credentials stay private. Official Linux CRE and compatible Ubuntu libc have pinned checksums; a private loader wrapper avoids changing the OS.
 
-The generated package has no serverless functions and no dependency install/build on Vercel. Its optional rewrites forward `/health`, `/api/*`, and `/paid/*` to the supplied HTTPS API origin. This is **external backend hosting**, not migration of the worker to Vercel. The current Cloudflare tunnel depends on the operator's machine and can expire. When the API is unavailable, visitors can still open “Explore verified demo” and challenge saved signed evidence; fresh purchases are disabled.
+Local deployment tooling may load short-lived credentials from mode-0600 `.local/vercel-env`. Never commit or print them. CLI-created `.env.local` is excluded from uploads. Canonical frontend source is `apps/web`.
 
-Paths after a successful deployment:
+Paths: `/` app; `/deliverables/` downloads; `/downloads/manifest.json` sizes/SHA-256; `/hosting.json` backend mode; `/health` readiness. Build success alone is not end-to-end verification.
 
-- `/`: Orca Orders app and interactive saved proof.
-- `/deliverables/`: video player and downloadable pitch/source assets.
-- `/downloads/manifest.json`: asset sizes and SHA-256 hashes.
-- `/hosting.json`: explicit backend mode and preparation time.
-
-## Move the entire live backend to Vercel
-
-Three concrete requirements remain:
-
-1. Authenticated project access in the intended Vercel account.
-2. A provisioned managed database for orders, events, unique payment claims and durable jobs, plus durable storage for each signed Cardano payload **before** broadcast. The current synchronous local SQLite/file implementation must be adapted and tested. `/tmp` must not be used for this state.
-3. Durable order execution using Vercel Workflows or Queues, with Linux CRE/Bun execution packaged in a Function/container or an isolated Sandbox. Replace the serial timer worker. Load private testnet signer and supplier keys through private runtime configuration; never put them in the static upload or public source.
-
-Preserve these guarantees during migration: unique payment transaction/order binding; one persisted signed payload reused after uncertain broadcast; per-order job concurrency control; exact chain/genesis guards; all ten receipt/payment/provenance checks before settlement; and replay-safe recovery after worker interruption. Move the four existing orders and events only after the managed storage and recovery tests pass. Keep the existing backend running until an end-to-end hosted testnet order settles and the expiry-refund path passes.
-
-Vercel Functions scale down and do not preserve local files. Vercel's official monolith guide requires backing services for durable state and Queues/Workflows for worker processes. Sandboxes can execute native tools and retain snapshots between sessions, but Vercel explicitly says they are not designed for permanent server hosting. They are a worker execution option, not a substitute for the payment database.
-
-Sources checked October 6, 2026:
-
-- [Run a Docker monolith with workers on Vercel](https://vercel.com/kb/guide/docker-monolith-workers-vercel)
-- [Vercel Workflows](https://vercel.com/docs/workflows)
-- [Sandbox concepts](https://vercel.com/docs/sandbox/concepts)
-- [Functions limits](https://vercel.com/docs/functions/limitations)
-
-## Verification gate
-
-Before calling deployment complete, verify the public homepage, signed saved-proof challenge/restore, the confirmed-refund card, mobile layout, all download hashes, MP4 byte-range playback, and that no private data was uploaded. If the live proxy is enabled, also verify uncached health/order/evidence responses and one fresh testnet execution. A build success or proxy configuration alone is not proof that the worker migrated.
+Official references checked during implementation: [Function duration](https://vercel.com/docs/functions/configuring-functions/duration), [Sandbox persistence](https://vercel.com/kb/guide/vercel-sandbox-duration-and-persistence), [Sandbox concepts](https://vercel.com/docs/sandbox/concepts), [SDK](https://vercel.com/docs/sandbox/sdk-reference).

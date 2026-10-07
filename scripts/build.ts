@@ -31,7 +31,24 @@ if (
   !evidence.order.verification?.accepted
 )
   throw new Error("VERIFIED_DEMO_EVIDENCE_REQUIRED");
-writeFileSync("site/dist/proof.json", JSON.stringify({ ...evidence, refund }));
+const adversarialPath = "docs/evidence/live-adversarial.json";
+const adversarial = existsSync(adversarialPath)
+  ? JSON.parse(readFileSync(adversarialPath, "utf8"))
+  : undefined;
+if (
+  adversarial &&
+  (adversarial.order.verification?.accepted !== false ||
+    adversarial.order.verification?.reason !== "Source provenance")
+)
+  throw new Error("INVALID_ADVERSARIAL_EVIDENCE");
+writeFileSync(
+  "site/dist/proof.json",
+  JSON.stringify({
+    ...evidence,
+    refund,
+    ...(adversarial ? { adversarial } : {}),
+  }),
+);
 writeFileSync(
   "site/dist/build.json",
   JSON.stringify({ version: "0.1.0", builtAt: new Date().toISOString() }),

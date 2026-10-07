@@ -3,109 +3,120 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#f4f3ed" />
+    <meta name="theme-color" content="#f7f9fc" />
     <meta
       name="description"
-      content="Orca Orders — bounded agent purchases, verified results, and task escrow."
+      content="OY Orders — proof before payday. Reward AI work only after independent verification."
     />
-    <title>Orca Orders · Agent commerce, with receipts</title>
+    <title>OY Orders · Proof before payday</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23203dd8'/%3E%3Ctext x='32' y='41' font-family='Arial' font-size='26' font-weight='700' fill='white' text-anchor='middle'%3EOY%3C/text%3E%3C/svg%3E"
+    />
     <link rel="stylesheet" href="/style.css" />
     <script type="module" src="/app.js"></script>
   </head>
   <body id="top">
     <a class="skip" href="#main">Skip to orders</a>
-    <aside class="sidebar">
-      <a class="brand" href="#top" aria-label="Orca Orders home"
-        ><svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
-          <rect width="36" height="36" rx="11" fill="#203dd8" />
-          <path
-            d="M7 19c5-10 16-11 22-5-1 9-8 14-16 11l-5 4 1-7z"
-            fill="white"
-          />
-          <path d="M17 18c2-4 7-5 10-3-1 4-4 6-8 5z" fill="#203dd8" />
-          <circle cx="12" cy="17" r="1.4" fill="#203dd8" /></svg
-        ><span>orca<span class="brand-sub">ORDERS</span></span></a
-      >
-      <div class="workspace">ORCA LABS <span>WORKSPACE</span></div>
-      <nav aria-label="Workspace">
-        <button class="nav active" data-tab="orders">
-          <span>▦</span> Orders
-          <span class="nav-count" id="order-count">0</span></button
-        ><button class="nav" data-tab="evidence"><span>◇</span> Evidence</button
-        ><button class="nav" data-tab="integrations">
-          <span>⌘</span> Integrations
-        </button>
-      </nav>
-      <div class="sidebar-bottom">
-        <div class="small-label">BUILT FOR TOKEN2049</div>
-        <p>A task. A budget.<br />A verifiable result.</p>
-        <div class="avatar">OL</div>
-        <div>
-          <strong>Orca Labs</strong><small>Origins hackathon · 2026</small>
-        </div>
-      </div>
-    </aside>
     <div class="shell">
       <header class="topbar">
-        <span
-          >Workspace <span class="separator">/</span>
-          <strong id="page-name">Orders</strong></span
+        <a class="brand" href="#top" aria-label="OY Orders home"
+          ><span class="brand-mark">OY</span><span>OY <b>Orders</b></span></a
         >
-        <div>
-          <span class="network"><i></i> Test networks</span
-          ><button id="wallet" class="button secondary small">
-            Connect wallet ↗
+        <nav aria-label="Workspace">
+          <button class="nav active" data-tab="evidence">Demo</button>
+          <button class="nav" data-tab="live-challenge">Try to fool it</button>
+          <button class="nav" data-tab="orders">
+            New task <span class="nav-count" id="order-count" hidden>0</span>
           </button>
-        </div>
+          <button class="nav" data-tab="integrations">How it works</button>
+        </nav>
+        <button id="wallet" class="button secondary small" hidden>
+          Connect wallet
+        </button>
+        <strong id="page-name" class="sr-only">Demo</strong>
       </header>
       <main id="main">
-        <div class="notice" id="mode-notice">
-          <span class="pill amber">REHEARSAL</span> Sample data and simulated
-          payments. No assets move in this mode.
-        </div>
-        <div class="demo-entry">
-          <span
-            >Inspect an actual paid order and challenge its signed report.</span
-          >
-          <button
-            id="verified-demo"
-            type="button"
-            class="button secondary"
-            disabled
-          >
-            Explore verified demo
-          </button>
-        </div>
         <section class="page-heading">
           <div>
-            <div class="eyebrow">AGENT COMMERCE, WITH RECEIPTS</div>
-            <h1>Give your agent a job.<br />Keep control of the spend.</h1>
-            <p>
-              Fund a report, set a ceiling, and follow every step.<br />The task
-              reward is released only after verification.
-            </p>
+            <div class="eyebrow">BUYER PROTECTION FOR AI WORK</div>
+            <h1>Proof before <span>payday.</span></h1>
+            <p>Hire an AI. Set its budget. Reward work that checks out.</p>
           </div>
-          <div class="hero-mark" aria-hidden="true">
-            <svg viewBox="0 0 160 130">
-              <path
-                d="M20 79c23-46 80-55 117-24-7 41-46 66-86 50l-25 17 4-25z"
-                fill="#203dd8"
-              />
-              <path
-                d="M76 72c13-21 36-24 50-14-5 20-22 29-40 22z"
-                fill="#f4f3ed"
-              />
-              <circle cx="47" cy="69" r="5" fill="#f4f3ed" />
-              <path
-                d="M88 24l8-15M119 29l15-9"
-                stroke="#b5b9d0"
-                stroke-width="3"
-                stroke-linecap="round"
-              />
-            </svg>
+          <div class="notice" id="mode-notice" role="status">
+            <span class="pill neutral">LOADING PROOF</span>
           </div>
         </section>
-        <section id="orders-view">
+        <section id="live-challenge-view" hidden>
+          <div class="live-arena">
+            <div class="arena-intro">
+              <span class="eyebrow">THE TRUTH CHALLENGE</span>
+              <h2>Can you make a lie<br />look like the truth?</h2>
+              <p>
+                Sign any of these claims. Then let an independent verifier check
+                the real records.
+              </p>
+            </div>
+            <div class="arena-controls">
+              <div class="arena-control">
+                <label for="audit-network">Choose a network</label
+                ><select id="audit-network">
+                  <option value="solana">Solana</option>
+                  <option value="cardano">Cardano</option>
+                </select>
+              </div>
+              <fieldset class="claim-options">
+                <legend>Your claim</legend>
+                <label
+                  ><input type="radio" name="audit-change" value="honest" />The
+                  honest answer</label
+                ><label
+                  ><input type="radio" name="audit-change" value="tiny" />A tiny
+                  lie · +1</label
+                ><label
+                  ><input
+                    type="radio"
+                    name="audit-change"
+                    value="huge"
+                    checked
+                  />A big lie · ×1,000</label
+                >
+              </fieldset>
+              <button id="audit-run" class="button primary" type="button">
+                Sign it. Check it. →
+              </button>
+              <p class="arena-disclosure">
+                No wallet. No charge. Fresh source reads through official CRE
+                simulation. This audits a challenge claim; it never moves money.
+              </p>
+            </div>
+            <div id="audit-result" class="arena-result" aria-live="polite">
+              <span class="arena-orbit" aria-hidden="true">?</span>
+              <h3>Signatures prove who said it.<br />We check if it’s true.</h3>
+              <p>Even a one-unit lie should be caught.</p>
+            </div>
+          </div>
+          <div class="arena-footer">
+            <span
+              >Real Solana escrow reference · Real Cardano purchase · Fresh
+              NOWNodes reads · Chainlink CRE</span
+            ><button id="audit-refund-story" class="button secondary small">
+              See the real refund →
+            </button>
+          </div>
+          <details id="audit-evidence" class="proof-details" hidden>
+            <summary>Open this challenge’s proof</summary>
+            <div class="panel">
+              <div id="audit-checks" class="checks"></div>
+              <pre id="audit-transcript"></pre>
+              <button id="audit-download" class="button secondary">
+                Download challenge evidence
+              </button>
+            </div>
+          </details>
+        </section>
+        <section id="orders-view" hidden>
           <div class="content-grid">
             <section class="panel create">
               <div class="panel-heading">
@@ -230,81 +241,151 @@
             </div>
           </section>
         </section>
-        <section id="evidence-view" hidden>
-          <div class="panel">
-            <div class="panel-heading">
-              <h2>Verification evidence</h2>
-              <span class="pill neutral" id="evidence-mode"
-                >NO ORDER SELECTED</span
+        <section id="evidence-view">
+          <button id="audit-invite" class="arena-invite" type="button">
+            <span
+              ><b>Think you can fool the verifier?</b> Change a real claim.
+              Watch it check the truth.</span
+            ><strong>Try it live ↗</strong>
+          </button>
+          <nav class="story-stages" aria-label="Demo story">
+            <button
+              id="verified-demo"
+              class="story-step active"
+              type="button"
+              disabled
+              aria-pressed="true"
+            >
+              <span>01</span> Good work gets paid
+            </button>
+            <button
+              id="signed-lie"
+              class="story-step"
+              type="button"
+              disabled
+              aria-pressed="false"
+            >
+              <span>02</span> A signed lie gets caught
+            </button>
+            <button
+              id="refund-story"
+              class="story-step"
+              type="button"
+              disabled
+              aria-pressed="false"
+            >
+              <span>03</span> The buyer gets it back
+            </button>
+          </nav>
+          <section class="story-outcome" id="story-outcome" aria-live="polite">
+            <div class="story-main">
+              <span class="story-kicker" id="story-kicker"
+                >ACTUAL TESTNET EVIDENCE</span
+              >
+              <h2 id="story-title">Checking the proof…</h2>
+              <p id="story-detail">
+                Real payments and independently checked work.
+              </p>
+              <div id="story-checks" class="story-checks"></div>
+            </div>
+            <div class="payday">
+              <span id="story-amount-label">Protected task reward</span
+              ><strong id="story-amount">0.01 <small>tSOL</small></strong>
+              <p id="story-money-note">
+                A separate 2 tADA data purchase is final.
+              </p>
+              <a
+                id="story-proof-link"
+                class="button proof-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                hidden
+                >View transaction proof</a
               >
             </div>
-            <p class="muted">
-              Seller signatures bind the order, quote, payment and canonical
-              report hash. The verifier checks factual provenance.
-            </p>
-            <p
-              id="archive-notice"
-              class="archive-notice"
-              role="status"
-              hidden
-            ></p>
-            <div id="proof-flow" class="proof-flow"></div>
-            <div id="challenge" class="challenge" hidden>
+          </section>
+          <p
+            id="archive-notice"
+            class="archive-notice"
+            role="status"
+            hidden
+          ></p>
+          <details class="proof-details">
+            <summary>
+              Open the receipts and independent checks
+              <span>Solana · Cardano · NOWNodes · Chainlink</span>
+            </summary>
+            <div class="panel">
               <div class="panel-heading">
-                <h3>Challenge the report</h3>
-                <span id="challenge-status" class="pill green" role="status"
-                  >VERIFIED COPY</span
+                <h2>Verification evidence</h2>
+                <span class="pill neutral" id="evidence-mode"
+                  >NO ORDER SELECTED</span
                 >
               </div>
               <p class="muted">
-                Change one fee. Keep the seller signature. See what verification
-                catches.
+                Seller signatures bind the order, quote, payment and canonical
+                report hash. The verifier checks factual provenance.
               </p>
-              <div id="challenge-fee" class="challenge-fee"></div>
-              <div class="hash-pair">
-                <div>
-                  <small>Signed report hash</small
-                  ><code id="signed-hash"></code>
+              <div id="proof-flow" class="proof-flow"></div>
+              <div id="challenge" class="challenge" hidden>
+                <div class="panel-heading">
+                  <h3>Challenge the report</h3>
+                  <span id="challenge-status" class="pill green" role="status"
+                    >VERIFIED COPY</span
+                  >
                 </div>
-                <div>
-                  <small>Preview report hash</small
-                  ><code id="preview-hash"></code>
+                <p class="muted">
+                  Change one fee. Keep the seller signature. See what
+                  verification catches.
+                </p>
+                <div id="challenge-fee" class="challenge-fee"></div>
+                <div class="hash-pair">
+                  <div>
+                    <small>Signed report hash</small
+                    ><code id="signed-hash"></code>
+                  </div>
+                  <div>
+                    <small>Preview report hash</small
+                    ><code id="preview-hash"></code>
+                  </div>
                 </div>
+                <div id="challenge-checks" class="checks"></div>
+                <button
+                  id="challenge-toggle"
+                  type="button"
+                  class="button secondary"
+                >
+                  Alter one fee +1 →
+                </button>
+                <p class="muted challenge-note">
+                  Local replay of saved evidence at its verification time.
+                  Changes stay in this preview; no new transaction.
+                </p>
               </div>
-              <div id="challenge-checks" class="checks"></div>
-              <button
-                id="challenge-toggle"
-                type="button"
-                class="button secondary"
-              >
-                Alter one fee +1 →
-              </button>
-              <p class="muted challenge-note">
-                Local replay of saved evidence at its verification time. Changes
-                stay in this preview; no new transaction.
-              </p>
-            </div>
-            <div id="refund-proof" class="refund-proof" hidden>
-              <div>
-                <h3>Expiry protection, proven</h3>
-                <p id="refund-proof-detail" class="muted"></p>
+              <div id="refund-proof" class="refund-proof" hidden>
+                <div>
+                  <h3>Expiry protection, proven</h3>
+                  <p id="refund-proof-detail" class="muted"></p>
+                </div>
+                <a
+                  id="refund-proof-link"
+                  class="button secondary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View confirmed refund</a
+                >
               </div>
-              <a
-                id="refund-proof-link"
-                class="button secondary"
-                target="_blank"
-                rel="noopener noreferrer"
-                >View confirmed refund</a
-              >
+              <h3>Recorded verification</h3>
+              <div id="checks" class="checks"></div>
+              <div id="facts"></div>
+              <details>
+                <summary>Receipt and immutable task terms</summary>
+                <pre id="receipt-json">
+Run an order to inspect its receipt.</pre
+                >
+              </details>
             </div>
-            <h3>Recorded verification</h3>
-            <div id="checks" class="checks"></div>
-            <div id="facts"></div>
-            <details>
-              <summary>Receipt and immutable task terms</summary>
-              <pre id="receipt-json">Run an order to inspect its receipt.</pre>
-            </details>
-          </div>
+          </details>
         </section>
         <section id="integrations-view" hidden>
           <div class="panel">
@@ -330,7 +411,7 @@
           </div>
         </section>
         <footer>
-          <span>ORCA ORDERS <i>·</i> TOKEN2049 ORIGINS</span
+          <span>OY ORDERS <i>·</i> TOKEN2049 ORIGINS</span
           ><span
             >Solana escrow <i>·</i> Cardano commerce <i>·</i> Chainlink
             verification <i>·</i> NOWNodes data</span

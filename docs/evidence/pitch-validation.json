@@ -1,0 +1,19 @@
+{
+  "recordedAt": "2026-10-07T06:32:14.286125+00:00",
+  "file": "OY-Orders-pitch.pptx",
+  "sha256": "9626cb992b3659515ee8a2874bbf2daaa3b75e522fd3240e607cf45707580d01",
+  "bytes": 2543018,
+  "slides": 6,
+  "editableText": true,
+  "speakerNotes": true,
+  "embeddedMovieMatchesFinalMp4": true,
+  "packageIntegrity": "pass",
+  "layoutFindings": 0,
+  "fontFamilies": [
+    "Arial"
+  ],
+  "firstPartyImportPassed": true,
+  "allSixFinalRendersReviewed": true,
+  "nativePowerPointKeynotePlaybackVerified": false,
+  "legacyPpt": "Visual backup; movie lost on conversion"
+}

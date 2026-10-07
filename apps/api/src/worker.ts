@@ -1,7 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdirSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
-import { spawn } from "node:child_process";
+import { executeCre } from "./cre-runner.ts";
 import {
   hash,
   signReceipt,
@@ -35,71 +33,18 @@ export function rehearsalFacts(order: Order): SourceFact[] {
   );
 }
 async function simulate(order: Order): Promise<Verification> {
-  const evidenceDir = resolve(config.dataDir, "evidence");
-  mkdirSync(evidenceDir, { recursive: true, mode: 0o700 });
-  const configPath = resolve(evidenceDir, `${order.id}-config.json`);
-  writeFileSync(
-    configPath,
-    JSON.stringify({
-      orderId: order.id,
-      apiUrl: config.apiUrl,
-      solanaRpc: config.solanaRpc,
-      programId: config.program,
-      sellerKey: order.sellerKey,
-      worker: order.worker,
-      authority: loadWallet("authority").publicKey.toBase58(),
-      blockfrostKey: config.blockfrostKey,
-      paymentProvider: config.cardanoPaymentProvider,
-      nownodesKey: config.nownodesKey,
-    }),
-    { mode: 0o600 },
-  );
-  const execution = await new Promise<{ output: string; code: number | null }>(
-    (resolveOutput, reject) => {
-      const child = spawn(
-        resolve(config.creBin),
-        [
-          "workflow",
-          "simulate",
-          ".",
-          "--project-root",
-          config.creDir,
-          "--target",
-          config.creTarget,
-          "--config",
-          configPath,
-          "--non-interactive",
-          "--trigger-index",
-          "0",
-        ],
-        {
-          cwd: config.creDir,
-          env: {
-            ...process.env,
-            PATH: `${resolve(".local/bin")}:${process.env.PATH}`,
-          },
-          stdio: ["ignore", "pipe", "pipe"],
-        },
-      );
-      let log = "";
-      const timer = setTimeout(() => child.kill("SIGTERM"), 180000);
-      child.stdout.on("data", (d) => (log += d.toString()));
-      child.stderr.on("data", (d) => (log += d.toString()));
-      child.on("error", reject);
-      child.on("close", (code) => {
-        clearTimeout(timer);
-        resolveOutput({ output: log, code });
-      });
-    },
-  );
-  const output = execution.output;
-  const sanitized = [config.nownodesKey, config.blockfrostKey]
-    .filter(Boolean)
-    .reduce((log, key) => log.replaceAll(key, "[REDACTED]"), output);
-  writeFileSync(resolve(evidenceDir, `${order.id}-cre.log`), sanitized, {
-    mode: 0o600,
+  const { output } = await executeCre(order.id, {
+    orderId: order.id,
+    apiUrl: config.apiUrl,
+    solanaRpc: config.solanaRpc,
+    programId: config.program,
+    sellerKey: order.sellerKey,
+    worker: order.worker,
+    authority: loadWallet("authority").publicKey.toBase58(),
+    blockfrostKey: config.blockfrostKey,
+    paymentProvider: config.cardanoPaymentProvider,
+    nownodesKey: config.nownodesKey,
   });
-  if (execution.code !== 0) throw new Error("CRE_SIMULATION_FAILED");
   const result = parseCreOutput(output, order.receipt!.resultHash);
   return { ...result, transcript: `/api/orders/${order.id}/evidence` };
 }

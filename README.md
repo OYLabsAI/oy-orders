@@ -1,14 +1,22 @@
-# Orca Orders
+# OY Orders
 
-Give an agent a job, cap its service spend, and release its task reward only after checking the result.
+**A signed answer can still be wrong. Proof before payday.**
 
-Built by Orca Labs for TOKEN2049 Origins 2026: Solana task escrow, Cardano x402 commerce, NOWNodes multichain data, and a Chainlink CRE verification workflow.
+Built by Orca Labs for TOKEN2049 Origins 2026. A buyer locks a Solana task reward, an agent buys a Cardano x402 reporting resource, and Chainlink CRE independently checks NOWNodes facts before a trusted prototype relayer releases the reward.
 
-**Actual testnet execution now passes all four integrations.** Four paid orders settled with real Cardano x402 payments, NOWNodes facts, successful official CRE simulations and Solana Devnet rewards. A separate genuine expiry refund also passed. The browser includes a one-fee tamper replay with a valid seller signature. See [executed evidence](docs/evidence/STATUS.md).
+[Open the public app](https://oy-orders.vercel.app/) · [Video, pitch and source downloads](https://oy-orders.vercel.app/deliverables/) · [Executed evidence](docs/evidence/STATUS.md)
 
-## Run in two minutes
+## Try the memorable part
 
-Requires Node 24 and pnpm 11.19.0. From this directory:
+Open **Try to fool it**. Pick Solana or Cardano and an honest claim, a tiny lie, or a big lie. Every claim receives a valid, separate challenge signature. A fresh official CRE simulation reads the real records again. A false fee fails even when its signature passes; **Try the corrected answer** runs a new independent check.
+
+The challenge needs no wallet, makes no payment and never enters the settlement queue. Its scope is two fixed transaction facts and a real settled-order reference, not arbitrary truth verification. The **Demo** tab separately shows genuine paid execution, a controlled signed false report rejected by CRE, and the confirmed refund of that same order's task reward. Recorded proofs remain available when the live API is unavailable.
+
+Seven genuine paid testnet orders are documented: six settled and one rejected with its reward refunded. The latest fresh order executed entirely through the Vercel backend without operator recovery. A controlled session stop/resume preserved its state and a completed challenge. Exact hashes and limitations are in [evidence/STATUS.md](docs/evidence/STATUS.md).
+
+## Run locally
+
+Requires Node 24 and pnpm 11.19.0:
 
 ```sh
 pnpm install --frozen-lockfile
@@ -17,46 +25,42 @@ pnpm build
 pnpm start
 ```
 
-Open `http://localhost:8787`. Choose **Use sample wallets**, then **Run rehearsal**. The other scenarios demonstrate a modified report being rejected and an expired task being refunded. Evidence is inspectable and downloadable in the interface. `pnpm demo` exercises all three cases and exports their JSON under `docs/evidence/`.
+Open `http://localhost:8787`. The default mode is **rehearsal**: use sample wallets and run the simulated success, rejection and expiry scenarios. `pnpm demo` exports those explicitly labeled fixtures. Live payments require funded test wallets and sponsor configuration from [LIVE_SETUP.md](docs/LIVE_SETUP.md). The live challenge requires the recorded reference order to be present in the live database.
 
 ```sh
 pnpm typecheck
 pnpm test
 ```
 
-40 meaningful tests cover canonical hashing, signatures, receipt/input/payment binding, spending controls, queue recovery, payment reuse, the compiled Solana program in LiteSVM, and independent CRE verifier reads through NOWNodes preprod, Blockfrost or public Koios, including wrong-network rejection. VM and verifier fixture tests are not public-network executions.
+47 tests cover signatures, exact receipt/input/payment binding, spending controls, transaction reuse, recovery, the compiled Solana program in LiteSVM, independent source reads, wrong-network rejection, and strict CRE/audit result parsing. Fixture and VM tests are distinct from public-network execution.
 
 ## One task, four necessary integrations
 
-1. The buyer funds **0.01 tSOL** in a Solana Devnet order PDA. Terms bind the buyer, worker, authority, input digest, seller, spending ceiling, and deadline.
-2. The agent reserves a **2 tADA** quote and buys a reporting resource through Cardano x402 on preprod. A separate **1 tADA** network-fee ceiling is enforced before broadcast.
-3. The report contains up to five recent confirmed transactions for each supplied Solana and Cardano mainnet wallet, read through NOWNodes. No model-generated transaction facts are accepted.
-4. A CRE workflow independently reads the escrow, payment, registered seller signature, and multichain facts. A trusted demo relayer releases the Solana reward after a successful real CLI simulation.
+1. **Solana:** 0.01 tSOL in a Devnet order PDA. Immutable terms bind buyer, worker, authority, input, seller, ceiling and expiry. Quote reservation, settlement and refund are enforced by the custom Rust program.
+2. **Cardano:** an exact preprod x402 purchase of a 2 tADA reporting resource, with a separate 1 tADA network-fee ceiling. The signed payment is persisted before broadcast and reused after an uncertain response.
+3. **NOWNodes:** real Solana and Cardano mainnet transaction facts produce the report. NOWNodes preprod reads establish the supplier payment after a network-magic guard.
+4. **Chainlink CRE:** independent reads of escrow, payment, configured seller signature and facts precede settlement. Actual authenticated CLI simulations pass ten order checks; the isolated live challenge performs six checks.
 
-These are separate test-asset payments. There is no bridge, exchange-rate conversion, or atomic cross-chain settlement. A rejected report protects the task reward; it does not reverse the Cardano supplier payment. Expiry refunds only the Solana task reward. The operator bears supplier-payment loss.
+Supplier payment and task reward are separate test-asset payments. Cardano payment is final; expiry refunds only the Solana task reward. There is no bridge, conversion or atomic cross-chain settlement.
 
 ## Small architecture
 
-- `apps/web`: accessible vanilla TypeScript interface; no framework or wallet required for rehearsal.
-- `apps/api`: Express API, one serial worker, SQLite durable jobs, and sponsor adapters.
-- `packages/core`: one canonical encoder and verifier shared by API and CRE, plus Node signing and state transitions.
-- `programs/orca-orders`: native Rust escrow with fixed payout recipients, quote reservation, one-time settlement and expiry refund.
-- `workflows/verify-order`: deterministic CRE workflow; no purchase or irreversible write inside consensus callbacks.
-- `workflows/preflight`: real CRE network-connectivity check; cannot authorize an order settlement.
-- `scripts`: reproducible builds, wallet setup, deployment, demo and evidence export.
+- `apps/web`: accessible vanilla TypeScript interface and recorded fallback.
+- `apps/api`: Express, SQLite WAL/jobs, one order worker and isolated bounded challenge queue.
+- `packages/core`: canonical encoding and pure verification shared with CRE.
+- `programs/orca-orders`: native Rust escrow and tested compiled ELF. The internal name stays unchanged to preserve the deployed binary.
+- `workflows/verify-order`: deterministic CRE reads and verification; no payment inside consensus callbacks.
+- `hosting/vercel`: restricted API proxy, persistent startup and pinned Linux runtime installation.
+- `scripts`: reproducible setup, deployment, actual demos and evidence export.
 
-See [architecture and trust boundaries](docs/ARCHITECTURE.md), [live setup](docs/LIVE_SETUP.md), and [submission kit](docs/SUBMISSION.md).
+See [architecture](docs/ARCHITECTURE.md), [cloud deployment](docs/VERCEL.md), [submission kit](docs/SUBMISSION.md) and [track readiness](docs/TRACK-READINESS.md).
 
-## Deployment
+## Hosting and trust
 
-For Vercel, `pnpm vercel:prepare` creates an isolated static upload containing the app, genuine saved proof, video, decks and source downloads. Add `--api-origin=<https-origin>` to proxy the existing live backend. Deployment currently requires account login; fully moving the worker also requires managed storage and durable execution. See [Vercel setup and concrete blockers](docs/VERCEL.md).
+The public frontend and API run on Vercel. Private state and keys use a persistent Sandbox with Vercel Drive; stopped sessions resume on request. A paid cloud order and a controlled persistence check passed. Hobby cold starts, session limits and free quotas apply; this is not a production availability guarantee.
 
-The prepared Sites frontend is owner-private. Its backend is currently a temporary Cloudflare tunnel to the local machine; that service stops if the machine or processes stop. This is not durable judging infrastructure. A Dockerfile is included for an external Node host with a persistent volume for `/data`; set `HOST=0.0.0.0`, a public `PUBLIC_API_URL`, and an exact `CORS_ORIGIN`. The Dockerfile has not been executed in this environment; live operation additionally requires installing official CRE and Bun binaries.
+CRE runs as an official CLI simulation, not a deployed DON. The relayer, operator-controlled seller and NOWNodes are prototype trust assumptions. A compromised settlement authority could bypass local verification. Production should bind DON-authorized results on chain and separate custody and operators.
 
-The generated `site/` directory has a separate Sites source checkout. The canonical interface source is `apps/web/`. Do not put API keys or wallets into frontend builds. `.local/`, `.env`, mnemonic files, signed Cardano payloads, and private workflow configs are excluded from source control.
+Deploy only the isolated `.local/vercel-release`, never the repository root. `.env`, `.local`, mnemonic/key files, signed private payment payloads, credentials and the database are excluded from public source/static uploads. Use operator-owned test wallets and non-sensitive public wallet inputs only.
 
-## Scope and license
-
-MIT licensed. There is no autonomous LLM, arbitrary purchasing, bridge, multi-supplier marketplace, production DON deployment, or mainnet asset transfer in this MVP. The agent executes one deterministic reporting task. This keeps spending and verification reviewable within hackathon time. Third-party attribution is in [THIRD_PARTY.md](THIRD_PARTY.md).
-
-**Reliable demonstration:** choose **Explore verified demo** to inspect a genuine settled order, alter one fee locally, restore it, and open the separate confirmed expiry refund. Saved proof remains interactive without the live backend; it is explicitly historical. The latest fresh order also passed NOWNodes preprod payment verification. The supplied Solana Testnet endpoint is probed but not used for the Devnet escrow. See [live setup](docs/LIVE_SETUP.md) for the endpoint distinction.
+MIT licensed; dependencies are credited in [THIRD_PARTY.md](THIRD_PARTY.md). No autonomous LLM, unrestricted purchasing, multi-seller marketplace, mainnet asset transfer, customer traction or prize outcome is claimed.

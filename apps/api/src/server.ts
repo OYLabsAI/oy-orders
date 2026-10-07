@@ -27,8 +27,10 @@ import {
   workerAddress,
 } from "./solana.ts";
 import { mountPaidResource } from "./cardano.ts";
+import { Challenges } from "./challenges.ts";
 
 export const store = new Store(resolve(config.dataDir, "orders.sqlite"));
+const challenges = new Challenges(store);
 export const app = express();
 app.disable("x-powered-by");
 app.use(express.json({ limit: "16kb" }));
@@ -77,6 +79,20 @@ app.get("/health", (_req, res) =>
   }),
 );
 app.get("/api/orders", (_req, res) => res.json(store.list()));
+app.post("/api/challenges", (req, res, next) => {
+  try {
+    res.status(202).json(challenges.create(req.body));
+  } catch (error) {
+    next(error);
+  }
+});
+app.get("/api/challenges/:id", (req, res, next) => {
+  try {
+    res.json(challenges.get(String(req.params.id)));
+  } catch (error) {
+    next(error);
+  }
+});
 app.post("/api/orders", async (req, res, next) => {
   try {
     const body = z
@@ -84,12 +100,10 @@ app.post("/api/orders", async (req, res, next) => {
       .strict()
       .parse(req.body);
     if (config.mode === "live" && readiness().some((c) => !c.ready))
-      return res
-        .status(503)
-        .json({
-          error: "LIVE_INTEGRATIONS_NOT_READY",
-          integrations: readiness(),
-        });
+      return res.status(503).json({
+        error: "LIVE_INTEGRATIONS_NOT_READY",
+        integrations: readiness(),
+      });
     if (
       config.mode === "live" &&
       (!body.buyer || body.input.scenario !== "success")
@@ -151,7 +165,7 @@ app.post("/api/orders/:id/start", async (req, res, next) => {
       const signature = Buffer.from(body.signature, "base64");
       if (
         !nacl.sign.detached.verify(
-          Buffer.from(`Start Orca order ${order.id}`),
+          Buffer.from(`Start OY order ${order.id}`),
           signature,
           new PublicKey(order.buyer).toBytes(),
         )
@@ -252,12 +266,10 @@ app.get("/api/orders/:id/refund-transaction", async (req, res, next) => {
 });
 mountPaidResource(app, store);
 app.get("/paid/report", (_req, res) =>
-  res
-    .status(402)
-    .json({
-      error: "REHEARSAL_RESOURCE",
-      message: "Live x402 only runs with a configured funded preprod wallet.",
-    }),
+  res.status(402).json({
+    error: "REHEARSAL_RESOURCE",
+    message: "Live x402 only runs with a configured funded preprod wallet.",
+  }),
 );
 app.use(express.static(resolve("site/dist")));
 app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {
@@ -279,11 +291,13 @@ app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {
 });
 if (process.env.NODE_ENV !== "test") {
   const stop = startWorker(store);
+  const stopChallenges = challenges.start();
   const server = app.listen(config.port, process.env.HOST ?? "127.0.0.1", () =>
-    console.log(`Orca Orders ${config.mode}: ${config.apiUrl}`),
+    console.log(`OY Orders ${config.mode}: ${config.apiUrl}`),
   );
   process.on("SIGTERM", () => {
     stop();
+    stopChallenges();
     server.close(() => {
       store.close();
       process.exit(0);
